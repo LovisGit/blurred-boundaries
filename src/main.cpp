@@ -12,7 +12,7 @@ int             WINDOW_HEIGHT = 1920;
 int             WINDOW_WIDTH = 1080;
 
 // Pfad zum Hintergrundbild
-std::string     SURFACEPATH = ""; 
+std::string     SURFACEPATH = "assets/background.jpeg"; 
 
 
 /*
@@ -42,14 +42,16 @@ int main(int argc, char* argv[]) {
     SDL_Texture*    tex             = SDL_CreateTextureFromSurface(rend, surface);
     SDL_Rect        dest;
 
-    surface = IMG_Load("image.png");
+    surface = IMG_Load(SURFACEPATH);
     SDL_FreeSurface(surface);
     SDL_QueryTexture(tex, NULL, NULL, &dest.w, &dest.h);
 
     int running = 1;
 
     // Game Loop 
-    while (running) 
+    while (running) {
+        
+    }
 
     return 0;
 }
