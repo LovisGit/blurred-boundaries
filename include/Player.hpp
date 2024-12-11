@@ -4,14 +4,14 @@
 class Player {
 
 private:
-    char _lookingDirection; //noch nicht benötigt
-    char _walkingDirection;
     int _xCoordinate;
     int _yCoordinate;
-    int _playerPicture;
     int _picturesPerAnimation;
-    int _animationCounter;
     int _walkingDistance;
+    int _animationCounter;
+    int _playerPicture;
+    char _lookingDirection; //noch nicht benötigt
+    char _walkingDirection;
 
     void nextAnimationCounter();
 

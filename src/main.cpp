@@ -16,7 +16,7 @@ const int             WINDOW_WIDTH = 1062;
 //Spieler Werte
 const int             PLAYER_START_X = 1630;
 const int             PLAYER_START_Y = 670;
-const int             PICTURE_PER_ANIMATION = 3;
+const int             PICTURE_PER_ANIMATION = 2;
 const int             WALKING_DISTANCE = 3;
 
 // Pfade zu Bildern
