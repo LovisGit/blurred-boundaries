@@ -16,13 +16,13 @@ const int             WINDOW_WIDTH = 1062;
 //Spieler Werte
 const int             PLAYER_START_X = 1630;
 const int             PLAYER_START_Y = 670;
-const int             PICTURE_PER_ANIMATION = 2;
-const int             WALKING_DISTANCE = 3;
+const int             PICTURE_PER_ANIMATION = 3;
+const int             WALKING_DISTANCE = 2;
 
 // Pfade zu Bildern
 const std::string     BACKGROUND_SURFACEPATH = "../assets/background.jpeg";
-const std::string     PLAYER_PATH_1 = "../assets/player/";
-const std::string     PLAYER_PATH_2 = ".jpg";
+const std::string     PLAYER_PATH_1 = "../assets/player/position";
+const std::string     PLAYER_PATH_2 = ".png";
 
 /*
 SOURCE
@@ -130,7 +130,7 @@ int main(int argc, char* argv[]) {
         // Aktualisiere den Bildschirm
         SDL_RenderPresent(rend);
 
-        SDL_Delay(60);
+        SDL_Delay(20);
     }
 
 	// destroy texture

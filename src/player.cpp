@@ -33,19 +33,19 @@ void Player::walkAndAnimate(const char direction) {
             //nicht benötigt
             break;
         case 'W':
-            _playerPicture = 1 + _animationCounter;
+            _playerPicture = (3 * _picturesPerAnimation) + _animationCounter;
             _yCoordinate -= _walkingDistance;
             break;
         case 'A':
-            _playerPicture = 1 + _picturesPerAnimation + _animationCounter;
+            _playerPicture = (1 * _picturesPerAnimation) + _animationCounter;
             _xCoordinate -= _walkingDistance;
             break;
         case 'S':
-            _playerPicture = 1 + (2 * _picturesPerAnimation) + _animationCounter;
+            _playerPicture = (0 * _picturesPerAnimation) + _animationCounter;
             _yCoordinate += _walkingDistance;
             break;
         case 'D':
-            _playerPicture = 1 + (3 * _picturesPerAnimation) + _animationCounter;
+            _playerPicture = (2 * _picturesPerAnimation) + _animationCounter;
             _xCoordinate += _walkingDistance;
             break;
         default:
