@@ -16,13 +16,9 @@ int Player::getPlayerPicture() const {
     return _playerPicture;
 }
 
-void Player::nextAnimationCounter() {
-    //std::cout << "Before: " << _animationCounter << std::endl; 
+void Player::nextAnimationCounter() {   
     _animationCounter++;
-    if(_animationCounter >= _picturesPerAnimation) {
-        _animationCounter = 0;
-    }
-    //std::cout << "After: " <<_animationCounter << std::endl;
+    _animationCounter %= _picturesPerAnimation;     //wenn _animationCounter >= _picturesPerAnimation ist dann wird _animationCounter = 0
 }
 
 void Player::walkAndAnimate(const char direction) {
