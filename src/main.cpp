@@ -6,23 +6,23 @@
 #include "../include/Player.hpp"
 
 /*
-KONSTANTEN
+CONSTANTS
 */
 
-// Fenstergrößen
+// windowsize
 const int             WINDOW_HEIGHT = 1792;
 const int             WINDOW_WIDTH = 1062;
 
-//Spieler Werte
+// player values
 const int             PLAYER_START_X = 1630;
 const int             PLAYER_START_Y = 670;
 const int             PICTURE_PER_ANIMATION = 3;
 const int             WALKING_DISTANCE = 2;
 
-// Pfade zu Bildern
+// paths for images
 const std::string     BACKGROUND_SURFACEPATH = "../assets/background.jpeg";
-const std::string     PLAYER_PATH_1 = "../assets/player/position";
-const std::string     PLAYER_PATH_2 = ".png";
+const std::string     PLAYER_PATH_FRONT = "../assets/player/position";
+const std::string     PLAYER_PATH_BACK = ".png";
 
 /*
 SOURCE
@@ -32,11 +32,11 @@ int main(int argc, char* argv[]) {
 
     Player thePlayer = Player(PLAYER_START_X, PLAYER_START_Y, PICTURE_PER_ANIMATION, WALKING_DISTANCE);
     
-    // Schaue nach der Probleme in der Initialisierung
+    // looking after problems in the initialization
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0)
         printf("error initializing SDL: %s\n", SDL_GetError());
 
-    // Baue das Fenster auf
+    // building the window
     SDL_Window* window = SDL_CreateWindow(  "Blurred Boundaries",
                                             SDL_WINDOWPOS_CENTERED,
                                             SDL_WINDOWPOS_CENTERED,
@@ -44,11 +44,11 @@ int main(int argc, char* argv[]) {
                                             WINDOW_WIDTH,
                                             0);
 
-    // Verschiedene weitere Initialisierungen 
+    // more initializations
     Uint32          render_flags        = SDL_RENDERER_ACCELERATED;
     SDL_Renderer*   rend                = SDL_CreateRenderer(window, -1, render_flags);
     SDL_Surface*    backgroundSurface   = IMG_Load(BACKGROUND_SURFACEPATH.c_str());
-    SDL_Surface*    playerSurface       = IMG_Load((PLAYER_PATH_1 + std::to_string(thePlayer.getPlayerPicture()) + PLAYER_PATH_2).c_str());
+    SDL_Surface*    playerSurface       = IMG_Load((PLAYER_PATH_FRONT + std::to_string(thePlayer.getPlayerPicture()) + PLAYER_PATH_BACK).c_str());
     SDL_Texture*    backgroundTexture   = SDL_CreateTextureFromSurface(rend, backgroundSurface);
     SDL_Texture*    playerTexture       = SDL_CreateTextureFromSurface(rend, playerSurface);
     SDL_Rect        backgroundRect;
@@ -59,19 +59,19 @@ int main(int argc, char* argv[]) {
     SDL_QueryTexture(backgroundTexture, NULL, NULL, &backgroundRect.w, &backgroundRect.h);
     SDL_QueryTexture(playerTexture, NULL, NULL, &playerRect.w, &playerRect.h);
 
-    backgroundRect.x = 0;  // Position des Hintergrundbildes
+    //set the startposition of the background and player
+    backgroundRect.x = 0;
     backgroundRect.y = 0;
-
     playerRect.x = thePlayer.getXCoordinate();
     playerRect.y = thePlayer.getYCoordinate();
 
     int running = 1;
 
-    // Game Loop 
+    // game loop 
     while (running) {
         SDL_Event event;
 
-		// Events management
+		// events management
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 			    case SDL_QUIT:
@@ -109,31 +109,31 @@ int main(int argc, char* argv[]) {
 			}
         }
 
-        //Spielerbild wird neu gesetzt
+        // playerimage is being updated
         SDL_DestroyTexture(playerTexture);
-        playerSurface = IMG_Load((PLAYER_PATH_1 + std::to_string(thePlayer.getPlayerPicture()) + PLAYER_PATH_2).c_str());
+        playerSurface = IMG_Load((PLAYER_PATH_FRONT + std::to_string(thePlayer.getPlayerPicture()) + PLAYER_PATH_BACK).c_str());
         playerTexture = SDL_CreateTextureFromSurface(rend, playerSurface);
         SDL_FreeSurface(playerSurface);
 
+        // update the player coordinates
         playerRect.x = thePlayer.getXCoordinate();
         playerRect.y = thePlayer.getYCoordinate();
         
-        // Setze den Hintergrund (optional, aber empfohlen)
+        // set the background
         SDL_RenderClear(rend);
 
-        // Zeichne das Hintergrundbild
+        // draw the background and player
         SDL_RenderCopy(rend, backgroundTexture, NULL, &backgroundRect);
-
-        // Zeichne das Spielerbild
         SDL_RenderCopy(rend, playerTexture, NULL, &playerRect);
 
-        // Aktualisiere den Bildschirm
+        // update the screen
         SDL_RenderPresent(rend);
 
-        SDL_Delay(20);
+        // delay for smooth player animation
+        SDL_Delay(100);
     }
 
-	// destroy texture
+	// destroy texture of background and player
 	SDL_DestroyTexture(backgroundTexture);
     SDL_DestroyTexture(playerTexture);
 

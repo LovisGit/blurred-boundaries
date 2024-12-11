@@ -2,7 +2,7 @@
 
 Player::Player(const int xCoordinate, const int yCoordinate, const int picturesPerAnimation, const int walkingDistance) : 
         _xCoordinate(xCoordinate), _yCoordinate(yCoordinate), _picturesPerAnimation(picturesPerAnimation), 
-        _walkingDistance(walkingDistance), _animationCounter(0), _playerPicture(0), _lookingDirection('0'), _walkingDirection('0') {}
+        _walkingDistance(walkingDistance), _animationCounter(0), _playerPicture(0), _walkingDirection('0') {}
 
 int Player::getXCoordinate() const {
     return _xCoordinate;
@@ -18,7 +18,7 @@ int Player::getPlayerPicture() const {
 
 void Player::nextAnimationCounter() {   
     _animationCounter++;
-    _animationCounter %= _picturesPerAnimation;     //wenn _animationCounter >= _picturesPerAnimation ist dann wird _animationCounter = 0
+    _animationCounter %= _picturesPerAnimation;     //when _animationCounter >= _picturesPerAnimation is true then _animationCounter = 0
 }
 
 void Player::walkAndAnimate(const char direction) {
@@ -30,7 +30,7 @@ void Player::walkAndAnimate(const char direction) {
 
     switch (direction) {
         case '0':
-            //nicht benötigt
+            //not in use
             break;
         case 'W':
             _playerPicture = (3 * _picturesPerAnimation) + _animationCounter;

@@ -10,7 +10,6 @@ private:
     int _walkingDistance;
     int _animationCounter;
     int _playerPicture;
-    char _lookingDirection; //noch nicht benötigt
     char _walkingDirection;
 
     void nextAnimationCounter();
