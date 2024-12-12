@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <array>
 #include <SDL2/SDL.h> 
 #include <SDL2/SDL_image.h>
 
@@ -67,6 +68,8 @@ int main(int argc, char* argv[]) {
     playerRect.y = thePlayer.getYCoordinate();
 
     int running = 1;
+    //std::array<bool, SDL_NUM_SCANCODES> keyPressed = {false};
+    bool keyPressed = false;
 
     // game loop 
     while (running) {
@@ -82,6 +85,30 @@ int main(int argc, char* argv[]) {
 
 			    case SDL_KEYDOWN:
 				    // keyboard API for key pressed
+                    keyPressed = true;
+                    /*
+                    switch (event.key.keysym.scancode) {
+				        case SDL_SCANCODE_W:
+				        case SDL_SCANCODE_UP:
+					        thePlayer.walkAndAnimate2(0, keyPressed);
+					        break;
+				        case SDL_SCANCODE_A:
+				        case SDL_SCANCODE_LEFT:
+                            thePlayer.walkAndAnimate2(1, keyPressed);
+					        break;
+				        case SDL_SCANCODE_S:
+				        case SDL_SCANCODE_DOWN:
+                            thePlayer.walkAndAnimate2(2, keyPressed);
+				        	break;
+			            case SDL_SCANCODE_D:
+				        case SDL_SCANCODE_RIGHT:
+                            thePlayer.walkAndAnimate2(3, keyPressed);
+					        break;
+				        default:
+					        break;
+		            }
+                    */
+                    /*
 				    switch (event.key.keysym.scancode) {
 				        case SDL_SCANCODE_W:
 				        case SDL_SCANCODE_UP:
@@ -102,13 +129,61 @@ int main(int argc, char* argv[]) {
 				        default:
 					        break;
 				    }
+                    */
                     break;
             
                 case SDL_KEYUP:
                     // reset animation
-                    thePlayer.walkAndAnimate('0');
+                    keyPressed = false;
+                    /*
+                    switch (event.key.keysym.scancode) {
+				        case SDL_SCANCODE_W:
+				        case SDL_SCANCODE_UP:
+					        thePlayer.walkAndAnimate2(0, keyPressed);
+					        break;
+				        case SDL_SCANCODE_A:
+				        case SDL_SCANCODE_LEFT:
+                            thePlayer.walkAndAnimate2(1, keyPressed);
+					        break;
+				        case SDL_SCANCODE_S:
+				        case SDL_SCANCODE_DOWN:
+                            thePlayer.walkAndAnimate2(2, keyPressed);
+				        	break;
+			            case SDL_SCANCODE_D:
+				        case SDL_SCANCODE_RIGHT:
+                            thePlayer.walkAndAnimate2(3, keyPressed);
+					        break;
+				        default:
+					        break;
+		            }
+                    */
+                    //thePlayer.walkAndAnimate('0');
+                    break;
+
+                default:
+                    //keyPressed = -1;
                     break;
 			}
+                                switch (event.key.keysym.scancode) {
+				        case SDL_SCANCODE_W:
+				        case SDL_SCANCODE_UP:
+					        thePlayer.walkAndAnimate2(0, keyPressed);
+					        break;
+				        case SDL_SCANCODE_A:
+				        case SDL_SCANCODE_LEFT:
+                            thePlayer.walkAndAnimate2(1, keyPressed);
+					        break;
+				        case SDL_SCANCODE_S:
+				        case SDL_SCANCODE_DOWN:
+                            thePlayer.walkAndAnimate2(2, keyPressed);
+				        	break;
+			            case SDL_SCANCODE_D:
+				        case SDL_SCANCODE_RIGHT:
+                            thePlayer.walkAndAnimate2(3, keyPressed);
+					        break;
+				        default:
+					        break;
+		            }
         }
 
         // playerimage is being updated
