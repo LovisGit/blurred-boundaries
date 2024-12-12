@@ -11,9 +11,7 @@ private:
     int _walkingDistance;
     int _animationCounter;
     int _playerPicture;
-    char _walkingDirection;
-
-    int _walkingDirection2;
+    int _walkingDirection;
     std::array<bool, 4> _keysDown;
 
     void nextAnimationCounter();
@@ -27,8 +25,6 @@ public:
     int getYCoordinate() const;
     int getPlayerPicture() const;
 
-    //void walkAndAnimate(const char direction);
-
-    void walkAndAnimate2(const int direction, const bool keyPressed);
+    void walkAndAnimate(const int direction, const bool keyPressed);
 
 };

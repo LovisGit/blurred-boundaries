@@ -85,34 +85,11 @@ int main(int argc, char* argv[]) {
 			    case SDL_KEYDOWN:
 				    // keyboard API for key pressed
                     keyPressed = true;
-                    /*
-				    switch (event.key.keysym.scancode) {
-				        case SDL_SCANCODE_W:
-				        case SDL_SCANCODE_UP:
-					        thePlayer.walkAndAnimate('W');
-					        break;
-				        case SDL_SCANCODE_A:
-				        case SDL_SCANCODE_LEFT:
-                            thePlayer.walkAndAnimate('A');
-					        break;
-				        case SDL_SCANCODE_S:
-				        case SDL_SCANCODE_DOWN:
-                            thePlayer.walkAndAnimate('S');
-					        break;
-				        case SDL_SCANCODE_D:
-				        case SDL_SCANCODE_RIGHT:
-                            thePlayer.walkAndAnimate('D');
-					        break;
-				        default:
-					        break;
-				    }
-                    */
                     break;
             
                 case SDL_KEYUP:
                     // keyboard API for key lifted
                     keyPressed = false;
-                    //thePlayer.walkAndAnimate('0');
                     break;
 
                 default:
@@ -121,19 +98,19 @@ int main(int argc, char* argv[]) {
             switch (event.key.keysym.scancode) {
 				case SDL_SCANCODE_W:
 				case SDL_SCANCODE_UP:
-					thePlayer.walkAndAnimate2(0, keyPressed);
+					thePlayer.walkAndAnimate(0, keyPressed);
 					break;
 				case SDL_SCANCODE_A:
 				case SDL_SCANCODE_LEFT:
-                    thePlayer.walkAndAnimate2(1, keyPressed);
+                    thePlayer.walkAndAnimate(1, keyPressed);
 					break;
 				case SDL_SCANCODE_S:
 				case SDL_SCANCODE_DOWN:
-                    thePlayer.walkAndAnimate2(2, keyPressed);
+                    thePlayer.walkAndAnimate(2, keyPressed);
 				    break;
 			    case SDL_SCANCODE_D:
 				case SDL_SCANCODE_RIGHT:
-                    thePlayer.walkAndAnimate2(3, keyPressed);
+                    thePlayer.walkAndAnimate(3, keyPressed);
 					break;
 				default:
 					break;
