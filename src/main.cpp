@@ -30,6 +30,7 @@ SOURCE
 
 int main(int argc, char* argv[]) {
 
+    // initialization of the player object
     Player thePlayer = Player(PLAYER_START_X, PLAYER_START_Y, PICTURE_PER_ANIMATION, WALKING_DISTANCE);
     
     // looking after problems in the initialization
@@ -59,7 +60,7 @@ int main(int argc, char* argv[]) {
     SDL_QueryTexture(backgroundTexture, NULL, NULL, &backgroundRect.w, &backgroundRect.h);
     SDL_QueryTexture(playerTexture, NULL, NULL, &playerRect.w, &playerRect.h);
 
-    //set the startposition of the background and player
+    // set the startposition of the background and player
     backgroundRect.x = 0;
     backgroundRect.y = 0;
     playerRect.x = thePlayer.getXCoordinate();
@@ -104,6 +105,7 @@ int main(int argc, char* argv[]) {
                     break;
             
                 case SDL_KEYUP:
+                    // reset animation
                     thePlayer.walkAndAnimate('0');
                     break;
 			}
@@ -130,7 +132,7 @@ int main(int argc, char* argv[]) {
         SDL_RenderPresent(rend);
 
         // delay for smooth player animation
-        SDL_Delay(100);
+        SDL_Delay(80);
     }
 
 	// destroy texture of background and player
