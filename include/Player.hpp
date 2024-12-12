@@ -18,8 +18,6 @@ private:
 
     void nextAnimationCounter();
 
-    void initKeysDown();
-
     //void printKeysDown();
 
 public:
@@ -29,7 +27,7 @@ public:
     int getYCoordinate() const;
     int getPlayerPicture() const;
 
-    void walkAndAnimate(const char direction);
+    //void walkAndAnimate(const char direction);
 
     void walkAndAnimate2(const int direction, const bool keyPressed);
 

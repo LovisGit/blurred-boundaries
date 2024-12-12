@@ -2,9 +2,7 @@
 
 Player::Player(const int xCoordinate, const int yCoordinate, const int picturesPerAnimation, const int walkingDistance) : 
         _xCoordinate(xCoordinate), _yCoordinate(yCoordinate), _picturesPerAnimation(picturesPerAnimation), 
-        _walkingDistance(walkingDistance), _animationCounter(0), _playerPicture(0), _walkingDirection('0') {
-    initKeysDown();
-}
+        _walkingDistance(walkingDistance), _animationCounter(0), _playerPicture(0), _walkingDirection('0'), _walkingDirection2(0), _keysDown({0}) {}
 
 int Player::getXCoordinate() const {
     return _xCoordinate;
@@ -20,9 +18,12 @@ int Player::getPlayerPicture() const {
 
 void Player::nextAnimationCounter() {   
     _animationCounter++;
-    _animationCounter %= _picturesPerAnimation;     //when _animationCounter >= _picturesPerAnimation is true then _animationCounter = 0
+
+    //when _animationCounter >= _picturesPerAnimation is true then _animationCounter = 0
+    _animationCounter %= _picturesPerAnimation;
 }
 
+/*
 void Player::walkAndAnimate(const char direction) {
     if(direction == _walkingDirection) {
         nextAnimationCounter();
@@ -55,22 +56,17 @@ void Player::walkAndAnimate(const char direction) {
     }
     _walkingDirection = direction;
 }
+*/
 
 /*
 void Player::printKeysDown() {
     std::cout << "_keysDown: ";
-    for(int i = 0; i < 4; i++) {
-        std::cout << _keysDown[i] << ", ";
+    for(auto& i : _keysDown) {
+        std::cout << i << ", ";
     }
     std::cout << std::endl;
 }
 */
-
-void Player::initKeysDown() {
-    for(size_t i = 0; i < _keysDown.size(); i++) {
-        _keysDown[i] = false;
-    }
-}
 
 void Player::walkAndAnimate2(const int direction, const bool keyPressed) {
     if(direction == _walkingDirection2) {
@@ -79,14 +75,17 @@ void Player::walkAndAnimate2(const int direction, const bool keyPressed) {
         _animationCounter = 0;
     }
     
+    // sets oder resets the information that a key is pressed
     _keysDown[direction] = keyPressed;
 
     //printKeysDown();
 
+    // key lifted
     if(!keyPressed) {
         _animationCounter = 0;
     }
 
+    // changes the coordinates and the playerimage
     if(_keysDown[0]) {
         _playerPicture = (3 * _picturesPerAnimation) + _animationCounter;
         _yCoordinate -= _walkingDistance;
