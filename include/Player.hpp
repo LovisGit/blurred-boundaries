@@ -16,7 +16,7 @@ private:
 
     void nextAnimationCounter();
 
-    //void printKeysDown();
+    //void printKeysDown() const;
 
 public:
     Player(const int xCoordinate, const int yCoordinate, const int picturesPerAnimation, const int walkingDistance);

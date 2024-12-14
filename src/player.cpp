@@ -24,7 +24,7 @@ void Player::nextAnimationCounter() {
 }
 
 /*
-void Player::printKeysDown() {
+void Player::printKeysDown() const{
     std::cout << "_keysDown: ";
     for(auto& i : _keysDown) {
         std::cout << i << ", ";

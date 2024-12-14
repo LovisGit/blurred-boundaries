@@ -1,0 +1,4 @@
+# .gitignore
+.vscode/
+build/blurred_boundaries
+build/objects/

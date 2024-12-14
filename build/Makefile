@@ -28,14 +28,13 @@ $(EXEC): $(OBJS)
 	$(CC) -o $@ $(OBJS) $(CFLAGS) $(LIBS)
 
 # Ziel: Kompilierung einzelner .cpp-Dateien zu .o-Dateien
-#$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
-#	mkdir -p $(BUILD_DIR)  # Verzeichnis erstellen, falls es nicht existiert
-#	$(CC) -c -o $@ $< $(CFLAGS)
-
-objects/%.o: ../src/%.cpp
-	mkdir -p $(dir $@)  # Erstelle das Verzeichnis "objects/" falls nötig
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+	mkdir -p $(BUILD_DIR)  # Verzeichnis erstellen, falls es nicht existiert
 	$(CC) -c -o $@ $< $(CFLAGS)
 
+#objects/%.o: ../src/%.cpp
+#	mkdir -p $(dir $@)  # Erstelle das Verzeichnis "objects/" falls nötig
+#	$(CC) -c -o $@ $< $(CFLAGS)
 
 # Ziel: Bereinigung
 clean:
