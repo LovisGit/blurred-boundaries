@@ -12,10 +12,10 @@ SRC_DIR := ../src
 BUILD_DIR := objects/
 
 # Quellcode-Dateien
-SRCS := $(SRC_DIR)/main.cpp $(SRC_DIR)/player.cpp
+SRCS := $(SRC_DIR)/main.cpp $(SRC_DIR)/player.cpp $(SRC_DIR)/object.cpp $(SRC_DIR)/objectAdministrator.cpp
 
 # Objektdateien (ersetze Pfad von .cpp durch .o im Build-Verzeichnis)
-OBJS := $(SRCS:../src/%.cpp=objects/%.o) # $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRCS))
+OBJS := $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRCS)) #$(SRCS:../src/%.cpp=objects/%.o)
 
 # Name der ausführbaren Datei
 EXEC := blurred_boundaries

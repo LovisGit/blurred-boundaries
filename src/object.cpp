@@ -1,6 +1,5 @@
 #include "../include/Object.hpp"
 
-
 Object::Object(int pXpos, int pYpos, int pHeight, int pWidth, std::vector<bool> pTestNecessary = {true,true,true,true}):
 _xPos(pXpos), _yPos(pYpos), _height(pHeight), _width(pWidth), _testNecessary(pTestNecessary) {}
 
