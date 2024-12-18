@@ -1,154 +1,147 @@
 #include "../include/ObjectAdminstrator.hpp"
 #include <SDL2/SDL.h> 
 
+ObjectAdministrator::ObjectAdministrator(int window_height, int window_width, int anzColumns, int anzRows) {
+    int rowSize = window_width / anzRows;
+    int columnSize = window_height / anzColumns;
 
-ObjectAdministrator::ObjectAdministrator(int pWindowHeight, int pWindowWidth, int pAnzColumns, int pAnzRows){
-    int rowSize = pWindowWidth/pAnzRows;
-    int columnSize = pWindowHeight/pAnzColumns;
-
-    dasGrid = std::vector<Zelle>(pAnzRows * pAnzColumns);
+    _dasGrid = std::vector<Zelle>(anzRows * anzColumns);
 
     int tempX = -1;
     int tempY = -1;
 
-    for(int i = 0; i < pAnzColumns; i++){
-        for(int j = 0; j < pAnzRows; j++){
-            dasGrid[i*pAnzRows+j] = Zelle (tempX+1, tempY+1, tempX + rowSize, tempY + columnSize);
+    for(int i = 0; i < anzColumns; i++){
+        for(int j = 0; j < anzRows; j++){
+            _dasGrid[i*anzRows+j] = Zelle (tempX+1, tempY+1, tempX + rowSize, tempY + columnSize);
             tempX += rowSize;
         }
         tempX = -1;
         tempY += columnSize;
     }
-
     assignObjects();
 }
 
 void ObjectAdministrator::assignObjects(){
 //Hier Code um Objekte in die jeweiligen Raster reinzustecken, mit Textliste. Vorerst als Test, werde ich manuell ein paar Objekte reinschreiben zum Test, später wird das allgemein gemacht
 
-std::vector<SDL_Rect> obstacles = {
+    std::vector<SDL_Rect> obstacles = {
         {300, 200, 100, 100}, // Hindernis 1
         {500, 300, 150, 50}   // Hindernis 2
     };
+                                                //(x,y,_width,_height)
 
+    for(int i = 0; i < obstacles.size(); i++){
+        for(int j = 0; j < _dasGrid.size(); j++){
+            if(_dasGrid[j]._xZellenPos <= obstacles[i].x && _dasGrid[j]._xZellenPos + _dasGrid[j]._width >= obstacles[i].x && _dasGrid[j]._yZellenPos <= obstacles[i].y && _dasGrid[j]._yZellenPos + _dasGrid[j]._height >= obstacles[i].y) {
+                //Koordianten erkannt, Objekt befindet sich in Zelle
+                _dasGrid[i].addObject(Object(obstacles[i].x , obstacles[i].y, obstacles[i].h, obstacles[i].w)); 
 
+                if(_dasGrid[j]._xZellenPos + _dasGrid[j]._width >= obstacles[i].x + obstacles[i].w && _dasGrid[j]._yZellenPos + _dasGrid[j]._height >= obstacles[i].y + obstacles[i].h) {
+                    break;
+                }
+            }
+            if(_dasGrid[j]._xZellenPos > obstacles[i].x && _dasGrid[j]._xZellenPos <= obstacles[i].x + obstacles[i].w) {
+                if(_dasGrid[j]._yZellenPos <= obstacles[i].y + obstacles[i].h && _dasGrid[j]._yZellenPos + _dasGrid[j]._height >= obstacles[i].y +  obstacles[i].h ) {
+                    //Koordianten erkannt, Objekt befindet sich in Zelle
+                    _dasGrid[i].addObject(Object(obstacles[i].x , obstacles[i].y, obstacles[i].h, obstacles[i].w)); 
 
-                                                //(x,y,width,height)
+                    if(_dasGrid[j]._xZellenPos + _dasGrid[j]._width >= obstacles[i].x + obstacles[i].w) {
+                        break;
+                    }
+                }
+                if(_dasGrid[j]._yZellenPos <= obstacles[i].y && _dasGrid[j]._yZellenPos + _dasGrid[j]._height >= obstacles[i].y) {
+                    //Koordianten erkannt, Objekt befindet sich in Zelle
+                    _dasGrid[i].addObject(Object(obstacles[i].x , obstacles[i].y, obstacles[i].h, obstacles[i].w)); 
 
- for(int i = 0; i < obstacles.size(); i++){
-    for(int j = 0; j < dasGrid.size(); j++){
-        if(dasGrid[j].xZellenPos <= obstacles[i].x && dasGrid[j].xZellenPos + dasGrid[j].width >= obstacles[i].x && dasGrid[j].yZellenPos <= obstacles[i].y && dasGrid[j].yZellenPos + dasGrid[j].height >= obstacles[i].y){
-            dasGrid[i].addObject(Object(obstacles[i].x , obstacles[i].y, obstacles[i].h, obstacles[i].w)); //Koordianten erkannt, Objekt befindet sich in Zelle
+                    if(_dasGrid[j]._xZellenPos + _dasGrid[j]._width >= obstacles[i].x + obstacles[i].w) {
+                        break;
+                    }
+                }
+            }
+            if(_dasGrid[j]._yZellenPos > obstacles[i].y && _dasGrid[j]._yZellenPos <= obstacles[i].y + obstacles[i].h) {
+                if(_dasGrid[j]._xZellenPos <= obstacles[i].x + obstacles[i].w && _dasGrid[j]._xZellenPos + _dasGrid[j]._width >= obstacles[i].x +  obstacles[i].w ) {
+                    //Koordianten erkannt, Objekt befindet sich in Zelle
+                    _dasGrid[i].addObject(Object(obstacles[i].x , obstacles[i].y, obstacles[i].h, obstacles[i].w)); 
 
-            if(dasGrid[j].xZellenPos + dasGrid[j].width >= obstacles[i].x + obstacles[i].w && dasGrid[j].yZellenPos + dasGrid[j].height >= obstacles[i].y + obstacles[i].h){
-                break;
+                    if(_dasGrid[j]._yZellenPos + _dasGrid[j]._height >= obstacles[i].y + obstacles[i].h) {
+                        break;
+                    }
+                }
+                if(_dasGrid[j]._xZellenPos <= obstacles[i].x && _dasGrid[j]._xZellenPos + _dasGrid[j]._width >= obstacles[i].x) {
+                    //Koordianten erkannt, Objekt befindet sich in Zelle
+                    _dasGrid[i].addObject(Object(obstacles[i].x , obstacles[i].y, obstacles[i].h, obstacles[i].w)); 
+
+                    if(_dasGrid[j]._yZellenPos + _dasGrid[j]._height >= obstacles[i].y + obstacles[i].h) {
+                        break;
+                    }
+                }
             }
         }
-
-        if (dasGrid[j].xZellenPos > obstacles[i].x && dasGrid[j].xZellenPos <= obstacles[i].x + obstacles[i].w){
-            if(dasGrid[j].yZellenPos <= obstacles[i].y + obstacles[i].h && dasGrid[j].yZellenPos + dasGrid[j].height >= obstacles[i].y +  obstacles[i].h ){
-                dasGrid[i].addObject(Object(obstacles[i].x , obstacles[i].y, obstacles[i].h, obstacles[i].w)); //Koordianten erkannt, Objekt befindet sich in Zelle
-
-                if(dasGrid[j].xZellenPos + dasGrid[j].width >= obstacles[i].x + obstacles[i].w){
-                    break;
-                }
-            }
-
-            if(dasGrid[j].yZellenPos <= obstacles[i].y && dasGrid[j].yZellenPos + dasGrid[j].height >= obstacles[i].y){
-                dasGrid[i].addObject(Object(obstacles[i].x , obstacles[i].y, obstacles[i].h, obstacles[i].w)); //Koordianten erkannt, Objekt befindet sich in Zelle
-
-                if(dasGrid[j].xZellenPos + dasGrid[j].width >= obstacles[i].x + obstacles[i].w){
-                    break;
-                }
-            }
-
-        }
-
-
-        if (dasGrid[j].yZellenPos > obstacles[i].y && dasGrid[j].yZellenPos <= obstacles[i].y + obstacles[i].h){
-            
-            if(dasGrid[j].xZellenPos <= obstacles[i].x + obstacles[i].w && dasGrid[j].xZellenPos + dasGrid[j].width >= obstacles[i].x +  obstacles[i].w ){
-                dasGrid[i].addObject(Object(obstacles[i].x , obstacles[i].y, obstacles[i].h, obstacles[i].w)); //Koordianten erkannt, Objekt befindet sich in Zelle
-
-                if(dasGrid[j].yZellenPos + dasGrid[j].height >= obstacles[i].y + obstacles[i].h){
-                    break;
-                }
-            }
-            
-            if(dasGrid[j].xZellenPos <= obstacles[i].x && dasGrid[j].xZellenPos + dasGrid[j].width >= obstacles[i].x){
-                dasGrid[i].addObject(Object(obstacles[i].x , obstacles[i].y, obstacles[i].h, obstacles[i].w)); //Koordianten erkannt, Objekt befindet sich in Zelle
-
-                if(dasGrid[j].yZellenPos + dasGrid[j].height >= obstacles[i].y + obstacles[i].h){
-                    break;
-                }
-            }
-
-        }
-
-
-    }
-  }
-}
-
-int ObjectAdministrator::neueZelleErreicht(int pIdxVorher, int angrenzendeZelle){  //Figur erreicht das Ende der begangenen Zelle 
- switch (angrenzendeZelle) {
-    case 0:     //rechts
-        return pIdxVorher++;
-    case 1:     //links
-        return pIdxVorher--;
-    case 2:     //oben
-        return pIdxVorher-anzRowsPerColumn;
-    case 3:     //unten
-        return pIdxVorher+anzRowsPerColumn;
-    default:
-        break;
- }
-}
-
-int ObjectAdministrator::checkNeueZelle(int playerXPos, int playerYPos, int playerWidht, int playerHeight ,int pIdxZelle){
-                                                                                //Spieler tritt völlig in neue Zelle ein, ändere Primärzelle
-    if(playerXPos + playerWidht < dasGrid[pIdxZelle].xZellenPos){
-        return neueZelleErreicht(pIdxZelle, 1); 
-    }
-    else if(playerXPos > dasGrid[pIdxZelle].xZellenPos + dasGrid[pIdxZelle].width){
-        return neueZelleErreicht(pIdxZelle, 0);
-    }
-    else if(playerYPos > dasGrid[pIdxZelle].yZellenPos + dasGrid[pIdxZelle].height){
-        return neueZelleErreicht(pIdxZelle, 3);
-    }
-    else if(playerYPos + playerHeight < dasGrid[pIdxZelle].yZellenPos){
-        return neueZelleErreicht(pIdxZelle, 2);
     }
 }
 
+//Figur erreicht das Ende der begangenen Zelle 
+int ObjectAdministrator::neueZelleErreicht(int idxVorher, int angrenzendeZelle){
+    switch (angrenzendeZelle) {
+        case 0:     //rechts
+            return idxVorher++;
+        case 1:     //links
+            return idxVorher--;
+        case 2:     //oben
+            return idxVorher - _anzRowsPerColumn;
+        case 3:     //unten
+            return idxVorher + _anzRowsPerColumn;
+        default:
+            break;
+    }
+}
 
-bool ObjectAdministrator::checkCollision(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int xBewegung, int yBewegung, int richtung,int pIdxZelle){  //<-- Entweder die Map oder der Spieler besitzt die Zelle in der der Spieler sich aufhält, wird lediglich übergeben hierfür und zum updaten
+//Spieler tritt völlig in neue Zelle ein, ändere Primärzelle
+int ObjectAdministrator::checkNeueZelle(int playerXPos, int playerYPos, int playerWidht, int player_height ,int idxZelle){
+    if(playerXPos + playerWidht < _dasGrid[idxZelle]._xZellenPos){
+        return neueZelleErreicht(idxZelle, 1); 
+    }
+    else if(playerXPos > _dasGrid[idxZelle]._xZellenPos + _dasGrid[idxZelle]._width){
+        return neueZelleErreicht(idxZelle, 0);
+    }
+    else if(playerYPos > _dasGrid[idxZelle]._yZellenPos + _dasGrid[idxZelle]._height){
+        return neueZelleErreicht(idxZelle, 3);
+    }
+    else if(playerYPos + player_height < _dasGrid[idxZelle]._yZellenPos){
+        return neueZelleErreicht(idxZelle, 2);
+    }
+}
 
-    std::vector<int> dieZellen = felderZuPruefen(pIdxZelle, richtung);
+//<-- Entweder die Map oder der Spieler besitzt die Zelle in der der Spieler sich aufhält, wird lediglich übergeben hierfür und zum updaten
+bool ObjectAdministrator::checkCollision(int playerXPos, int playerYPos, int playerWidht, int player_height, int xBewegung, int yBewegung, int richtung,int idxZelle) {  
+    std::vector<int> dieZellen = felderZuPruefen(idxZelle, richtung);
 
     for(int i = 0; i < dieZellen.size(); i++){
-        if(dieZellen[i] < 0 || dieZellen[i] >= dasGrid.size()) 
-            continue;               //Wenn adressierte Zellen sich nicht im Grid aufhalten überspringe die Iteration zur nächsten, da negativ oder zu groß
-
-        for (const Object& value : dasGrid[dieZellen[i]].surroundingObjects) {
-            if(value.checkCollision(playerXPos, playerYPos, playerWidht, playerHeight, xBewegung, yBewegung, richtung)){
-                return true;                //Kollision erkannt
+        if(dieZellen[i] < 0 || dieZellen[i] >= _dasGrid.size()) {
+            //Wenn adressierte Zellen sich nicht im Grid aufhalten überspringe die Iteration zur nächsten, da negativ oder zu groß
+            continue;               
+        }
+        for (const Object& value : _dasGrid[dieZellen[i]]._surroundingObjects) {
+            if(value.checkCollision(playerXPos, playerYPos, playerWidht, player_height, xBewegung, yBewegung, richtung)){
+                //Kollision erkannt
+                return true;                
             }
         }
-    return false;                         //Keine Kollision erkannt
+        //Keine Kollision erkannt
+        return false;                         
     }
 }
 
-std::vector<int> ObjectAdministrator::felderZuPruefen(int pIdxVorher, int richtung){
+std::vector<int> ObjectAdministrator::felderZuPruefen(int idxVorher, int richtung){
     switch (richtung){
         case 0:     //rechts
-            return {pIdxVorher, pIdxVorher + 1, pIdxVorher + 1 + anzRowsPerColumn, pIdxVorher + 1 - anzRowsPerColumn};
+            return {idxVorher, idxVorher + 1, idxVorher + 1 + _anzRowsPerColumn, idxVorher + 1 - _anzRowsPerColumn};
         case 1:     //links
-            return {pIdxVorher, pIdxVorher -1 , pIdxVorher - 1 + anzRowsPerColumn, pIdxVorher - 1 - anzRowsPerColumn};
+            return {idxVorher, idxVorher -1 , idxVorher - 1 + _anzRowsPerColumn, idxVorher - 1 - _anzRowsPerColumn};
         case 2:     //oben
-            return {pIdxVorher, pIdxVorher - anzRowsPerColumn, pIdxVorher + 1 - anzRowsPerColumn, pIdxVorher - 1 - anzRowsPerColumn};
+            return {idxVorher, idxVorher - _anzRowsPerColumn, idxVorher + 1 - _anzRowsPerColumn, idxVorher - 1 - _anzRowsPerColumn};
         case 3:     //unten
-            return {pIdxVorher, pIdxVorher + anzRowsPerColumn, pIdxVorher + 1 + anzRowsPerColumn, pIdxVorher - 1 + anzRowsPerColumn};
+            return {idxVorher, idxVorher + _anzRowsPerColumn, idxVorher + 1 + _anzRowsPerColumn, idxVorher - 1 + _anzRowsPerColumn};
         default:
             break;
     }
@@ -156,9 +149,9 @@ std::vector<int> ObjectAdministrator::felderZuPruefen(int pIdxVorher, int richtu
 
 //Struct-Operationen
 
-ObjectAdministrator::Zelle::Zelle(int pXPos, int pYPos, int pWidth, int pHeight):
-    zellenIdx(idxCounter++), xZellenPos(pXPos), yZellenPos(pYPos), height(pHeight), width(pWidth) {}
+ObjectAdministrator::Zelle::Zelle(int xPos, int yPos, int width, int height):
+    _zellenIdx(_idxCounter++), _xZellenPos(xPos), _yZellenPos(yPos), _height(height), _width(width) {}
 
-void ObjectAdministrator::Zelle::addObject(const Object& neuesObjekt){
-    surroundingObjects.insert(neuesObjekt);
-  }
+void ObjectAdministrator::Zelle::addObject(const Object& neuesObjekt) {
+    _surroundingObjects.insert(neuesObjekt);
+}

@@ -8,13 +8,12 @@ CFLAGS := -I../include `sdl2-config --cflags` -ggdb3 -O0 -std=c++11 -Wall
 LIBS := `sdl2-config --libs` -lSDL2_image -lm
 #LIBS := `sdl2-config --libs` -L/lib/x86_64-linux-gnu -lSDL2_image -lSDL2_mixer -lm
 
-
 # Verzeichnisse
 SRC_DIR := ../src
 BUILD_DIR := objects/
 
 # Quellcode-Dateien
-SRCS := $(SRC_DIR)/main.cpp $(SRC_DIR)/player.cpp $(SRC_DIR)/object.cpp $(SRC_DIR)/objectAdministrator.cpp
+SRCS := $(SRC_DIR)/main.cpp $(SRC_DIR)/player.cpp $(SRC_DIR)/object.cpp $(SRC_DIR)/objectAdminstrator.cpp
 
 # Objektdateien (ersetze Pfad von .cpp durch .o im Build-Verzeichnis)
 OBJS := $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRCS))

@@ -3,50 +3,41 @@
 #include "Object.hpp"
 #pragma once
 
-class ObjectAdministrator{
+class ObjectAdministrator {
 
 private:
 
- static int idxCounter;      //Indiziert aklle Zellen mit aufsteigendem Idx
+    //Indiziert alle Zellen mit aufsteigendem Idx
+    static int _idxCounter;  
 
+    int _windowHeight;
+    int _windowWidht;
+    int _anzRowsPerColumn;
+    struct Zelle{
+        int _zellenIdx;
 
- int windowHeight;
- int windowWidht;
+        int _xZellenPos;
+        int _yZellenPos;
 
- int anzRowsPerColumn;
+        int _width;
+        int _height; 
 
+        std::set<Object> _surroundingObjects;
 
- struct Zelle{
-  int zellenIdx;
+        Zelle(int xPos, int yPos, int width, int height);
+        void addObject(const Object& neuesObjekt);
+    };
+    std::vector<Zelle> _dasGrid;
+    
+    void assignObjects();
+    int neueZelleErreicht(int idxVorher, int richtung);
+    std::vector<int> felderZuPruefen(int idxVorher, int richtung);
 
-  int xZellenPos;
-  int yZellenPos;
-
-  int width;
-  int height; 
-
-  std::set<Object> surroundingObjects;
-
-
-  Zelle(int pXPos, int pYPos, int pWidth, int pHeight);
-  void addObject(const Object& neuesObjekt);
-};
-
-
- std::vector<Zelle> dasGrid;
- 
- void assignObjects();
-
- int neueZelleErreicht(int pIdxVorher, int pRichtung);
-
- std::vector<int> felderZuPruefen(int pIdxVorher, int richtung);
- 
 public:
 
- ObjectAdministrator(int pWindowHeight, int pWindowWidht, int pAnzColumns, int pAnzRows);
+    ObjectAdministrator(int windowHeight, int windowWidht, int anzColumns, int anzRows);
 
- int checkNeueZelle(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int pIdxZelle);
-
- bool checkCollision(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int xBewegung, int yBewegung, int richtung, int pIdxZelle);
+    int checkNeueZelle(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int idxZelle);
+    bool checkCollision(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int xBewegung, int yBewegung, int richtung, int idxZelle);
 
 };
