@@ -1,32 +1,6 @@
 #include "../include/Constants.hpp"
 #include "../include/Player.hpp"
 
-/*
-CONSTANTS
-*/
-
-// windowsize
-const int               WINDOW_HEIGHT = 1792;
-const int               WINDOW_WIDTH = 1062;
-
-// player values
-const int               PLAYER_START_X = 1630;
-const int               PLAYER_START_Y = 670;
-const int               PLAYER_WIDTH = 1; //test
-const int               PLAYER_HEIGHT = 1; //test
-const int               PICTURE_PER_ANIMATION = 3;
-const int               WALKING_DISTANCE = 2;
-const int               PLAYER_START_CELL = 1; //test
-
-// paths for images
-const std::string       BACKGROUND_SURFACEPATH = "../assets/background.jpeg";
-const std::string       PLAYER_PATH_FRONT = "../assets/player/position";
-const std::string       PLAYER_PATH_BACK = ".png";
-
-/*
-SOURCE
-*/
-
 int main(int argc, char* argv[]) {
 
     // initialization of the player object
