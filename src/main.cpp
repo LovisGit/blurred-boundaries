@@ -1,9 +1,4 @@
-#include <iostream>
-#include <string>
-#include <array>
-#include <SDL2/SDL.h> 
-#include <SDL2/SDL_image.h>
-
+#include "../include/Constants.hpp"
 #include "../include/Player.hpp"
 
 /*
