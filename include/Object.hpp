@@ -1,23 +1,31 @@
-#include <vector>
 #pragma once
 
 class Object{
 
+private:
 
-//Attribute
+  //Generische Attribute
+  
+  int _xPos;
+  int _yPos;
+  int _height;
+  int _width;
 
-  //Die Basis des Objekts wird ein Rechteck sein
+//Selbsterklärend
+bool checkCollisionRight(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int xBewegung) const;
+bool checkCollisionLeft(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int xBewegung) const;
+bool checkCollisionUp(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int yBewegung) const;
+bool checkCollisionDown(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int yBewegung) const;
 
-  //Generische
-int _xPos;
-int _yPos;
-int _height;
-int _width;
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  //Falls eine Seite des Objekts eh niemals vom Spieler berührt werden kann, gibt es keinen Grund die abzufragen wenn auf false
-std::vector<bool> _testNecessary;
+public:
 
-Object(int pXpos, int pYpos, int pHeight, int pWidth, std::vector<bool> pTestNecessary = {true,true,true,true});
-bool checkCollision(int pPlayerXPos, int pPlayerYPos, int pXBewegung, int pYBewegung);
+Object(int pXpos, int pYpos, int pHeight, int pWidth);
+//Konstruktur für die Objekte
+
+
+bool checkCollision(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int xBewegung, int yBewegung, int richtung) const;
+//Determiniert welche Kollisionsfunktion angesprochen wird im Falle einer Bewegung
 
 };
