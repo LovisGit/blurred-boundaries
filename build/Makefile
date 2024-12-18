@@ -6,6 +6,8 @@ CFLAGS := -I../include `sdl2-config --cflags` -ggdb3 -O0 -std=c++11 -Wall
 
 # Bibliotheken
 LIBS := `sdl2-config --libs` -lSDL2_image -lm
+#LIBS := `sdl2-config --libs` -L/lib/x86_64-linux-gnu -lSDL2_image -lSDL2_mixer -lm
+
 
 # Verzeichnisse
 SRC_DIR := ../src
