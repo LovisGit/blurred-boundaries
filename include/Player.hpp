@@ -1,12 +1,13 @@
 #pragma once
-#include <array>
-#include <iostream>
+#include "Constants.hpp"
 
 class Player {
 
 private:
     int _xCoordinate;
     int _yCoordinate;
+    int _playerWidth;
+    int _playerHeight;
     int _picturesPerAnimation;
     int _walkingDistance;
     int _animationCounter;
@@ -14,13 +15,13 @@ private:
     int _walkingDirection;
     int _currentCell;
     std::array<bool, 4> _keysDown;
+    int _cellOnMap;
 
     void nextAnimationCounter();
 
-    //void printKeysDown() const;
-
 public:
-    Player(const int xCoordinate, const int yCoordinate, const int picturesPerAnimation, const int walkingDistance);
+    Player(const int xCoordinate, const int yCoordinate, const int playerWidth, const int playerHeight, 
+           const int picturesPerAnimation, const int walkingDistance, const int cellOnMap);
 
     int getXCoordinate() const;
     int getYCoordinate() const;

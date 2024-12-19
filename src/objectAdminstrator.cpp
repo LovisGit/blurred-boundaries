@@ -7,6 +7,7 @@ ObjectAdministrator::ObjectAdministrator(int windowHeight, int windowWidth, int 
     _columnSize = windowHeight/anzColumns;
 
     _dasGrid = std::vector<Zelle>(anzRows * anzColumns);
+    _dasGrid = std::vector<Zelle>(anzRows * anzColumns);
 
     int tempX = -1;
     int tempY = -1;
@@ -19,7 +20,6 @@ ObjectAdministrator::ObjectAdministrator(int windowHeight, int windowWidth, int 
         tempX = -1;
         tempY += _columnSize;
     }
-
     assignObjects();
 
     int cellRow = static_cast<int>(playerYPos / _columnSize); // Zeilenindex
@@ -115,6 +115,7 @@ bool ObjectAdministrator::checkCollision(int playerXPos, int playerYPos, int pla
     return false;                         //Keine Kollision erkannt
 }
 
+std::vector<int> ObjectAdministrator::felderZuPruefen(int idxVorher, int richtung){
 std::vector<int> ObjectAdministrator::felderZuPruefen(int idxVorher, int richtung){
     switch (richtung){
         case 0:     //rechts

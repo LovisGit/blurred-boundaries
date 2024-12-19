@@ -1,8 +1,11 @@
 #include "../include/Player.hpp"
 
-Player::Player(const int xCoordinate, const int yCoordinate, const int picturesPerAnimation, const int walkingDistance) : 
-        _xCoordinate(xCoordinate), _yCoordinate(yCoordinate), _picturesPerAnimation(picturesPerAnimation), 
-        _walkingDistance(walkingDistance), _animationCounter(0), _playerPicture(0), _walkingDirection(0), _keysDown({0}) {}
+Player::Player(const int xCoordinate, const int yCoordinate, const int playerWidth, const int playerHeight, 
+               const int picturesPerAnimation, const int walkingDistance, const int cellOnMap) 
+                : 
+                _xCoordinate(xCoordinate), _yCoordinate(yCoordinate), _playerWidth(playerWidth), _playerHeight(playerHeight),
+                _picturesPerAnimation(picturesPerAnimation), _walkingDistance(walkingDistance), 
+                _animationCounter(0), _playerPicture(0), _walkingDirection(0), _keysDown({0}), _cellOnMap(cellOnMap) {}
 
 int Player::getXCoordinate() const {
     return _xCoordinate;
@@ -23,16 +26,6 @@ void Player::nextAnimationCounter() {
     _animationCounter %= _picturesPerAnimation;
 }
 
-/*
-void Player::printKeysDown() const{
-    std::cout << "_keysDown: ";
-    for(auto& i : _keysDown) {
-        std::cout << i << ", ";
-    }
-    std::cout << std::endl;
-}
-*/
-
 void Player::walkAndAnimate(const int direction, const bool keyPressed) {
     if(direction == _walkingDirection) {
         nextAnimationCounter();
@@ -42,8 +35,6 @@ void Player::walkAndAnimate(const int direction, const bool keyPressed) {
     
     // sets oder resets the information that a key is pressed
     _keysDown[direction] = keyPressed;
-
-    //printKeysDown();
 
     // key lifted
     if(!keyPressed) {
