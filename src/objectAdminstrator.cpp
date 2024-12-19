@@ -116,7 +116,6 @@ bool ObjectAdministrator::checkCollision(int playerXPos, int playerYPos, int pla
 }
 
 std::vector<int> ObjectAdministrator::felderZuPruefen(int idxVorher, int richtung){
-std::vector<int> ObjectAdministrator::felderZuPruefen(int idxVorher, int richtung){
     switch (richtung){
         case 0:     //rechts
             return {idxVorher, idxVorher + 1, idxVorher + 1 + _rowSize, idxVorher + 1 - _rowSize};
