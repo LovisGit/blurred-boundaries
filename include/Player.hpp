@@ -1,5 +1,6 @@
 #pragma once
 #include "Constants.hpp"
+#include "ObjectAdminstrator.hpp"
 
 class Player {
 
@@ -17,11 +18,13 @@ private:
     std::array<bool, 4> _keysDown;
     int _cellOnMap;
 
+    ObjectAdministrator derVerwalter;
+    
     void nextAnimationCounter();
 
 public:
     Player(const int xCoordinate, const int yCoordinate, const int playerWidth, const int playerHeight, 
-           const int picturesPerAnimation, const int walkingDistance, const int cellOnMap);
+           const int picturesPerAnimation, const int walkingDistance);
 
     int getXCoordinate() const;
     int getYCoordinate() const;

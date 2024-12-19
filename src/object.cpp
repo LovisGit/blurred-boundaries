@@ -60,3 +60,8 @@ bool Object::checkCollisionDown(int playerXPos, int playerYPos, int playerWidht,
     //Illegale Bewegung wurde nicht erfasst
     return false;          
 }
+
+bool Object::operator<(const Object& other) const {
+        // Ersetzen Sie dies durch die richtige Vergleichslogik
+        return this->_xPos + this->_yPos < other._xPos + other._yPos; // Beispiel: Vergleichen eines `id`-Mitglieds
+    }

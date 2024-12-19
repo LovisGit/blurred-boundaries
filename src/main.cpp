@@ -4,7 +4,7 @@
 int main(int argc, char* argv[]) {
 
     // initialization of the player object
-    Player thePlayer = Player(PLAYER_START_X, PLAYER_START_Y, PLAYER_WIDTH, PLAYER_HEIGHT, PICTURE_PER_ANIMATION, WALKING_DISTANCE, PLAYER_START_CELL);
+    Player thePlayer = Player(PLAYER_START_X, PLAYER_START_Y, PLAYER_WIDTH, PLAYER_HEIGHT, PICTURE_PER_ANIMATION, WALKING_DISTANCE);
     
     // looking after problems in the initialization
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {

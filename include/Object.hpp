@@ -24,5 +24,5 @@ Object(std::vector<int> objektWerte);
 
     //Determiniert welche Kollisionsfunktion angesprochen wird im Falle einer Bewegung
     bool checkCollision(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int xBewegung, int yBewegung, int richtung) const;
-
+    bool operator<(const Object& other) const;
 };

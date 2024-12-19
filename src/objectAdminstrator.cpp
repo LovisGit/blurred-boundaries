@@ -6,7 +6,8 @@ ObjectAdministrator::ObjectAdministrator(int windowHeight, int windowWidth, int 
     _rowSize = windowWidth/anzRows;
     _columnSize = windowHeight/anzColumns;
 
-    _dasGrid = std::vector<Zelle>(anzRows * anzColumns);
+    _anzRowsPerColumn = anzRows;
+
     _dasGrid = std::vector<Zelle>(anzRows * anzColumns);
 
     int tempX = -1;
@@ -38,9 +39,12 @@ void ObjectAdministrator::assignObjects(){
 
     int zaehlerSeitLetzterZelle;
 
-    for (int i = 0; i < obstacles.size(); i++) {
+    int temp1 = obstacles.size();
+    int temp2 = _dasGrid.size();
+
+    for (int i = 0; i < temp1; i++) {
         zaehlerSeitLetzterZelle = 0;
-        for (int j = 0; j < _dasGrid.size(); j++) {
+        for (int j = 0; j < temp2; j++) {
             // Überprüfe, ob die Zelle mit dem Objekt überlappt
             if (checkOverlap(_dasGrid[j], obstacles[i][0], obstacles[i][1], obstacles[i][2], obstacles[i][3])) {
                 _dasGrid[j].addObject(Object(obstacles[i]));
@@ -76,7 +80,7 @@ int ObjectAdministrator::neueZelleErreicht(int idxVorher, int angrenzendeZelle){
     case 3:     //unten
         return idxVorher+_rowSize;
     default:
-        break;
+        return idxVorher;
  }
 }
 
@@ -102,8 +106,11 @@ bool ObjectAdministrator::checkCollision(int playerXPos, int playerYPos, int pla
 
     std::vector<int> dieZellen = felderZuPruefen(idxZelle, richtung);
 
-    for(int i = 0; i < dieZellen.size(); i++){
-        if(dieZellen[i] < 0 || dieZellen[i] >= _dasGrid.size()) 
+     int temp1 = _dasGrid.size();
+     int temp2 = dieZellen.size();
+
+    for(int i = 0; i < temp2; i++){
+        if(dieZellen[i] < 0 || dieZellen[i] >= temp1) 
             continue;               //Wenn adressierte Zellen sich nicht im Grid aufhalten überspringe die Iteration zur nächsten, da negativ oder zu groß
 
         for (const Object& value : _dasGrid[dieZellen[i]]._surroundingObjects) {
@@ -126,9 +133,51 @@ std::vector<int> ObjectAdministrator::felderZuPruefen(int idxVorher, int richtun
         case 3:     //unten
             return {idxVorher, idxVorher + _rowSize, idxVorher + 1 + _rowSize, idxVorher - 1 + _rowSize};
         default:
-            break;    
+            return {0,0,0,0};    
     }
 }
+
+std::vector<std::vector<int>> ObjectAdministrator::readObjectsFromFile(const std::string& filename) {
+    std::vector<std::vector<int>> result;
+    std::ifstream file(filename);
+
+    if (!file.is_open()) {
+        std::cerr << "Fehler: Datei konnte nicht geöffnet werden: " << filename << std::endl;
+        return result;
+    }
+
+    std::string line;
+    while (std::getline(file, line)) {
+        std::vector<int> numbers;
+        std::stringstream ss(line);
+        std::string number;
+
+        // Zahlen getrennt durch Kommas extrahieren
+        while (std::getline(ss, number, ',')) {
+            try {
+                numbers.push_back(std::stoi(number));
+            } catch (const std::invalid_argument& e) {
+                std::cerr << "Fehler: Ungültige Zahl in der Zeile \"" << line << "\"" << std::endl;
+                break;
+            }
+        }
+
+        // Sicherstellen, dass genau 4 Zahlen vorhanden sind
+        if (numbers.size() == 4) {
+            result.push_back(numbers);
+        } else {
+            std::cerr << "Warnung: Zeile ignoriert, da sie keine 4 Zahlen enthält: \"" << line << "\"" << std::endl;
+        }
+    }
+
+    file.close();
+    return result;
+}
+
+ObjectAdministrator::ObjectAdministrator() {
+    // Nichts zu sehen, nur ein Konstruktor der rein gar nichts macht
+}
+
 
 //Struct-Operationen
 
@@ -139,6 +188,9 @@ void ObjectAdministrator::Zelle::addObject(const Object& neuesObjekt){
     _surroundingObjects.insert(neuesObjekt);
   }
 
+ObjectAdministrator::Zelle::Zelle() {
+    //Pure Leere
+}
 
 /* Sicherheitshalber wird provisorischer Code hier gesaved:
 
