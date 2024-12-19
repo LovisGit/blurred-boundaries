@@ -12,6 +12,7 @@ private:
     int _animationCounter;
     int _playerPicture;
     int _walkingDirection;
+    int _currentCell;
     std::array<bool, 4> _keysDown;
 
     void nextAnimationCounter();

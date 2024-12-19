@@ -1,8 +1,8 @@
 #include "../include/Object.hpp"
 #include <iostream>
 
-Object::Object(int pXpos, int pYpos, int pHeight, int pWidth):
-_xPos(pXpos), _yPos(pYpos), _height(pHeight), _width(pWidth) {}
+Object::Object(std::vector<int> objektWerte):
+_xPos(objektWerte[0]), _yPos(objektWerte[1]), _height(objektWerte[3]), _width(objektWerte[2]) {}
 
 bool Object::checkCollision(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int xBewegung, int yBewegung , int richtung) const{
 

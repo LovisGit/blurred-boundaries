@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 class Object{
 
@@ -21,7 +22,7 @@ bool checkCollisionDown(int playerXPos, int playerYPos, int playerWidht, int pla
 
 public:
 
-Object(int pXpos, int pYpos, int pHeight, int pWidth);
+Object(std::vector<int> objektWerte);
 //Konstruktur für die Objekte
 
 
