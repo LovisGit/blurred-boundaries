@@ -1,11 +1,11 @@
 #include "../include/Player.hpp"
 
 Player::Player(const int xCoordinate, const int yCoordinate, const int playerWidth, const int playerHeight, 
-               const int picturesPerAnimation, const int walkingDistance, const int cellOnMap) 
+               const int picturesPerAnimation, const int walkingDistance) 
                 : 
                 _xCoordinate(xCoordinate), _yCoordinate(yCoordinate), _playerWidth(playerWidth), _playerHeight(playerHeight),
                 _picturesPerAnimation(picturesPerAnimation), _walkingDistance(walkingDistance), 
-                _animationCounter(0), _playerPicture(0), _walkingDirection(0), _keysDown({0}), _cellOnMap(cellOnMap) {}
+                _animationCounter(0), _playerPicture(0), _walkingDirection(0), _keysDown({0}), _currentCell(0) {}
 
 int Player::getXCoordinate() const {
     return _xCoordinate;
