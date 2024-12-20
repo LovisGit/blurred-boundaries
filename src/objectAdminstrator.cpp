@@ -137,43 +137,6 @@ std::vector<int> ObjectAdministrator::felderZuPruefen(int idxVorher, int richtun
     }
 }
 
-std::vector<std::vector<int>> ObjectAdministrator::readObjectsFromFile(const std::string& filename) {
-    std::vector<std::vector<int>> result;
-    std::ifstream file(filename);
-
-    if (!file.is_open()) {
-        std::cerr << "Fehler: Datei konnte nicht geöffnet werden: " << filename << std::endl;
-        return result;
-    }
-
-    std::string line;
-    while (std::getline(file, line)) {
-        std::vector<int> numbers;
-        std::stringstream ss(line);
-        std::string number;
-
-        // Zahlen getrennt durch Kommas extrahieren
-        while (std::getline(ss, number, ',')) {
-            try {
-                numbers.push_back(std::stoi(number));
-            } catch (const std::invalid_argument& e) {
-                std::cerr << "Fehler: Ungültige Zahl in der Zeile \"" << line << "\"" << std::endl;
-                break;
-            }
-        }
-
-        // Sicherstellen, dass genau 4 Zahlen vorhanden sind
-        if (numbers.size() == 4) {
-            result.push_back(numbers);
-        } else {
-            std::cerr << "Warnung: Zeile ignoriert, da sie keine 4 Zahlen enthält: \"" << line << "\"" << std::endl;
-        }
-    }
-
-    file.close();
-    return result;
-}
-
 ObjectAdministrator::ObjectAdministrator() {
     // Nichts zu sehen, nur ein Konstruktor der rein gar nichts macht
 }
@@ -197,7 +160,7 @@ ObjectAdministrator::Zelle::Zelle() {
 void ObjectAdministrator::assignObjects(){
 //Hier Code um Objekte in die jeweiligen Raster reinzustecken, mit Textliste. Vorerst als Test, werde ich manuell ein paar Objekte reinschreiben zum Test, später wird das allgemein gemacht
 
-std::vector<std::vector<int>> obstacles = readObjectsFromFile("Werte.txt");
+std::vector<std::vector<int>> obstacles = readObjectsFromFiledffsfafdc("Werte.txt");
 
                                                 //obstacles[i][0] = X-Koordinate des Objekts i
                                                 //obstacles[i][1] = Y-Koordiante des Objekts i
