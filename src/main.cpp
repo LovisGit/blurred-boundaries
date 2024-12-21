@@ -66,7 +66,7 @@ int main(int argc, char* argv[]) {
                     break;
 
                 default:
-                    break;
+                    break;         
 			}
             switch (event.key.keysym.scancode) {
 				case SDL_SCANCODE_W:
@@ -111,7 +111,7 @@ int main(int argc, char* argv[]) {
         SDL_RenderPresent(rend);
 
         // delay for smooth player animation
-        SDL_Delay(80);
+        SDL_Delay(DELAY);
     }
 
 	// destroy texture of background and player

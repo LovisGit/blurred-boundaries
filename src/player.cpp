@@ -42,20 +42,24 @@ void Player::walkAndAnimate(const int direction, const bool keyPressed) {
     }
 
     // changes the coordinates and the playerimage
-    if(_keysDown[0]) {
-        _playerPicture = (3 * _picturesPerAnimation) + _animationCounter;
+    if(_keysDown[0]) { // up
+        std::cout << "up" << std::endl;
+        _playerPicture = (2 * _picturesPerAnimation) + _animationCounter;
         _yCoordinate -= _walkingDistance;
     }
-    if(_keysDown[1]) {
-        _playerPicture = (1 * _picturesPerAnimation) + _animationCounter;
+    if(_keysDown[1]) { // left
+        std::cout << "left" << std::endl;
+        _playerPicture = (3 * _picturesPerAnimation) + _animationCounter;
         _xCoordinate -= _walkingDistance;
     }
-    if(_keysDown[2]) {
+    if(_keysDown[2]) { // down
+        std::cout << "down" << std::endl;
         _playerPicture = (0 * _picturesPerAnimation) + _animationCounter;
         _yCoordinate += _walkingDistance;
     }
-    if(_keysDown[3]) {
-        _playerPicture = (2 * _picturesPerAnimation) + _animationCounter;
+    if(_keysDown[3]) { // right
+        std::cout << "right" << std::endl;
+        _playerPicture = (1 * _picturesPerAnimation) + _animationCounter;
         _xCoordinate += _walkingDistance;
     }
 

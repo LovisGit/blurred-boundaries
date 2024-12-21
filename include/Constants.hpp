@@ -18,13 +18,16 @@ const int               PLAYER_START_X = 1630;
 const int               PLAYER_START_Y = 670;
 const int               PLAYER_WIDTH = 1; //test
 const int               PLAYER_HEIGHT = 1; //test
-const int               PICTURE_PER_ANIMATION = 3;
+const int               PICTURE_PER_ANIMATION = 4;
 const int               WALKING_DISTANCE = 2;
 const int               PLAYER_START_CELL = 1; //test
 
 // paths for images
 const std::string       BACKGROUND_SURFACEPATH = "../assets/background.jpeg";
-const std::string       PLAYER_PATH_FRONT = "../assets/player/position";
+const std::string       PLAYER_PATH_FRONT = "../assets/player/player";
 const std::string       PLAYER_PATH_BACK = ".png";
+
+// delay for smooth player animation
+const int               DELAY = 80;
 
 #endif // CONSTANTS_HPP
