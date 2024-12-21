@@ -10,8 +10,8 @@
 #define CONSTANTS_HPP
 
 // windowsize
-const int               WINDOW_HEIGHT = 1792;
-const int               WINDOW_WIDTH = 1062;
+const int               WINDOW_WIDTH = 1792;
+const int               WINDOW_HEIGHT = 1062;
 
 // player values
 const int               PLAYER_START_X = 1630;

@@ -15,8 +15,8 @@ int main(int argc, char* argv[]) {
     SDL_Window* window = SDL_CreateWindow(  "Blurred Boundaries",
                                             SDL_WINDOWPOS_CENTERED,
                                             SDL_WINDOWPOS_CENTERED,
-                                            WINDOW_HEIGHT,
                                             WINDOW_WIDTH,
+                                            WINDOW_HEIGHT, 
                                             0);
 
     // more initializations
