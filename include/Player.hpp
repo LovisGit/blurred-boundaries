@@ -16,7 +16,8 @@ private:
     int _walkingDirection;
     int _currentCell;
     std::array<bool, 4> _keysDown;
-    int _cellOnMap;
+
+    ObjectAdministrator theObjectAdministrator;
 
     ObjectAdministrator derVerwalter;
     
