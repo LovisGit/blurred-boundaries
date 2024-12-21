@@ -4,7 +4,7 @@
 int main(int argc, char* argv[]) {
 
     // initialization of the player object
-    Player thePlayer = Player(PLAYER_START_X, PLAYER_START_Y, PLAYER_WIDTH, PLAYER_HEIGHT, PICTURE_PER_ANIMATION, WALKING_DISTANCE, PLAYER_START_CELL);
+    Player thePlayer = Player(PLAYER_START_X, PLAYER_START_Y, PLAYER_WIDTH, PLAYER_HEIGHT, PICTURE_PER_ANIMATION, WALKING_DISTANCE);
     
     // looking after problems in the initialization
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -41,7 +41,6 @@ int main(int argc, char* argv[]) {
     playerRect.y = thePlayer.getYCoordinate();
 
     bool running = true;
-    bool keyPressed = false;
 
     // game loop 
     while (running) {
@@ -58,24 +57,22 @@ int main(int argc, char* argv[]) {
 			    case SDL_KEYDOWN:
 				    // keyboard API for key pressed
                     if (!event.key.repeat) {
-                        keyPressed = true;
-                        
                         switch (event.key.keysym.scancode) {
                             case SDL_SCANCODE_W:
                             case SDL_SCANCODE_UP:
-                                thePlayer.walkAndAnimate(0, keyPressed);
+                                thePlayer.walkAndAnimate(0, true);
                                 break;
                             case SDL_SCANCODE_A:
                             case SDL_SCANCODE_LEFT:
-                                thePlayer.walkAndAnimate(1, keyPressed);
+                                thePlayer.walkAndAnimate(1, true);
                                 break;
                             case SDL_SCANCODE_S:
                             case SDL_SCANCODE_DOWN:
-                                thePlayer.walkAndAnimate(2, keyPressed);
+                                thePlayer.walkAndAnimate(2, true);
                                 break;
                             case SDL_SCANCODE_D:
                             case SDL_SCANCODE_RIGHT:
-                                thePlayer.walkAndAnimate(3, keyPressed);
+                                thePlayer.walkAndAnimate(3, true);
                                 break;
                             default:
                                 break;
@@ -85,29 +82,26 @@ int main(int argc, char* argv[]) {
             
                 case SDL_KEYUP:
                     // keyboard API for key lifted
-                    keyPressed = false;
-                    
                     switch (event.key.keysym.scancode) {
                         case SDL_SCANCODE_W:
                         case SDL_SCANCODE_UP:
-                            thePlayer.walkAndAnimate(0, keyPressed);
+                            thePlayer.walkAndAnimate(0, false);
                             break;
                         case SDL_SCANCODE_A:
                         case SDL_SCANCODE_LEFT:
-                            thePlayer.walkAndAnimate(1, keyPressed);
+                            thePlayer.walkAndAnimate(1, false);
                             break;
                         case SDL_SCANCODE_S:
                         case SDL_SCANCODE_DOWN:
-                            thePlayer.walkAndAnimate(2, keyPressed);
+                            thePlayer.walkAndAnimate(2, false);
                             break;
                         case SDL_SCANCODE_D:
                         case SDL_SCANCODE_RIGHT:
-                            thePlayer.walkAndAnimate(3, keyPressed);
+                            thePlayer.walkAndAnimate(3, false);
                             break;
                         default:
                             break;
                     }
-                    
                     break;
 
                 default:

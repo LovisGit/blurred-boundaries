@@ -14,13 +14,12 @@ private:
     int _playerPicture;
     int _walkingDirection;
     std::array<bool, 4> _keysDown;
-    int _cellOnMap;
 
     void nextAnimationCounter();
 
 public:
     Player(const int xCoordinate, const int yCoordinate, const int playerWidth, const int playerHeight, 
-           const int picturesPerAnimation, const int walkingDistance, const int cellOnMap);
+           const int picturesPerAnimation, const int walkingDistance);
 
     int getXCoordinate() const;
     int getYCoordinate() const;

@@ -16,11 +16,10 @@ const int               WINDOW_WIDTH = 1062;
 // player values
 const int               PLAYER_START_X = 1630;
 const int               PLAYER_START_Y = 670;
-const int               PLAYER_WIDTH = 1; //test
-const int               PLAYER_HEIGHT = 1; //test
+const int               PLAYER_WIDTH = 14;
+const int               PLAYER_HEIGHT = 19;     //wahrscheinlich macht es Sinn, die Hoehe nicht so gross wie die echte Hoehe zu machen
 const int               PICTURE_PER_ANIMATION = 4;
 const int               WALKING_DISTANCE = 2;
-const int               PLAYER_START_CELL = 1; //test
 
 // paths for images
 const std::string       BACKGROUND_SURFACEPATH = "../assets/background.jpeg";
