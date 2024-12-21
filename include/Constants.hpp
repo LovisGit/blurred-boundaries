@@ -28,6 +28,6 @@ const std::string       PLAYER_PATH_FRONT = "../assets/player/player";
 const std::string       PLAYER_PATH_BACK = ".png";
 
 // delay for smooth player animation
-const int               DELAY = 80;
+const int               DELAY = 60;
 
 #endif // CONSTANTS_HPP

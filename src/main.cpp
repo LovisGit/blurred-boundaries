@@ -57,38 +57,65 @@ int main(int argc, char* argv[]) {
 
 			    case SDL_KEYDOWN:
 				    // keyboard API for key pressed
-                    keyPressed = true;
+                    if (!event.key.repeat) {
+                        keyPressed = true;
+                        
+                        switch (event.key.keysym.scancode) {
+                            case SDL_SCANCODE_W:
+                            case SDL_SCANCODE_UP:
+                                thePlayer.walkAndAnimate(0, keyPressed);
+                                break;
+                            case SDL_SCANCODE_A:
+                            case SDL_SCANCODE_LEFT:
+                                thePlayer.walkAndAnimate(1, keyPressed);
+                                break;
+                            case SDL_SCANCODE_S:
+                            case SDL_SCANCODE_DOWN:
+                                thePlayer.walkAndAnimate(2, keyPressed);
+                                break;
+                            case SDL_SCANCODE_D:
+                            case SDL_SCANCODE_RIGHT:
+                                thePlayer.walkAndAnimate(3, keyPressed);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                     break;
             
                 case SDL_KEYUP:
                     // keyboard API for key lifted
                     keyPressed = false;
+                    
+                    switch (event.key.keysym.scancode) {
+                        case SDL_SCANCODE_W:
+                        case SDL_SCANCODE_UP:
+                            thePlayer.walkAndAnimate(0, keyPressed);
+                            break;
+                        case SDL_SCANCODE_A:
+                        case SDL_SCANCODE_LEFT:
+                            thePlayer.walkAndAnimate(1, keyPressed);
+                            break;
+                        case SDL_SCANCODE_S:
+                        case SDL_SCANCODE_DOWN:
+                            thePlayer.walkAndAnimate(2, keyPressed);
+                            break;
+                        case SDL_SCANCODE_D:
+                        case SDL_SCANCODE_RIGHT:
+                            thePlayer.walkAndAnimate(3, keyPressed);
+                            break;
+                        default:
+                            break;
+                    }
+                    
                     break;
 
                 default:
                     break;         
 			}
-            switch (event.key.keysym.scancode) {
-				case SDL_SCANCODE_W:
-				case SDL_SCANCODE_UP:
-					thePlayer.walkAndAnimate(0, keyPressed);
-					break;
-				case SDL_SCANCODE_A:
-				case SDL_SCANCODE_LEFT:
-                    thePlayer.walkAndAnimate(1, keyPressed);
-					break;
-				case SDL_SCANCODE_S:
-				case SDL_SCANCODE_DOWN:
-                    thePlayer.walkAndAnimate(2, keyPressed);
-				    break;
-			    case SDL_SCANCODE_D:
-				case SDL_SCANCODE_RIGHT:
-                    thePlayer.walkAndAnimate(3, keyPressed);
-					break;
-				default:
-					break;
-		    }
         }
+
+        thePlayer.walkAndAnimate(-1, true);
 
         // playerimage is being updated
         SDL_DestroyTexture(playerTexture);
