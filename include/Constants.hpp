@@ -3,6 +3,7 @@
 #include <string>
 #include <SDL2/SDL.h> 
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
 #include <memory>
 #include <array>
 
@@ -17,7 +18,7 @@ const int               WINDOW_HEIGHT = 1062;
 const int               PLAYER_START_X = 1630;
 const int               PLAYER_START_Y = 670;
 const int               PLAYER_WIDTH = 14;
-const int               PLAYER_HEIGHT = 19;     //wahrscheinlich macht es Sinn, die Hoehe nicht so gross wie die echte Hoehe zu machen
+const int               PLAYER_HEIGHT = 19;     // it makes sense to not use the real height
 const int               PLAYER_FINISH_X = 588;
 const int               PLAYER_FINISH_Y = 191;
 const int               PLAYER_FINISH_WIDTH = 11;
@@ -30,6 +31,9 @@ const std::string       BACKGROUND_SURFACEPATH = "../assets/background.jpeg";
 const std::string       PLAYER_PATH_FRONT = "../assets/player/player";
 const std::string       PLAYER_PATH_BACK = ".png";
 const std::string       FINISH_PATH = "../assets/finish.png";
+
+// paths for music
+const std::string       BACKGROUND_MUSIC = "../assets/music.mp3";
 
 // delay for smooth player animation
 const int               DELAY = 60;

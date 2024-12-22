@@ -18,6 +18,13 @@ int main(int argc, char* argv[]) {
         printf("error initializing SDL: %s\n", SDL_GetError());
     }
 
+    // initialize music
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+        std::cerr << "Fehler beim Initialisieren von SDL_mixer: " << Mix_GetError() << std::endl;
+    }
+    Mix_Music* backgroundMusic = Mix_LoadMUS(BACKGROUND_MUSIC.c_str());
+    Mix_VolumeMusic(MIX_MAX_VOLUME / 4);
+
     // building the window
     SDL_Window* window = SDL_CreateWindow(  "Blurred Boundaries",
                                             SDL_WINDOWPOS_CENTERED,
@@ -26,7 +33,7 @@ int main(int argc, char* argv[]) {
                                             WINDOW_HEIGHT, 
                                             0);
 
-    // more initializations
+    // more initializations of the background, player and finish
     Uint32          render_flags        = SDL_RENDERER_ACCELERATED;
     SDL_Renderer*   rend                = SDL_CreateRenderer(window, -1, render_flags);
     SDL_Surface*    backgroundSurface   = IMG_Load(BACKGROUND_SURFACEPATH.c_str());
@@ -52,9 +59,12 @@ int main(int argc, char* argv[]) {
     playerRect.x = thePlayer.getXCoordinate();
     playerRect.y = thePlayer.getYCoordinate();
 
-    // set the finishposition in the middle of the window
+    // set the position of the finish in the middle of the window
     finishRect.x = (WINDOW_WIDTH / 2) - (finishRect.w / 2);
     finishRect.y = (WINDOW_HEIGHT / 2) - (finishRect.h / 2);
+
+    // play the background music
+    Mix_PlayMusic(backgroundMusic, -1);
 
     bool running = true;
     bool reachedFinish = false;
@@ -98,6 +108,7 @@ int main(int argc, char* argv[]) {
                     break;
 
                 case SDL_KEYUP:
+                    // handle key releases only if the game is not in "finished" state
                     if (!reachedFinish) {
                         switch (event.key.keysym.scancode) {
                             case SDL_SCANCODE_W:
@@ -177,6 +188,10 @@ int main(int argc, char* argv[]) {
 
 	// destroy window
 	SDL_DestroyWindow(window);
+
+    // free music
+    Mix_FreeMusic(backgroundMusic);
+    Mix_CloseAudio();
 	
 	// close SDL
 	SDL_Quit();
