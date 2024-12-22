@@ -1,6 +1,13 @@
 #include "../include/Constants.hpp"
 #include "../include/Player.hpp"
 
+bool playerReachedFinish(const Player& thePlayer) {
+    return !(thePlayer.getXCoordinate() + PLAYER_WIDTH <= PLAYER_FINISH_X ||            // player ist left of finish
+             thePlayer.getXCoordinate() >= PLAYER_FINISH_X + PLAYER_FINISH_WIDTH ||     // player ist right of finish
+             thePlayer.getYCoordinate() + PLAYER_FINISH_HEIGHT <= PLAYER_FINISH_Y ||    // player is above finish
+             thePlayer.getYCoordinate() >= PLAYER_FINISH_Y + PLAYER_FINISH_HEIGHT);    // player is below finish
+}
+
 int main(int argc, char* argv[]) {
 
     // initialization of the player object
@@ -24,15 +31,20 @@ int main(int argc, char* argv[]) {
     SDL_Renderer*   rend                = SDL_CreateRenderer(window, -1, render_flags);
     SDL_Surface*    backgroundSurface   = IMG_Load(BACKGROUND_SURFACEPATH.c_str());
     SDL_Surface*    playerSurface       = IMG_Load((PLAYER_PATH_FRONT + std::to_string(thePlayer.getPlayerPicture()) + PLAYER_PATH_BACK).c_str());
+    SDL_Surface*    finishSurface       = IMG_Load(FINISH_PATH.c_str());
     SDL_Texture*    backgroundTexture   = SDL_CreateTextureFromSurface(rend, backgroundSurface);
     SDL_Texture*    playerTexture       = SDL_CreateTextureFromSurface(rend, playerSurface);
+    SDL_Texture*    finishTexture       = SDL_CreateTextureFromSurface(rend, finishSurface);
     SDL_Rect        backgroundRect;
     SDL_Rect        playerRect;
+    SDL_Rect        finishRect;
     
     SDL_FreeSurface(backgroundSurface);
     SDL_FreeSurface(playerSurface);
+    SDL_FreeSurface(finishSurface);
     SDL_QueryTexture(backgroundTexture, NULL, NULL, &backgroundRect.w, &backgroundRect.h);
     SDL_QueryTexture(playerTexture, NULL, NULL, &playerRect.w, &playerRect.h);
+    SDL_QueryTexture(finishTexture, NULL, NULL, &finishRect.w, &finishRect.h);
 
     // set the startposition of the background and player
     backgroundRect.x = 0;
@@ -40,23 +52,28 @@ int main(int argc, char* argv[]) {
     playerRect.x = thePlayer.getXCoordinate();
     playerRect.y = thePlayer.getYCoordinate();
 
+    // set the finishposition in the middle of the window
+    finishRect.x = (WINDOW_WIDTH / 2) - (finishRect.w / 2);
+    finishRect.y = (WINDOW_HEIGHT / 2) - (finishRect.h / 2);
+
     bool running = true;
+    bool reachedFinish = false;
 
     // game loop 
     while (running) {
         SDL_Event event;
 
-		// events management
-		while (SDL_PollEvent(&event)) {
-			switch (event.type) {
-			    case SDL_QUIT:
-				    // handling of close button
-				    running = false;
-				    break;
+        // events management
+        while (SDL_PollEvent(&event)) {
+            switch (event.type) {
+                case SDL_QUIT:
+                    // handling of close button
+                    running = false;
+                    break;
 
-			    case SDL_KEYDOWN:
-				    // keyboard API for key pressed
-                    if (!event.key.repeat) {
+                case SDL_KEYDOWN:
+                    // handle key presses only if the game is not in "finished" state
+                    if (!event.key.repeat && !reachedFinish) {
                         switch (event.key.keysym.scancode) {
                             case SDL_SCANCODE_W:
                             case SDL_SCANCODE_UP:
@@ -79,54 +96,69 @@ int main(int argc, char* argv[]) {
                         }
                     }
                     break;
-            
+
                 case SDL_KEYUP:
-                    // keyboard API for key lifted
-                    switch (event.key.keysym.scancode) {
-                        case SDL_SCANCODE_W:
-                        case SDL_SCANCODE_UP:
-                            thePlayer.walkAndAnimate(0, false);
-                            break;
-                        case SDL_SCANCODE_A:
-                        case SDL_SCANCODE_LEFT:
-                            thePlayer.walkAndAnimate(1, false);
-                            break;
-                        case SDL_SCANCODE_S:
-                        case SDL_SCANCODE_DOWN:
-                            thePlayer.walkAndAnimate(2, false);
-                            break;
-                        case SDL_SCANCODE_D:
-                        case SDL_SCANCODE_RIGHT:
-                            thePlayer.walkAndAnimate(3, false);
-                            break;
-                        default:
-                            break;
+                    if (!reachedFinish) {
+                        switch (event.key.keysym.scancode) {
+                            case SDL_SCANCODE_W:
+                            case SDL_SCANCODE_UP:
+                                thePlayer.walkAndAnimate(0, false);
+                                break;
+                            case SDL_SCANCODE_A:
+                            case SDL_SCANCODE_LEFT:
+                                thePlayer.walkAndAnimate(1, false);
+                                break;
+                            case SDL_SCANCODE_S:
+                            case SDL_SCANCODE_DOWN:
+                                thePlayer.walkAndAnimate(2, false);
+                                break;
+                            case SDL_SCANCODE_D:
+                            case SDL_SCANCODE_RIGHT:
+                                thePlayer.walkAndAnimate(3, false);
+                                break;
+                            default:
+                                break;
+                        }
                     }
                     break;
 
                 default:
                     break;         
-			}
+            }
         }
 
-        thePlayer.walkAndAnimate(-1, true);
+        if (!reachedFinish) {
+            thePlayer.walkAndAnimate(-1, true);
 
-        // playerimage is being updated
-        SDL_DestroyTexture(playerTexture);
-        playerSurface = IMG_Load((PLAYER_PATH_FRONT + std::to_string(thePlayer.getPlayerPicture()) + PLAYER_PATH_BACK).c_str());
-        playerTexture = SDL_CreateTextureFromSurface(rend, playerSurface);
-        SDL_FreeSurface(playerSurface);
+            // player image is being updated
+            SDL_DestroyTexture(playerTexture);
+            playerSurface = IMG_Load((PLAYER_PATH_FRONT + std::to_string(thePlayer.getPlayerPicture()) + PLAYER_PATH_BACK).c_str());
+            playerTexture = SDL_CreateTextureFromSurface(rend, playerSurface);
+            SDL_FreeSurface(playerSurface);
 
-        // update the player coordinates
-        playerRect.x = thePlayer.getXCoordinate();
-        playerRect.y = thePlayer.getYCoordinate();
-        
-        // set the background
+            // update the player coordinates
+            playerRect.x = thePlayer.getXCoordinate();
+            playerRect.y = thePlayer.getYCoordinate();
+        }
+
+        // check if the player has reached the finish
+        if (playerReachedFinish(thePlayer)) {
+            reachedFinish = true;
+        }
+
+        // clear the renderer
         SDL_RenderClear(rend);
 
-        // draw the background and player
+        // draw the background
         SDL_RenderCopy(rend, backgroundTexture, NULL, &backgroundRect);
-        SDL_RenderCopy(rend, playerTexture, NULL, &playerRect);
+
+        if (reachedFinish) {
+            // draw the finish and a "game over" state
+            SDL_RenderCopy(rend, finishTexture, NULL, &finishRect);
+        } else {
+            // draw the player
+            SDL_RenderCopy(rend, playerTexture, NULL, &playerRect);
+        }
 
         // update the screen
         SDL_RenderPresent(rend);
@@ -135,9 +167,10 @@ int main(int argc, char* argv[]) {
         SDL_Delay(DELAY);
     }
 
-	// destroy texture of background and player
+	// destroy texture of background, player and finish
 	SDL_DestroyTexture(backgroundTexture);
     SDL_DestroyTexture(playerTexture);
+    SDL_DestroyTexture(finishTexture);
 
 	// destroy renderer
 	SDL_DestroyRenderer(rend);
