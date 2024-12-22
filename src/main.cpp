@@ -5,7 +5,7 @@ bool playerReachedFinish(const Player& thePlayer) {
     return !(thePlayer.getXCoordinate() + PLAYER_WIDTH <= PLAYER_FINISH_X ||            // player ist left of finish
              thePlayer.getXCoordinate() >= PLAYER_FINISH_X + PLAYER_FINISH_WIDTH ||     // player ist right of finish
              thePlayer.getYCoordinate() + PLAYER_FINISH_HEIGHT <= PLAYER_FINISH_Y ||    // player is above finish
-             thePlayer.getYCoordinate() >= PLAYER_FINISH_Y + PLAYER_FINISH_HEIGHT);    // player is below finish
+             thePlayer.getYCoordinate() >= PLAYER_FINISH_Y + PLAYER_FINISH_HEIGHT);     // player is below finish
 }
 
 int main(int argc, char* argv[]) {
