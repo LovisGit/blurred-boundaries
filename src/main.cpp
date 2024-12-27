@@ -1,5 +1,6 @@
 #include "../include/Constants.hpp"
 #include "../include/Player.hpp"
+#include "../include/Camera.hpp"
 
 bool playerReachedFinish(const Player& thePlayer) {
     return !(thePlayer.getXCoordinate() + PLAYER_WIDTH <= PLAYER_FINISH_X ||            // player ist left of finish
@@ -9,21 +10,13 @@ bool playerReachedFinish(const Player& thePlayer) {
 }
 
 int main(int argc, char* argv[]) {
-
-    // initialization of the player object
-    Player thePlayer = Player(PLAYER_START_X, PLAYER_START_Y, PLAYER_WIDTH, PLAYER_HEIGHT, PICTURE_PER_ANIMATION, WALKING_DISTANCE);
-    
     // looking after problems in the initialization
-    if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+    if(SDL_Init(SDL_INIT_EVERYTHING) != 0)
         printf("error initializing SDL: %s\n", SDL_GetError());
-    }
-
+    
     // initialize music
-    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
-        std::cerr << "Fehler beim Initialisieren von SDL_mixer: " << Mix_GetError() << std::endl;
-    }
-    Mix_Music* backgroundMusic = Mix_LoadMUS(BACKGROUND_MUSIC.c_str());
-    Mix_VolumeMusic(MIX_MAX_VOLUME / 4);
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+        printf("error initializing SDL_mixer: %s\n", Mix_GetError());
 
     // building the window
     SDL_Window* window = SDL_CreateWindow(  "Blurred Boundaries",
@@ -37,6 +30,7 @@ int main(int argc, char* argv[]) {
     Uint32          render_flags        = SDL_RENDERER_ACCELERATED;
     SDL_Renderer*   rend                = SDL_CreateRenderer(window, -1, render_flags);
     SDL_Surface*    backgroundSurface   = IMG_Load(BACKGROUND_SURFACEPATH.c_str());
+    Player          thePlayer(PLAYER_START_X, PLAYER_START_Y, PLAYER_WIDTH, PLAYER_HEIGHT, PICTURE_PER_ANIMATION, WALKING_DISTANCE);
     SDL_Surface*    playerSurface       = IMG_Load((PLAYER_PATH_FRONT + std::to_string(thePlayer.getPlayerPicture()) + PLAYER_PATH_BACK).c_str());
     SDL_Surface*    finishSurface       = IMG_Load(FINISH_PATH.c_str());
     SDL_Texture*    backgroundTexture   = SDL_CreateTextureFromSurface(rend, backgroundSurface);
@@ -45,6 +39,8 @@ int main(int argc, char* argv[]) {
     SDL_Rect        backgroundRect;
     SDL_Rect        playerRect;
     SDL_Rect        finishRect;
+    Mix_Music*      backgroundMusic = Mix_LoadMUS(BACKGROUND_MUSIC.c_str());
+    
     
     SDL_FreeSurface(backgroundSurface);
     SDL_FreeSurface(playerSurface);
@@ -53,11 +49,15 @@ int main(int argc, char* argv[]) {
     SDL_QueryTexture(playerTexture, NULL, NULL, &playerRect.w, &playerRect.h);
     SDL_QueryTexture(finishTexture, NULL, NULL, &finishRect.w, &finishRect.h);
 
+    // depends on Query Texture
+    Camera          theCamera(&thePlayer, &playerRect, ZOOM); 
+
+    Mix_VolumeMusic(MIX_MAX_VOLUME / 4);
+    Mix_PlayMusic(backgroundMusic, -1);
+    
     // set the startposition of the background and player
     backgroundRect.x = 0;
     backgroundRect.y = 0;
-    playerRect.x = thePlayer.getXCoordinate();
-    playerRect.y = thePlayer.getYCoordinate();
 
     // set the position of the finish in the middle of the window
     finishRect.x = (WINDOW_WIDTH / 2) - (finishRect.w / 2);
@@ -146,30 +146,25 @@ int main(int argc, char* argv[]) {
             playerSurface = IMG_Load((PLAYER_PATH_FRONT + std::to_string(thePlayer.getPlayerPicture()) + PLAYER_PATH_BACK).c_str());
             playerTexture = SDL_CreateTextureFromSurface(rend, playerSurface);
             SDL_FreeSurface(playerSurface);
-
-            // update the player coordinates
-            playerRect.x = thePlayer.getXCoordinate();
-            playerRect.y = thePlayer.getYCoordinate();
         }
 
         // check if the player has reached the finish
-        if (playerReachedFinish(thePlayer)) {
+        if (playerReachedFinish(thePlayer))
             reachedFinish = true;
-        }
+
+        // update camera 
+        theCamera.updateCamera(); 
 
         // clear the renderer
         SDL_RenderClear(rend);
 
         // draw the background
-        SDL_RenderCopy(rend, backgroundTexture, NULL, &backgroundRect);
+        SDL_RenderCopy(rend, backgroundTexture, &theCamera.getCameraRect(), &backgroundRect);
 
-        if (reachedFinish) {
-            // draw the finish and a "game over" state
+        if (reachedFinish) 
             SDL_RenderCopy(rend, finishTexture, NULL, &finishRect);
-        } else {
-            // draw the player
+        else
             SDL_RenderCopy(rend, playerTexture, NULL, &playerRect);
-        }
 
         // update the screen
         SDL_RenderPresent(rend);
@@ -178,22 +173,14 @@ int main(int argc, char* argv[]) {
         SDL_Delay(DELAY);
     }
 
-	// destroy texture of background, player and finish
+	// destroy / reset stuff
 	SDL_DestroyTexture(backgroundTexture);
     SDL_DestroyTexture(playerTexture);
     SDL_DestroyTexture(finishTexture);
-
-	// destroy renderer
 	SDL_DestroyRenderer(rend);
-
-	// destroy window
 	SDL_DestroyWindow(window);
-
-    // free music
     Mix_FreeMusic(backgroundMusic);
     Mix_CloseAudio();
-	
-	// close SDL
 	SDL_Quit();
 
     return 0;

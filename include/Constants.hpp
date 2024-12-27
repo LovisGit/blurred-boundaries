@@ -38,4 +38,7 @@ const std::string       BACKGROUND_MUSIC = "../assets/music.mp3";
 // delay for smooth player animation
 const int               DELAY = 60;
 
+// zoom 
+const float             ZOOM = 8.0f; 
+
 #endif // CONSTANTS_HPP

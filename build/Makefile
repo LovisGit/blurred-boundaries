@@ -14,7 +14,7 @@ SRC_DIR := ../src
 BUILD_DIR := objects/
 
 # Quellcode-Dateien
-SRCS := $(SRC_DIR)/main.cpp $(SRC_DIR)/player.cpp
+SRCS := $(SRC_DIR)/main.cpp $(SRC_DIR)/player.cpp $(SRC_DIR)/camera.cpp
 
 # Objektdateien (ersetze Pfad von .cpp durch .o im Build-Verzeichnis)
 #OBJS := $(SRCS:../src/%.cpp=objects/%.o)
