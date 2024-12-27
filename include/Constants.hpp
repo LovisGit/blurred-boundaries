@@ -12,12 +12,13 @@
 #define CONSTANTS_HPP
 
 // windowsize
-const int               WINDOW_WIDTH = 1792;
-const int               WINDOW_HEIGHT = 1062;
+const int               SIZE = 170;
+const int               WINDOW_WIDTH = 16*SIZE;
+const int               WINDOW_HEIGHT = 9*SIZE;
 
 // player values
-const int               PLAYER_START_X = 1630;
-const int               PLAYER_START_Y = 670;
+const int               PLAYER_START_X = WINDOW_WIDTH - 360;
+const int               PLAYER_START_Y = WINDOW_HEIGHT - 500;
 const int               PLAYER_WIDTH = 14;
 const int               PLAYER_HEIGHT = 19;     // it makes sense to not use the real height
 const int               PLAYER_FINISH_X = 588;
