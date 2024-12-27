@@ -17,11 +17,10 @@ private:
     int _currentCell;
     std::array<bool, 4> _keysDown;
 
-    ObjectAdministrator theObjectAdministrator;
-
     ObjectAdministrator derVerwalter;
     
     void nextAnimationCounter();
+    bool pruefeCollision(int richtung);
 
 public:
     Player(const int xCoordinate, const int yCoordinate, const int playerWidth, const int playerHeight, 

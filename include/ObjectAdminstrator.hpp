@@ -60,7 +60,7 @@ inline std::vector<std::vector<int>> readObjectsFromFile(const std::string& file
 
     if (!file.is_open()) {
         std::cerr << "Fehler: Datei konnte nicht geöffnet werden: " << filename << std::endl;
-        return result;
+        return result; 
     }
 
     std::string line;

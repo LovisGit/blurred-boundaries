@@ -10,20 +10,21 @@
 #define CONSTANTS_HPP
 
 // windowsize
-const int               WINDOW_HEIGHT = 1792;
-const int               WINDOW_WIDTH = 1062;
+const int               WINDOW_HEIGHT = 1062;
+const int               WINDOW_WIDTH = 1792;
 
 // player values
 const int               PLAYER_START_X = 1630;
 const int               PLAYER_START_Y = 670;
-const int               PLAYER_WIDTH = 1; //test
-const int               PLAYER_HEIGHT = 1; //test
+const int               PLAYER_WIDTH = 15; //test
+const int               PLAYER_HEIGHT = 27; //test
 const int               PICTURE_PER_ANIMATION = 3;
-const int               WALKING_DISTANCE = 2;
-const int               PLAYER_START_CELL = 1; //test
+const int               WALKING_DISTANCE = 10;
+const int               numberOfColumns = 2;
+const int               numberOfRows = 2;
 
 // paths for images
-const std::string       BACKGROUND_SURFACEPATH = "../assets/background.jpeg";
+const std::string       BACKGROUND_SURFACEPATH = "../assets/background2.jpeg";
 const std::string       PLAYER_PATH_FRONT = "../assets/player/position";
 const std::string       PLAYER_PATH_BACK = ".png";
 

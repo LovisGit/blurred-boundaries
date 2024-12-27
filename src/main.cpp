@@ -35,8 +35,8 @@ int main(int argc, char* argv[]) {
     SDL_QueryTexture(playerTexture, NULL, NULL, &playerRect.w, &playerRect.h);
 
     // set the startposition of the background and player
-    backgroundRect.x = 0;
-    backgroundRect.y = 0;
+    backgroundRect.x = 500;
+    backgroundRect.y = 200;
     playerRect.x = thePlayer.getXCoordinate();
     playerRect.y = thePlayer.getYCoordinate();
 

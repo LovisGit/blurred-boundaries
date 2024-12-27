@@ -3,6 +3,7 @@
 
 
 ObjectAdministrator::ObjectAdministrator(int windowHeight, int windowWidth, int anzColumns, int anzRows, int playerXPos, int playerYPos, int& startZelle){
+    
     _rowSize = windowWidth/anzRows;
     _columnSize = windowHeight/anzColumns;
 
@@ -26,11 +27,12 @@ ObjectAdministrator::ObjectAdministrator(int windowHeight, int windowWidth, int 
     int cellRow = static_cast<int>(playerYPos / _columnSize); // Zeilenindex
     int cellCol = static_cast<int>(playerXPos / _rowSize); // Spaltenindex
 
-    startZelle = cellRow * anzColumns + cellCol;           //Startzelle des Spielers
+    startZelle = cellRow * anzRows + cellCol;           //Startzelle des Spielers
 }
 
 void ObjectAdministrator::assignObjects(){
-    std::vector<std::vector<int>> obstacles = readObjectsFromFile("Werte.txt");
+
+    std::vector<std::vector<int>> obstacles = readObjectsFromFile("../include/Werte.txt");
 
     // obstacles[i][0] = X-Koordinate des Objekts i
     // obstacles[i][1] = Y-Koordiante des Objekts i
@@ -42,22 +44,30 @@ void ObjectAdministrator::assignObjects(){
     int temp1 = obstacles.size();
     int temp2 = _dasGrid.size();
 
+    bool discoveredFirstCellWithObject = false;
     for (int i = 0; i < temp1; i++) {
         zaehlerSeitLetzterZelle = 0;
         for (int j = 0; j < temp2; j++) {
             // Überprüfe, ob die Zelle mit dem Objekt überlappt
             if (checkOverlap(_dasGrid[j], obstacles[i][0], obstacles[i][1], obstacles[i][2], obstacles[i][3])) {
                 _dasGrid[j].addObject(Object(obstacles[i]));
+                discoveredFirstCellWithObject = true;
                 zaehlerSeitLetzterZelle = 0;
             }
             else{
                 zaehlerSeitLetzterZelle++;
             }
 
-            if(zaehlerSeitLetzterZelle >= _anzRowsPerColumn){
+            if(zaehlerSeitLetzterZelle >= _anzRowsPerColumn && discoveredFirstCellWithObject){
                 break;
             }
         }
+        discoveredFirstCellWithObject = false;
+    }
+
+    for (Object const& person : _dasGrid[0]._surroundingObjects)
+    {
+        std::cout << 1 << ' ';
     }
 }
 
@@ -70,18 +80,19 @@ bool ObjectAdministrator::checkOverlap(const Zelle& dieZelle, int posX, int posY
 
 
 int ObjectAdministrator::neueZelleErreicht(int idxVorher, int angrenzendeZelle){  //Figur erreicht das Ende der begangenen Zelle 
- switch (angrenzendeZelle) {
-    case 0:     //rechts
-        return idxVorher++;
-    case 1:     //links
-        return idxVorher--;
-    case 2:     //oben
-        return idxVorher-_rowSize;
-    case 3:     //unten
-        return idxVorher+_rowSize;
+  switch (angrenzendeZelle) {
+    case 0: // rechts
+        return ++idxVorher;
+    case 1: // links
+        return --idxVorher;
+    case 2: // oben
+        return idxVorher - _anzRowsPerColumn;
+    case 3: // unten
+        return idxVorher + _anzRowsPerColumn;
     default:
         return idxVorher;
  }
+
 }
 
 int ObjectAdministrator::checkNeueZelle(int playerXPos, int playerYPos, int playerWidht, int playerHeight ,int idxZelle){
@@ -106,32 +117,30 @@ bool ObjectAdministrator::checkCollision(int playerXPos, int playerYPos, int pla
 
     std::vector<int> dieZellen = felderZuPruefen(idxZelle, richtung);
 
-     int temp1 = _dasGrid.size();
-     int temp2 = dieZellen.size();
+    for(int i = 0; i < dieZellen.size(); i++){
 
-    for(int i = 0; i < temp2; i++){
-        if(dieZellen[i] < 0 || dieZellen[i] >= temp1) 
+        if(dieZellen[i] < 0 || dieZellen[i] >= _dasGrid.size()) 
             continue;               //Wenn adressierte Zellen sich nicht im Grid aufhalten überspringe die Iteration zur nächsten, da negativ oder zu groß
-
+            
         for (const Object& value : _dasGrid[dieZellen[i]]._surroundingObjects) {
-            if(value.checkCollision(playerXPos, playerYPos, playerWidht, playerHeight, xBewegung, yBewegung, richtung)){
-                return true;                //Kollision erkannt
-            }
+           if(value.checkCollision(playerXPos, playerYPos, playerWidht, playerHeight, xBewegung, yBewegung, richtung)){
+            return true;
+           }
         }
-    }
-    return false;                         //Keine Kollision erkannt
+    }    
+    return false;                   //Keine Kollision erkannt
 }
 
 std::vector<int> ObjectAdministrator::felderZuPruefen(int idxVorher, int richtung){
     switch (richtung){
         case 0:     //rechts
-            return {idxVorher, idxVorher + 1, idxVorher + 1 + _rowSize, idxVorher + 1 - _rowSize};
+            return {idxVorher, idxVorher + 1, idxVorher + 1 + _anzRowsPerColumn, idxVorher + 1 - _anzRowsPerColumn};
         case 1:     //links
-            return {idxVorher, idxVorher -1 , idxVorher - 1 + _rowSize, idxVorher - 1 - _rowSize};
+            return {idxVorher, idxVorher -1 , idxVorher - 1 + _anzRowsPerColumn, idxVorher - 1 - _anzRowsPerColumn};
         case 2:     //oben
-            return {idxVorher, idxVorher - _rowSize, idxVorher + 1 - _rowSize, idxVorher - 1 - _rowSize};
+            return {idxVorher, idxVorher - _anzRowsPerColumn, idxVorher + 1 - _anzRowsPerColumn, idxVorher - 1 - _anzRowsPerColumn};
         case 3:     //unten
-            return {idxVorher, idxVorher + _rowSize, idxVorher + 1 + _rowSize, idxVorher - 1 + _rowSize};
+            return {idxVorher, idxVorher + _anzRowsPerColumn, idxVorher + 1 + _anzRowsPerColumn, idxVorher - 1 + _anzRowsPerColumn};
         default:
             return {0,0,0,0};    
     }
@@ -140,7 +149,6 @@ std::vector<int> ObjectAdministrator::felderZuPruefen(int idxVorher, int richtun
 ObjectAdministrator::ObjectAdministrator() {
     // Nichts zu sehen, nur ein Konstruktor der rein gar nichts macht
 }
-
 
 //Struct-Operationen
 
@@ -154,76 +162,3 @@ void ObjectAdministrator::Zelle::addObject(const Object& neuesObjekt){
 ObjectAdministrator::Zelle::Zelle() {
     //Pure Leere
 }
-
-/* Sicherheitshalber wird provisorischer Code hier gesaved:
-
-void ObjectAdministrator::assignObjects(){
-//Hier Code um Objekte in die jeweiligen Raster reinzustecken, mit Textliste. Vorerst als Test, werde ich manuell ein paar Objekte reinschreiben zum Test, später wird das allgemein gemacht
-
-std::vector<std::vector<int>> obstacles = readObjectsFromFiledffsfafdc("Werte.txt");
-
-                                                //obstacles[i][0] = X-Koordinate des Objekts i
-                                                //obstacles[i][1] = Y-Koordiante des Objekts i
-                                                //obstacles[i][2] = Breite des Objekts i
-                                                //obstacles[i][3] = Höhe des Objekts i
-
- for(int i = 0; i < obstacles.size(); i++){
-    for(int j = 0; j < _dasGrid.size(); j++){
-        if(_dasGrid[j].xZellenPos <= obstacles[i][0] && _dasGrid[j].xZellenPos + rowSize >= obstacles[i][0] && _dasGrid[j].yZellenPos <= obstacles[i][1] && _dasGrid[j].yZellenPos + columnSize >= obstacles[i][1]){
-            _dasGrid[j].addObject(Object(obstacles[i])); //Koordianten erkannt, Objekt befindet sich in Zelle
-
-            if(_dasGrid[j].xZellenPos + rowSize >= obstacles[i][0] + obstacles[i][2] && _dasGrid[j].yZellenPos + columnSize >= obstacles[i][1] + obstacles[i][3]){
-                break;
-            }
-        }
-
-        if (_dasGrid[j].xZellenPos > obstacles[i][0] && _dasGrid[j].xZellenPos <= obstacles[i][0] + obstacles[i][2]){
-            if(_dasGrid[j].yZellenPos <= obstacles[i][1] + obstacles[i][3] && _dasGrid[j].yZellenPos + columnSize >= obstacles[i][1] +  obstacles[i][3] ){
-                _dasGrid[j].addObject(Object(obstacles[i])); //Koordianten erkannt, Objekt befindet sich in Zelle
-
-                if(_dasGrid[j].xZellenPos + rowSize >= obstacles[i][0] + obstacles[i][2]){
-                    break;
-                }
-            }
-
-            if(_dasGrid[j].yZellenPos <= obstacles[i][1] && _dasGrid[j].yZellenPos + columnSize >= obstacles[i][1]){
-                _dasGrid[j].addObject(Object(obstacles[i])); //Koordianten erkannt, Objekt befindet sich in Zelle
-
-                if(_dasGrid[j].xZellenPos + rowSize >= obstacles[i][0] + obstacles[i][2]){
-                    break;
-                }
-            }
-
-        }
-
-
-        if (_dasGrid[j].yZellenPos > obstacles[i][1] && _dasGrid[j].yZellenPos <= obstacles[i][1] + obstacles[i][3]){
-            
-            if(_dasGrid[j].xZellenPos <= obstacles[i][0] + obstacles[i][2] && _dasGrid[j].xZellenPos + rowSize >= obstacles[i][0] +  obstacles[i][2]){
-                _dasGrid[j].addObject(Object(obstacles[i])); //Koordianten erkannt, Objekt befindet sich in Zelle
-
-                if(_dasGrid[j].yZellenPos + columnSize >= obstacles[i][1] + obstacles[i][3]){
-                    break;
-                }
-            }
-            
-            if(_dasGrid[j].xZellenPos <= obstacles[i][0] && _dasGrid[j].xZellenPos + rowSize >= obstacles[i][0]){
-                _dasGrid[j].addObject(Object(obstacles[i])); //Koordianten erkannt, Objekt befindet sich in Zelle
-
-                if(_dasGrid[j].yZellenPos + columnSize >= obstacles[i][1] + obstacles[i][3]){
-                    break;
-                }
-            }
-
-        }
-
-
-    }
-  }
-}
-
-
-
-
-
-*/
