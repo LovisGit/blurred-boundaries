@@ -17,14 +17,14 @@ const int               WINDOW_WIDTH = 16*SIZE;
 const int               WINDOW_HEIGHT = 9*SIZE;
 
 // player values
-const int               PLAYER_START_X = WINDOW_WIDTH - 360;
-const int               PLAYER_START_Y = WINDOW_HEIGHT - 500;
+const int               PLAYER_START_X = WINDOW_WIDTH - 360;//850;
+const int               PLAYER_START_Y = WINDOW_HEIGHT - 500;//250;
 const int               PLAYER_WIDTH = 14;
 const int               PLAYER_HEIGHT = 19;     // it makes sense to not use the real height
-const int               PLAYER_FINISH_X = 588;
-const int               PLAYER_FINISH_Y = 191;
-const int               PLAYER_FINISH_WIDTH = 11;
-const int               PLAYER_FINISH_HEIGHT = 11;
+const int               PLAYER_FINISH_X = 916;
+const int               PLAYER_FINISH_Y = 305;
+const int               PLAYER_FINISH_WIDTH = 5;
+const int               PLAYER_FINISH_HEIGHT = 20;
 const int               PICTURE_PER_ANIMATION = 4;
 const int               WALKING_DISTANCE = 2;
 
@@ -45,6 +45,10 @@ const int               FONT_SIZE = 50;
 const int               DELAY = 60;
 
 // zoom 
-const float             ZOOM = 8.0f; 
+const float             ZOOM = 8.0f; // 8.0f is default 
+
+// shadow
+const int               SHADOW_OFFSET = 2; // bigger parameter results in smaller offset
+const int               SHADOW_DENSITY = 150;
 
 #endif // CONSTANTS_HPP

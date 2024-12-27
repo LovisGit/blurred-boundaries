@@ -55,8 +55,7 @@ int main(int argc, char* argv[]) {
     TTF_Font*       font = TTF_OpenFont(FONT_PATH.c_str(), FONT_SIZE);
     SDL_Color       textColor = {255, 255, 255, 255};
     SDL_Surface*    textSurface = TTF_RenderText_Solid(font, name, textColor);
-    SDL_Texture*    textTexture = SDL_CreateTextureFromSurface(rend, textSurface);    
-    
+    SDL_Texture*    textTexture = SDL_CreateTextureFromSurface(rend, textSurface);     
     SDL_FreeSurface(backgroundSurface);
     SDL_FreeSurface(playerSurface);
     SDL_FreeSurface(finishSurface);
@@ -80,6 +79,45 @@ int main(int argc, char* argv[]) {
 
     // play the background music
     Mix_PlayMusic(backgroundMusic, -1);
+
+    // create shadow surface with alpha channel support
+    SDL_Surface* shadowSurface = SDL_CreateRGBSurface(0, playerRect.w, playerRect.h/2, 32,
+        0xFF000000,  // R mask
+        0x00FF0000,  // G mask
+        0x0000FF00,  // B mask
+        0x000000FF); // A mask
+
+    // clear surface first
+    SDL_FillRect(shadowSurface, NULL, SDL_MapRGBA(shadowSurface->format, 0, 0, 0, 0));
+
+    SDL_LockSurface(shadowSurface);
+    Uint32* pixels = (Uint32*)shadowSurface->pixels;
+    int centerX = shadowSurface->w / 2;
+    int centerY = shadowSurface->h / 2;
+    int radiusX = shadowSurface->w / 2;
+    int radiusY = shadowSurface->h / 2;
+
+    for(int y = 0; y < shadowSurface->h; y++) {
+        for(int x = 0; x < shadowSurface->w; x++) {
+            float normalizedX = (float)(x - centerX) / radiusX;
+            float normalizedY = (float)(y - centerY) / radiusY;
+            if(normalizedX * normalizedX + normalizedY * normalizedY <= 1.0f) {
+                float distance = sqrt(normalizedX * normalizedX + normalizedY * normalizedY);
+                Uint8 alpha = (Uint8)(SHADOW_DENSITY * (1.0f - distance)); // Fade from center
+                pixels[y * shadowSurface->w + x] = SDL_MapRGBA(shadowSurface->format, 0, 0, 0, alpha);
+            }
+        }
+    }
+    SDL_UnlockSurface(shadowSurface);
+
+    // create texture and set blend mode
+    SDL_Texture* shadowTexture = SDL_CreateTextureFromSurface(rend, shadowSurface);
+    SDL_SetTextureBlendMode(shadowTexture, SDL_BLENDMODE_BLEND);
+    SDL_FreeSurface(shadowSurface);
+
+    // after creating shadow texture, create shadow rect
+    SDL_Rect shadowRect = playerRect;
+    shadowRect.y += playerRect.h - (playerRect.h / SHADOW_OFFSET); // Position shadow below player
 
     bool running = true;
     bool reachedFinish = false;
@@ -178,8 +216,17 @@ int main(int argc, char* argv[]) {
 
         if (reachedFinish) 
             SDL_RenderCopy(rend, finishTexture, NULL, &finishRect);
-        else
+        else {
+            // Update shadow position to follow player
+            shadowRect.x = playerRect.x;
+            shadowRect.y = playerRect.y + (playerRect.h / SHADOW_OFFSET);
+
+            // Render shadow first (before player)
+            SDL_RenderCopy(rend, shadowTexture, NULL, &shadowRect);
+
+            // Then render player as normal
             SDL_RenderCopy(rend, playerTexture, NULL, &playerRect);
+        }
         
         // render the text
         SDL_Rect textRect = {
@@ -201,6 +248,7 @@ int main(int argc, char* argv[]) {
 	SDL_DestroyTexture(backgroundTexture);
     SDL_DestroyTexture(playerTexture);
     SDL_DestroyTexture(finishTexture);
+    SDL_DestroyTexture(shadowTexture);
 	SDL_DestroyRenderer(rend);
 	SDL_DestroyWindow(window);
     SDL_FreeSurface(textSurface);
