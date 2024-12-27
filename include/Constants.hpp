@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h> 
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_ttf.h>
 #include <memory>
 #include <array>
 
@@ -34,6 +35,10 @@ const std::string       FINISH_PATH = "../assets/finish.png";
 
 // paths for music
 const std::string       BACKGROUND_MUSIC = "../assets/music.mp3";
+
+// font settings
+const std::string       FONT_PATH = "../assets/robotoFont.ttf";
+const int               FONT_SIZE = 50;      
 
 // delay for smooth player animation
 const int               DELAY = 60;

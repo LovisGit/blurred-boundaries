@@ -10,13 +10,25 @@ bool playerReachedFinish(const Player& thePlayer) {
 }
 
 int main(int argc, char* argv[]) {
+    if (argc < 2) {
+        printf("Please provide a Name for the Player\n");
+        return -1;
+    }
     // looking after problems in the initialization
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0)
         printf("error initializing SDL: %s\n", SDL_GetError());
     
+    // initialize font handling
+    if(TTF_Init() != 0)
+        printf("error initializing SDL_ttf: %s\n", TTF_GetError());
+
     // initialize music
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
         printf("error initializing SDL_mixer: %s\n", Mix_GetError());
+
+    // writing Name into buffer for further use
+    char name[32];
+    strcpy(name, argv[1]);
 
     // building the window
     SDL_Window* window = SDL_CreateWindow(  "Blurred Boundaries",
@@ -40,7 +52,10 @@ int main(int argc, char* argv[]) {
     SDL_Rect        playerRect;
     SDL_Rect        finishRect;
     Mix_Music*      backgroundMusic = Mix_LoadMUS(BACKGROUND_MUSIC.c_str());
-    
+    TTF_Font*       font = TTF_OpenFont(FONT_PATH.c_str(), FONT_SIZE);
+    SDL_Color       textColor = {255, 255, 255, 255};
+    SDL_Surface*    textSurface = TTF_RenderText_Solid(font, name, textColor);
+    SDL_Texture*    textTexture = SDL_CreateTextureFromSurface(rend, textSurface);    
     
     SDL_FreeSurface(backgroundSurface);
     SDL_FreeSurface(playerSurface);
@@ -165,7 +180,16 @@ int main(int argc, char* argv[]) {
             SDL_RenderCopy(rend, finishTexture, NULL, &finishRect);
         else
             SDL_RenderCopy(rend, playerTexture, NULL, &playerRect);
-
+        
+        // render the text
+        SDL_Rect textRect = {
+            playerRect.x + (playerRect.w / 2) - (textSurface->w / 2),  // center horizontally over player
+            playerRect.y - textSurface->h - 5,  // place above player with 5px gap
+            textSurface->w, 
+            textSurface->h
+        };
+        SDL_RenderCopy(rend, textTexture, NULL, &textRect);
+        
         // update the screen
         SDL_RenderPresent(rend);
 
@@ -179,6 +203,9 @@ int main(int argc, char* argv[]) {
     SDL_DestroyTexture(finishTexture);
 	SDL_DestroyRenderer(rend);
 	SDL_DestroyWindow(window);
+    SDL_FreeSurface(textSurface);
+    SDL_DestroyTexture(textTexture);
+    TTF_CloseFont(font);
     Mix_FreeMusic(backgroundMusic);
     Mix_CloseAudio();
 	SDL_Quit();
