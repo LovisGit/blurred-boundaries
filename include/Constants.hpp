@@ -26,7 +26,7 @@ const int               PLAYER_FINISH_Y = 305;
 const int               PLAYER_FINISH_WIDTH = 5;
 const int               PLAYER_FINISH_HEIGHT = 20;
 const int               PICTURE_PER_ANIMATION = 4;
-const int               WALKING_DISTANCE = 2;
+const int               WALKING_DISTANCE = 3;
 
 // paths for images
 const std::string       BACKGROUND_SURFACEPATH = "../assets/background.jpeg";

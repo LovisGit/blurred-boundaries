@@ -214,6 +214,15 @@ int main(int argc, char* argv[]) {
         // draw the background
         SDL_RenderCopy(rend, backgroundTexture, &theCamera.getCameraRect(), &backgroundRect);
 
+         // render the text
+        SDL_Rect textRect = {
+            playerRect.x + (playerRect.w / 2) - (textSurface->w / 2),  // center horizontally over player
+            playerRect.y - textSurface->h - 5,  // place above player with 5px gap
+            textSurface->w, 
+            textSurface->h
+        };
+        SDL_RenderCopy(rend, textTexture, NULL, &textRect);
+
         if (reachedFinish) 
             SDL_RenderCopy(rend, finishTexture, NULL, &finishRect);
         else {
@@ -227,15 +236,6 @@ int main(int argc, char* argv[]) {
             // Then render player as normal
             SDL_RenderCopy(rend, playerTexture, NULL, &playerRect);
         }
-        
-        // render the text
-        SDL_Rect textRect = {
-            playerRect.x + (playerRect.w / 2) - (textSurface->w / 2),  // center horizontally over player
-            playerRect.y - textSurface->h - 5,  // place above player with 5px gap
-            textSurface->w, 
-            textSurface->h
-        };
-        SDL_RenderCopy(rend, textTexture, NULL, &textRect);
         
         // update the screen
         SDL_RenderPresent(rend);
