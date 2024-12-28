@@ -21,16 +21,34 @@ Dies ist eine Gelegenheit, deine Binary-Hacking-Skills zu testen, die Mechanik h
 ## 🚀 **Loslegen**
 1. **Lade das Spiel herunter:**  
 ```zsh
-   git clone https://github.com/LovisGit/blurred-boundaries.git
-   cd blurred-boundaries  
+git clone https://github.com/LovisGit/blurred-boundaries.git
+cd blurred-boundaries  
 ```
-2. **Spielen:**  
+2. **Lade die Libraries runter**
+*Debian / Ubuntu mit apt*
+``` zsh
+sudo apt update
+sudo apt install build-essential g++ libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
+```
+*MacOs mit Homebrew*
+```zsh
+brew install sdl2 sdl2_image sdl2_mixer sdl2_ttf
+```
+*Linux mit  pacman*
+```zsh
+sudo pacman -S sdl2 sdl2_image sdl2_mixer sdl2_ttf
+```
+*Fedora*
+```zsh
+sudo dnf install gcc-c++ SDL2-devel SDL2_image-devel SDL2_mixer-devel SDL2_ttf-devel
+```
+3. **Spielen:**  
 ```zsh 
-    cd build
-    make
-    ./blurred_boundaries Name
+cd build
+make
+./blurred_boundaries Name
 ```
-3. **Hack it**  
+4. **Hack it**  
 
 ## 🛠️ **Entwickler-Info**
 - **Technologie:** C++ mit SDL2 (für die Grafik)
