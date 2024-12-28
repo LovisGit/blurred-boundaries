@@ -21,7 +21,7 @@ Dies ist eine Gelegenheit, deine Binary-Hacking-Skills zu testen, die Mechanik h
 ## 🚀 **Loslegen**
 1. **Lade das Spiel herunter:**  
 ```zsh
-   git clone https://github.com/deinrepo/blurred-boundaries.git  
+   git clone https://github.com/LovisGit/blurred-boundaries.git
    cd blurred-boundaries  
 ```
 2. **Spielen:**  
