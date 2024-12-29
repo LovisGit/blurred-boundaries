@@ -34,6 +34,7 @@ void ObjectAdministrator::assignObjects(){
 
     std::vector<std::vector<int>> obstacles = readObjectsFromFile("../assets/Werte.txt");
 
+    std::cout << obstacles.size() << std::endl;
     // obstacles[i][0] = X-Koordinate des Objekts i
     // obstacles[i][1] = Y-Koordiante des Objekts i
     // obstacles[i][2] = Breite des Objekts i
@@ -41,13 +42,10 @@ void ObjectAdministrator::assignObjects(){
 
     int zaehlerSeitLetzterZelle;
 
-    int temp1 = obstacles.size();
-    int temp2 = _dasGrid.size();
-
     bool discoveredFirstCellWithObject = false;
-    for (int i = 0; i < temp1; i++) {
+    for (int i = 0; i < obstacles.size(); i++) {
         zaehlerSeitLetzterZelle = 0;
-        for (int j = 0; j < temp2; j++) {
+        for (int j = 0; j < _dasGrid.size(); j++) {
             // Überprüfe, ob die Zelle mit dem Objekt überlappt
             if (checkOverlap(_dasGrid[j], obstacles[i][0], obstacles[i][1], obstacles[i][2], obstacles[i][3])) {
                 _dasGrid[j].addObject(Object(obstacles[i]));
