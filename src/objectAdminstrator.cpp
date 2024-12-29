@@ -34,7 +34,6 @@ void ObjectAdministrator::assignObjects(){
 
     std::vector<std::vector<int>> obstacles = readObjectsFromFile("../assets/Werte.txt");
 
-    std::cout << obstacles.size() << std::endl;
     // obstacles[i][0] = X-Koordinate des Objekts i
     // obstacles[i][1] = Y-Koordiante des Objekts i
     // obstacles[i][2] = Breite des Objekts i
@@ -62,18 +61,17 @@ void ObjectAdministrator::assignObjects(){
         }
         discoveredFirstCellWithObject = false;
     }
-
-    for (Object const& person : _dasGrid[0]._surroundingObjects)
-    {
-        std::cout << 1 << ' ';
-    }
+    
 }
 
-bool ObjectAdministrator::checkOverlap(const Zelle& dieZelle, int posX, int posY, int width, int height){
+bool ObjectAdministrator::checkOverlap(const Zelle& dieZelle, int posX, int posY, int width, int height) {
+    // Prüfe Überlappung in X- und Y-Richtung
     bool overlapsX = dieZelle._xZellenPos < posX + width && dieZelle._xZellenPos + _rowSize > posX;
     bool overlapsY = dieZelle._yZellenPos < posY + height && dieZelle._yZellenPos + _columnSize > posY;
+
     return overlapsX && overlapsY;
 }
+
 
 
 

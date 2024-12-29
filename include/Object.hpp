@@ -18,6 +18,11 @@ class Object{
 
 public:
 
+int getX() const { return _xPos; }
+int getY() const { return _yPos; }
+int getH() const { return _height; }
+int getW() const { return _width; }
+
 Object(std::vector<int> objektWerte);
 //Konstruktur für die Objekte
     //Determiniert welche Kollisionsfunktion angesprochen wird im Falle einer Bewegung
