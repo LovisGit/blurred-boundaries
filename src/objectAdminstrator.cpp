@@ -32,7 +32,7 @@ ObjectAdministrator::ObjectAdministrator(int windowHeight, int windowWidth, int 
 
 void ObjectAdministrator::assignObjects(){
 
-    std::vector<std::vector<int>> obstacles = readObjectsFromFile("../include/Werte.txt");
+    std::vector<std::vector<int>> obstacles = readObjectsFromFile("../assets/Werte.txt");
 
     // obstacles[i][0] = X-Koordinate des Objekts i
     // obstacles[i][1] = Y-Koordiante des Objekts i
