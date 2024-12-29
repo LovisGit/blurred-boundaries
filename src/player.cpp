@@ -47,21 +47,29 @@ void Player::walkAndAnimate(const int direction, const bool keyPressed) {
     }
 
     // changes the coordinates and the playerimage
-    if(_keysDown[0] && pruefeCollision(2)) {
+    if(_keysDown[0]) {
         _playerPicture = (2 * _picturesPerAnimation) + _animationCounter;
+        if(pruefeCollision(2)){
         _yCoordinate -= _walkingDistance;
+        }
     }
-    if(_keysDown[1] && pruefeCollision(1)) {
+    if(_keysDown[1]) {
         _playerPicture = (3 * _picturesPerAnimation) + _animationCounter;
+        if(pruefeCollision(1)){
         _xCoordinate -= _walkingDistance;
+        }
     }
-    if(_keysDown[2] && pruefeCollision(3)) {
+    if(_keysDown[2]) {
         _playerPicture = (0 * _picturesPerAnimation) + _animationCounter;
+        if(pruefeCollision(3)){
         _yCoordinate += _walkingDistance;
+        }
     }
-    if(_keysDown[3] && pruefeCollision(0)) {
+    if(_keysDown[3]) {
         _playerPicture = (1 * _picturesPerAnimation) + _animationCounter;
+        if(pruefeCollision(0)){
         _xCoordinate += _walkingDistance;
+        }
     }
 
     _currentCell = derVerwalter.checkNeueZelle(_xCoordinate, _yCoordinate, PLAYER_WIDTH, PLAYER_HEIGHT, _currentCell);
