@@ -5,8 +5,6 @@ CC := g++
 CFLAGS := -I../include `sdl2-config --cflags` -ggdb3 -O0 -std=c++11 -Wall
 
 # Bibliotheken
-#LIBS := `sdl2-config --libs` -lSDL2_image -lm
-#LIBS := `sdl2-config --libs` -lSDL2_image -lSDL2_mixer -lm
 LIBS := `sdl2-config --libs` -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lm
 
 # Verzeichnisse
@@ -17,7 +15,6 @@ BUILD_DIR := objects/
 SRCS := $(SRC_DIR)/main.cpp $(SRC_DIR)/player.cpp $(SRC_DIR)/camera.cpp
 
 # Objektdateien (ersetze Pfad von .cpp durch .o im Build-Verzeichnis)
-#OBJS := $(SRCS:../src/%.cpp=objects/%.o)
 OBJS := $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRCS))
 
 # Name der ausführbaren Datei
@@ -34,10 +31,6 @@ $(EXEC): $(OBJS)
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	mkdir -p $(BUILD_DIR)  # Verzeichnis erstellen, falls es nicht existiert
 	$(CC) -c -o $@ $< $(CFLAGS)
-
-#objects/%.o: ../src/%.cpp
-#	mkdir -p $(dir $@)  # Erstelle das Verzeichnis "objects/" falls nötig
-#	$(CC) -c -o $@ $< $(CFLAGS)
 
 # Ziel: Bereinigung
 clean:
