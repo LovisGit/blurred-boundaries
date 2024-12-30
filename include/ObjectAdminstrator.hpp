@@ -69,6 +69,9 @@ inline std::vector<std::vector<int>> readObjectsFromFile(const std::string& file
         std::stringstream ss(line);
         std::string number;
 
+        if (line.empty() || line[0] == '#' || line[0] == '/') {
+            continue;
+        }
         // Zahlen getrennt durch Kommas extrahieren
         while (std::getline(ss, number, ',')) {
             try {
