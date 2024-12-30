@@ -61,6 +61,14 @@ bool Object::checkCollisionDown(int playerXPos, int playerYPos, int playerWidht,
 }
 
 bool Object::operator<(const Object& other) const {
-        
-        return this->_xPos + this->_yPos < other._xPos + other._yPos; // Beispiel: Vergleichen eines `id`-Mitglieds
+    if (this->_xPos != other._xPos) {
+        return this->_xPos < other._xPos;
     }
+    if (this->_yPos != other._yPos) {
+        return this->_yPos < other._yPos;
+    }
+    if (this->_width != other._width) {
+        return this->_width < other._width;
+    }
+    return this->_height < other._height;
+}

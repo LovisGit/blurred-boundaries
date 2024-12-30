@@ -19,14 +19,14 @@ const int               WINDOW_HEIGHT = 9*SIZE;
 // player values
 const int               PLAYER_START_X = WINDOW_WIDTH - 360;//850;
 const int               PLAYER_START_Y = WINDOW_HEIGHT - 500;//250;
-const int               PLAYER_WIDTH = 14;
+const int               PLAYER_WIDTH = 13;
 const int               PLAYER_HEIGHT = 19;     // it makes sense to not use the real height
 const int               PLAYER_FINISH_X = 916;
 const int               PLAYER_FINISH_Y = 305;
 const int               PLAYER_FINISH_WIDTH = 5;
 const int               PLAYER_FINISH_HEIGHT = 20;
 const int               PICTURE_PER_ANIMATION = 4;
-const int               WALKING_DISTANCE = 3;
+const int               WALKING_DISTANCE = 2;
 const int               numberOfColumns = 5;
 const int               numberOfRows = 4;
 

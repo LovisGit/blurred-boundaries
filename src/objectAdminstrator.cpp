@@ -41,7 +41,7 @@ void ObjectAdministrator::assignObjects(){
 
     int zaehlerSeitLetzterZelle;
 
-    bool discoveredFirstCellWithObject = false;
+    bool discoveredFirstCellWithObject = false;             //Wichtig dass das 
     for (int i = 0; i < obstacles.size(); i++) {
         zaehlerSeitLetzterZelle = 0;
         for (int j = 0; j < _dasGrid.size(); j++) {
