@@ -66,3 +66,5 @@
 2045, 466, 90, 101
 2140, 529, 41, 45
 2292, 457, 25, 26
+
+//Vorgarten des Starhauses (links und untere Seite, da nicht so viele verbunden)
