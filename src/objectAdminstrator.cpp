@@ -41,10 +41,13 @@ void ObjectAdministrator::assignObjects(){
 
     int zaehlerSeitLetzterZelle;
 
+    int gridGroeße = _dasGrid.size();
+    int obstacleFeldGroeße = obstacles.size();
+
     bool discoveredFirstCellWithObject = false;             //Wichtig dass das 
-    for (int i = 0; i < obstacles.size(); i++) {
+    for (int i = 0; i < obstacleFeldGroeße; i++) {
         zaehlerSeitLetzterZelle = 0;
-        for (int j = 0; j < _dasGrid.size(); j++) {
+        for (int j = 0; j < gridGroeße; j++) {
             // Überprüfe, ob die Zelle mit dem Objekt überlappt
             if (checkOverlap(_dasGrid[j], obstacles[i][0], obstacles[i][1], obstacles[i][2], obstacles[i][3])) {
                 _dasGrid[j].addObject(Object(obstacles[i]));
@@ -113,9 +116,12 @@ bool ObjectAdministrator::checkCollision(int playerXPos, int playerYPos, int pla
 
     std::vector<int> dieZellen = felderZuPruefen(idxZelle, richtung);
 
-    for(int i = 0; i < dieZellen.size(); i++){
+    int zellenGroeße = dieZellen.size();
+    int gridGroeße = _dasGrid.size();
 
-        if(dieZellen[i] < 0 || dieZellen[i] >= _dasGrid.size()) 
+    for(int i = 0; i < zellenGroeße; i++){
+
+        if(dieZellen[i] < 0 || dieZellen[i] >= gridGroeße) 
             continue;               //Wenn adressierte Zellen sich nicht im Grid aufhalten überspringe die Iteration zur nächsten, da negativ oder zu groß
             
         for (const Object& value : _dasGrid[dieZellen[i]]._surroundingObjects) {
