@@ -68,3 +68,20 @@
 2292, 457, 25, 26
 
 //Vorgarten des Starhauses (links und untere Seite, da nicht so viele verbunden)
+
+2082, 994, 15, 19
+
+//Kollisions Objekt auf dem Teppich des Starthauses, weil funny und misteriös
+
+1931, 242, 2, 1
+1932, 240, 2, 1
+1934, 239, 2, 1
+1935, 237, 2, 1
+1937, 236, 2, 1
+1938, 234, 2, 1
+1940, 233, 2, 1
+1941, 231, 2, 1
+1943, 230, 2, 1
+1944, 228, 2, 1
+
+//Versuch die Schrägenrechtecke zu simulieren
