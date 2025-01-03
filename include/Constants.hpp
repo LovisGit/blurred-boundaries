@@ -20,15 +20,15 @@ const int               WINDOW_HEIGHT = 9*SIZE;
 const int               PLAYER_START_X = WINDOW_WIDTH - 360;//850;
 const int               PLAYER_START_Y = WINDOW_HEIGHT - 500;//250;
 const int               PLAYER_WIDTH = 13;
-const int               PLAYER_HEIGHT = 19;     // it makes sense to not use the real height
+const int               PLAYER_HEIGHT = 19;      // it makes sense to not use the real height, at least somewhat
 const int               PLAYER_FINISH_X = 916;
 const int               PLAYER_FINISH_Y = 305;
 const int               PLAYER_FINISH_WIDTH = 5;
 const int               PLAYER_FINISH_HEIGHT = 20;
 const int               PICTURE_PER_ANIMATION = 4;
 const int               WALKING_DISTANCE = 2;
-const int               numberOfColumns = 5;
-const int               numberOfRows = 4;
+const int               NUMBER_OF_COLUMNS = 20;
+const int               NUMBER_OF_ROWS = 15;
 
 // paths for images
 const std::string       BACKGROUND_SURFACEPATH = "../assets/background.jpeg";

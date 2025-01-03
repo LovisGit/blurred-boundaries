@@ -7,7 +7,7 @@ Player::Player(const int xCoordinate, const int yCoordinate, const int playerWid
                 _picturesPerAnimation(picturesPerAnimation), _walkingDistance(walkingDistance), 
                 _animationCounter(0), _playerPicture(0), _walkingDirection(0), _keysDown({0}) 
                 {
-                  derVerwalter = ObjectAdministrator(WINDOW_HEIGHT, WINDOW_WIDTH, numberOfColumns, numberOfRows, PLAYER_START_X, PLAYER_START_Y, _currentCell);
+                  derVerwalter = ObjectAdministrator(WINDOW_HEIGHT, WINDOW_WIDTH, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS, PLAYER_START_X, PLAYER_START_Y, _currentCell);
                 }
 
 int Player::getXCoordinate() const {

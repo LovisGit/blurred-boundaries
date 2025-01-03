@@ -8,37 +8,37 @@
 #include <sstream>
 #include <string>
 
-class ObjectAdministrator{
+class ObjectAdministrator{                          //Ich habe wohl die Bedeutungen von row und column vertauscht, naja...
 
 private:
     
- int _rowSize;
+ int _rowSize;              
  int _columnSize;
 
  int _anzRowsPerColumn;
 
 
- struct Zelle{
+ struct Zelle{                                                          //Die Map wird in viele gleichgroße Zellen aufgeteilt die Informationen wie die Objekte innerhalb der Zelle beinhaltet, um das zu checken der Kollision lokal zu erlauben         
 
   int _xZellenPos;
   int _yZellenPos;
 
   std::set<Object> _surroundingObjects;
 
-  Zelle();  //Der Scheiß-Standardkonstruktor wird normalerweise vom Kompiler erzeugt aber naja gut, ansonsten wird rumgemeckert...
+  Zelle();  //Wegen dem Compiler....
   
   Zelle(int xPos, int yPos);
-  void addObject(const Object& neuesObjekt);
+  void addObject(const Object& neuesObjekt);                           //inserted in _surroundingObjects ein neues Objekt                  
 };
 
 
  std::vector<Zelle> _dasGrid;
  
- void assignObjects();                                                //fügt den erzeugten Zellen ihre Objekte je nach angegebenen Koordinaten an
+ void assignObjects();                                                //fügt den erzeugten Zellen ihre Objekte zu je nach angegebenen Koordinaten 
 
- int neueZelleErreicht(int idxVorher, int richtung);                //hilft die Zellen außenrum zu lokalisieren
+ int neueZelleErreicht(int idxVorher, int richtung);                 //gibt einem die indexe der Zelle aus, wenn man in eine neue Eintritt
 
- std::vector<int> felderZuPruefen(int idxVorher, int richtung);      //Gedacht für die CheckCollision, wählt die zugeprüften Zelle aus je nach Richtung
+ std::vector<int> felderZuPruefen(int idxVorher, int richtung);      //Gedacht für die CheckCollision, wählt die zugeprüfenden Zelle aus je nach Richtung
 
  bool checkOverlap(const Zelle& zelle, int posX, int posY, int width, int height);    //Für assignObject, hilft für einen besseren Überblick des Codes
 
@@ -54,7 +54,7 @@ public:
 
 };
 
-inline std::vector<std::vector<int>> readObjectsFromFile(const std::string& filename) {
+inline std::vector<std::vector<int>> readObjectsFromFile(const std::string& filename) {         //Funktion liest aus einer Textdatei, hier Werte.txt, eine Zeile aus (in folgender Form: x,y,width,height), um diese in ein Feld zu posten und diese auszugeben, verwendet in assignObject()
     std::vector<std::vector<int>> result;
     std::ifstream file(filename);
 

@@ -4,10 +4,10 @@
 
 ObjectAdministrator::ObjectAdministrator(int windowHeight, int windowWidth, int anzColumns, int anzRows, int playerXPos, int playerYPos, int& startZelle){
     
-    _rowSize = windowWidth/anzRows;
-    _columnSize = windowHeight/anzColumns;
+    _rowSize = windowWidth/anzRows;                             //Größe einer Spalte
+    _columnSize = windowHeight/anzColumns;                      //Größe einer Zeile
 
-    _anzRowsPerColumn = anzRows;
+    _anzRowsPerColumn = anzRows;                                //Die Anzahl der Spalten wird hier gespeichert, damit man sie verwenden kann um die Spielerposition zu berechnen
 
     _dasGrid = std::vector<Zelle>(anzRows * anzColumns);
 
