@@ -17,8 +17,10 @@ const int               WINDOW_WIDTH = 16*SIZE;
 const int               WINDOW_HEIGHT = 9*SIZE;
 
 // player values
-const int               PLAYER_START_X = 899;//WINDOW_WIDTH - 360;//850;
-const int               PLAYER_START_Y = 1268;//WINDOW_HEIGHT - 500;//250;  
+const int               PLAYER_START_X = 1272;       //WINDOW_WIDTH - 360;
+const int               PLAYER_START_Y = 576;      //WINDOW_HEIGHT - 500;   
+
+
 const int               PLAYER_WIDTH = 13;
 const int               PLAYER_HEIGHT = 19;      // it makes sense to not use the real height, at least somewhat
 const int               PLAYER_FINISH_X = 916;
