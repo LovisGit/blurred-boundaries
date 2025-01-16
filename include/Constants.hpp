@@ -17,8 +17,9 @@ const int               WINDOW_WIDTH = 16*SIZE;
 const int               WINDOW_HEIGHT = 9*SIZE;
 
 // player values
-const int               PLAYER_START_X = 1272;       //WINDOW_WIDTH - 360;
-const int               PLAYER_START_Y = 576;      //WINDOW_HEIGHT - 500;   
+const int               PLAYER_START_X = 482;       //WINDOW_WIDTH - 360;
+const int               PLAYER_START_Y = 231;      //WINDOW_HEIGHT - 500;   482, 231, 17, 11
+
 
 
 const int               PLAYER_WIDTH = 13;
