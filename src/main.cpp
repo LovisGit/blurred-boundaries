@@ -143,7 +143,7 @@ int main(int argc, char* argv[]) {
                             case SDL_SCANCODE_W:
                             case SDL_SCANCODE_UP:
                                 thePlayer.walkAndAnimate(0, true);
-                                //theCamera.setZoom(1.0f);
+                                theCamera.setZoom(1.0f);
                                 break;
                             case SDL_SCANCODE_A:
                             case SDL_SCANCODE_LEFT:

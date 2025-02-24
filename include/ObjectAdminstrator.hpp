@@ -2,7 +2,6 @@
 #include "Object.hpp"
 #include "Constants.hpp"
 
-//Ich habe wohl die Bedeutungen von row und column vertauscht, naja...
 class ObjectAdministrator{                          
 private:
     int _rowSize;              
@@ -10,46 +9,46 @@ private:
 
     int _anzRowsPerColumn;
 
-    //Die Map wird in viele gleichgroße Zellen aufgeteilt die Informationen wie die Objekte innerhalb der Zelle beinhaltet, um das zu checken der Kollision lokal zu erlauben
+    // Map is structered as a Grid with each Cell possessing multiple Objects
     struct Zelle{
         int _xZellenPos;
         int _yZellenPos;
 
         std::set<Object> _surroundingObjects;
 
-        Zelle();  //Wegen dem Compiler....
+        Zelle();  //Standard-Constructor
         
         Zelle(int xPos, int yPos);
-        void addObject(const Object& neuesObjekt);      //inserted in _surroundingObjects ein neues Objekt                  
+        void addObject(const Object& neuesObjekt);      //inserted in _surroundingObjects a new Object                  
     };
 
     std::vector<Zelle> _dasGrid;
     
-    //fügt den erzeugten Zellen ihre Objekte zu je nach angegebenen Koordinaten 
+    //inserts into the created cell objects corresponding to both of their coordinates and sizes 
     void assignObjects();
 
-    //gibt einem die indexe der Zelle aus, wenn man in eine neue Eintritt
+    //returns the idx of a new cell the moment the player leaves his current cell
     int neueZelleErreicht(int idxVorher, int richtung);                 
 
-    //Gedacht für die CheckCollision, wählt die zugeprüfenden Zelle aus je nach Richtung
+    //Necessary to determine which cells to check for collision depending on the the cell the player is currently standing in and his walking direction
     std::vector<int> felderZuPruefen(int idxVorher, int richtung);      
 
-    //Für assignObject, hilft für einen besseren Überblick des Codes
+    //Hear, the overlap is directly checked
     bool checkOverlap(const Zelle& zelle, int posX, int posY, int width, int height);
 
 public:
     ObjectAdministrator();
 
-    //aufgerufen von externer Klasse
+    //called through the player class
     ObjectAdministrator(int windowHeight, int windowWidht, int anzColumns, int anzRows, int playerXPos, int playerYPos, int& startZelle);  
 
-    //schaut ob der Spieler vollkommen in eine neue Zelle eindringt, wenn ja wird geupdatet
+    //the moment the player leaves their current cell completely, returns idx of the new player cell
     int checkNeueZelle(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int pIdxZelle);  
 
     bool checkCollision(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int xBewegung, int yBewegung, int richtung, int idxZelle);
 };
 
-//Funktion liest aus einer Textdatei, eine Zeile aus (in folgender Form: x,y,width,height), um diese in ein Feld zu posten und diese auszugeben, verwendet in assignObject()
+//Function reads out values in that form for each row: x,y,width,height (if a row does not posses that structure, it gets skipped) ; used in assignObject()
 inline std::vector<std::vector<int>> readObjectsFromFile(const std::string& filename) {
     std::vector<std::vector<int>> result;
     std::ifstream file(filename);
@@ -68,7 +67,7 @@ inline std::vector<std::vector<int>> readObjectsFromFile(const std::string& file
         if (line.empty() || line[0] == '#' || line[0] == '/') {
             continue;
         }
-        // Zahlen getrennt durch Kommas extrahieren
+        // Extract numbers separated by a comma
         while (std::getline(ss, number, ',')) {
             try {
                 numbers.push_back(std::stoi(number));
@@ -78,7 +77,7 @@ inline std::vector<std::vector<int>> readObjectsFromFile(const std::string& file
             }
         }
 
-        // Sicherstellen, dass genau 4 Zahlen vorhanden sind
+        // Check if actually four numbers were recognized
         if (numbers.size() == 4) {
             result.push_back(numbers);
         } else {

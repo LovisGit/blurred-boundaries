@@ -16,7 +16,7 @@ bool Object::checkCollision(int playerXPos, int playerYPos, int playerWidht, int
         case 3:
             return checkCollisionDown(playerXPos, playerYPos, playerWidht, playerHeight, yBewegung);
         default:      
-            //wird eh nie angesprochen aber warum nicht
+            
             std::cout << "Wait, that's illegal!\n";
             break;
     }
@@ -26,36 +26,37 @@ bool Object::checkCollision(int playerXPos, int playerYPos, int playerWidht, int
 
 bool Object::checkCollisionRight(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int xBewegung) const {
     if(playerXPos+playerWidht+xBewegung > _xPos && playerYPos < _yPos+_height && playerYPos + playerHeight > _yPos && _xPos > playerXPos) {
-        //Player läuft rechts auf ein Objekt zu und kollidiert
+        //Player walks right and collides with this object
         return true;       
     }
-    //Illegale Bewegung wurde nicht erfasst
+    //Illegal movement (Collision) identified
     return false;            
 }
 
 bool Object::checkCollisionLeft(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int xBewegung) const {
     if(playerXPos + xBewegung < _xPos+_width && playerYPos < _yPos+_height && playerYPos + playerHeight > _yPos && _xPos < playerXPos) {
+        //Player walks left and collides with this object
         return true;
     }
-    //Illegale Bewegung wurde nicht erfasst
+    //Illegal movement (Collision) identified
     return false;         
 }
 
 bool Object::checkCollisionUp(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int yBewegung) const {
     if(playerYPos + yBewegung < _yPos + _height && playerXPos < _xPos + _width && playerXPos + playerWidht > _xPos && _yPos < playerYPos) {
-        //Player läuft nach oben auf das Objekt zu und kollidiert
+        //Player walks up and collides with this object
         return true;
     }
-    //Illegale Bewegung wurde nicht erfasst
+   //Illegal movement (Collision) identified
     return false;
 }
 
 bool Object::checkCollisionDown(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int yBewegung) const{
     if(playerYPos + yBewegung + playerHeight > _yPos && playerXPos < _xPos + _width && playerXPos + playerWidht > _xPos && _yPos > playerYPos) {
-        //Player läuft nach unten auf das Objekt zu und kollidiert
+        //Player walks down and collides with this object
         return true;   
     }
-    //Illegale Bewegung wurde nicht erfasst
+   //Illegal movement (Collision) identified
     return false;          
 }
 
