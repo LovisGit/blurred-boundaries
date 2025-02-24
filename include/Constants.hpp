@@ -1,24 +1,27 @@
 // Header for all Constants and includes 
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <sstream>
 #include <SDL2/SDL.h> 
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_ttf.h>
 #include <memory>
 #include <array>
+#include <set>
+#include <vector>
 
 #ifndef CONSTANTS_HPP
 #define CONSTANTS_HPP
 
 // windowsize
-const int               SIZE = 170;
-const int               WINDOW_WIDTH = 16*SIZE;
-const int               WINDOW_HEIGHT = 9*SIZE;
+const int               WINDOW_WIDTH = 1920;
+const int               WINDOW_HEIGHT = 1080;
 
 // player values
-const int               PLAYER_START_X = 751;       //WINDOW_WIDTH - 360;
-const int               PLAYER_START_Y = 943;      //WINDOW_HEIGHT - 500;  
+const int               PLAYER_START_X = 1667;
+const int               PLAYER_START_Y = 712;
 
 const int               PLAYER_WIDTH = 13;
 const int               PLAYER_HEIGHT = 19;      // it makes sense to not use the real height, at least somewhat
@@ -33,9 +36,14 @@ const int               NUMBER_OF_ROWS = 15;
 
 // paths for images
 const std::string       BACKGROUND_SURFACEPATH = "../assets/background.jpeg";
+const std::string       BACKGROUND_1080p_SURFACEPATH = "../assets/background1080p.jpeg";
 const std::string       PLAYER_PATH_FRONT = "../assets/player/player";
 const std::string       PLAYER_PATH_BACK = ".png";
 const std::string       FINISH_PATH = "../assets/finish.png";
+
+// paths for coordinates
+const std::string       OBJECTS_PATH = "../assets/coordinates.txt";
+const std::string       OBJECTS_1080p_PATH = "../assets/coordinates1080p.txt";
 
 // paths for music
 const std::string       BACKGROUND_MUSIC = "../assets/music.mp3";
@@ -48,7 +56,8 @@ const int               FONT_SIZE = 50;
 const int               DELAY = 60;
 
 // zoom 
-const float             ZOOM = 8.0f; // 8.0f is default 
+const float             ZOOM = 8.0f; // 8.0f is default
+const float             ZOOM_1080p = 6.0f; 
 
 // shadow
 const int               SHADOW_OFFSET = 2; // bigger parameter results in smaller offset

@@ -1,60 +1,56 @@
-#include <vector>
-#include <set>
-#include "Object.hpp"
 #pragma once
+#include "Object.hpp"
+#include "Constants.hpp"
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-
-class ObjectAdministrator{                          //Ich habe wohl die Bedeutungen von row und column vertauscht, naja...
-
+//Ich habe wohl die Bedeutungen von row und column vertauscht, naja...
+class ObjectAdministrator{                          
 private:
+    int _rowSize;              
+    int _columnSize;
+
+    int _anzRowsPerColumn;
+
+    //Die Map wird in viele gleichgroße Zellen aufgeteilt die Informationen wie die Objekte innerhalb der Zelle beinhaltet, um das zu checken der Kollision lokal zu erlauben
+    struct Zelle{
+        int _xZellenPos;
+        int _yZellenPos;
+
+        std::set<Object> _surroundingObjects;
+
+        Zelle();  //Wegen dem Compiler....
+        
+        Zelle(int xPos, int yPos);
+        void addObject(const Object& neuesObjekt);      //inserted in _surroundingObjects ein neues Objekt                  
+    };
+
+    std::vector<Zelle> _dasGrid;
     
- int _rowSize;              
- int _columnSize;
+    //fügt den erzeugten Zellen ihre Objekte zu je nach angegebenen Koordinaten 
+    void assignObjects();
 
- int _anzRowsPerColumn;
+    //gibt einem die indexe der Zelle aus, wenn man in eine neue Eintritt
+    int neueZelleErreicht(int idxVorher, int richtung);                 
 
+    //Gedacht für die CheckCollision, wählt die zugeprüfenden Zelle aus je nach Richtung
+    std::vector<int> felderZuPruefen(int idxVorher, int richtung);      
 
- struct Zelle{                                                          //Die Map wird in viele gleichgroße Zellen aufgeteilt die Informationen wie die Objekte innerhalb der Zelle beinhaltet, um das zu checken der Kollision lokal zu erlauben         
-
-  int _xZellenPos;
-  int _yZellenPos;
-
-  std::set<Object> _surroundingObjects;
-
-  Zelle();  //Wegen dem Compiler....
-  
-  Zelle(int xPos, int yPos);
-  void addObject(const Object& neuesObjekt);                           //inserted in _surroundingObjects ein neues Objekt                  
-};
-
-
- std::vector<Zelle> _dasGrid;
- 
- void assignObjects();                                                //fügt den erzeugten Zellen ihre Objekte zu je nach angegebenen Koordinaten 
-
- int neueZelleErreicht(int idxVorher, int richtung);                 //gibt einem die indexe der Zelle aus, wenn man in eine neue Eintritt
-
- std::vector<int> felderZuPruefen(int idxVorher, int richtung);      //Gedacht für die CheckCollision, wählt die zugeprüfenden Zelle aus je nach Richtung
-
- bool checkOverlap(const Zelle& zelle, int posX, int posY, int width, int height);    //Für assignObject, hilft für einen besseren Überblick des Codes
+    //Für assignObject, hilft für einen besseren Überblick des Codes
+    bool checkOverlap(const Zelle& zelle, int posX, int posY, int width, int height);
 
 public:
+    ObjectAdministrator();
 
- ObjectAdministrator(int windowHeight, int windowWidht, int anzColumns, int anzRows, int playerXPos, int playerYPos, int& startZelle);  //aufgerufen von externer Klasse
+    //aufgerufen von externer Klasse
+    ObjectAdministrator(int windowHeight, int windowWidht, int anzColumns, int anzRows, int playerXPos, int playerYPos, int& startZelle);  
 
- ObjectAdministrator();
+    //schaut ob der Spieler vollkommen in eine neue Zelle eindringt, wenn ja wird geupdatet
+    int checkNeueZelle(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int pIdxZelle);  
 
- int checkNeueZelle(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int pIdxZelle);  //schaut ob der Spieler vollkommen in eine neue Zelle eindringt, wenn ja wird geupdatet
-
- bool checkCollision(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int xBewegung, int yBewegung, int richtung, int idxZelle);  //selbsterklärend
-
+    bool checkCollision(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int xBewegung, int yBewegung, int richtung, int idxZelle);
 };
 
-inline std::vector<std::vector<int>> readObjectsFromFile(const std::string& filename) {         //Funktion liest aus einer Textdatei, hier Werte.txt, eine Zeile aus (in folgender Form: x,y,width,height), um diese in ein Feld zu posten und diese auszugeben, verwendet in assignObject()
+//Funktion liest aus einer Textdatei, eine Zeile aus (in folgender Form: x,y,width,height), um diese in ein Feld zu posten und diese auszugeben, verwendet in assignObject()
+inline std::vector<std::vector<int>> readObjectsFromFile(const std::string& filename) {
     std::vector<std::vector<int>> result;
     std::ifstream file(filename);
 

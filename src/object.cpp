@@ -1,8 +1,7 @@
 #include "../include/Object.hpp"
 #include <iostream>
 
-Object::Object(std::vector<int> objektWerte):
-_xPos(objektWerte[0]), _yPos(objektWerte[1]), _height(objektWerte[3]), _width(objektWerte[2]) {}
+Object::Object(std::vector<int> objektWerte) : _xPos(objektWerte[0]), _yPos(objektWerte[1]), _height(objektWerte[3]), _width(objektWerte[2]) {}
 
 bool Object::checkCollision(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int xBewegung, int yBewegung , int richtung) const {
     switch (richtung) {
@@ -26,7 +25,7 @@ bool Object::checkCollision(int playerXPos, int playerYPos, int playerWidht, int
 }
 
 bool Object::checkCollisionRight(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int xBewegung) const {
-      if(playerXPos+playerWidht+xBewegung > _xPos && playerYPos < _yPos+_height && playerYPos + playerHeight > _yPos && _xPos > playerXPos) {
+    if(playerXPos+playerWidht+xBewegung > _xPos && playerYPos < _yPos+_height && playerYPos + playerHeight > _yPos && _xPos > playerXPos) {
         //Player läuft rechts auf ein Objekt zu und kollidiert
         return true;       
     }

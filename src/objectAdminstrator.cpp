@@ -1,9 +1,6 @@
 #include "../include/ObjectAdminstrator.hpp"
-#include <SDL2/SDL.h> 
 
-
-ObjectAdministrator::ObjectAdministrator(int windowHeight, int windowWidth, int anzColumns, int anzRows, int playerXPos, int playerYPos, int& startZelle){
-    
+ObjectAdministrator::ObjectAdministrator(int windowHeight, int windowWidth, int anzColumns, int anzRows, int playerXPos, int playerYPos, int& startZelle) {
     _rowSize = windowWidth/anzRows;                             //Größe einer Spalte
     _columnSize = windowHeight/anzColumns;                      //Größe einer Zeile
 
@@ -30,9 +27,8 @@ ObjectAdministrator::ObjectAdministrator(int windowHeight, int windowWidth, int 
     startZelle = cellRow * anzRows + cellCol;           //Startzelle des Spielers
 }
 
-void ObjectAdministrator::assignObjects(){
-
-    std::vector<std::vector<int>> obstacles = readObjectsFromFile("../assets/Werte.txt");
+void ObjectAdministrator::assignObjects() {
+    std::vector<std::vector<int>> obstacles = readObjectsFromFile(OBJECTS_1080p_PATH);
 
     // obstacles[i][0] = X-Koordinate des Objekts i
     // obstacles[i][1] = Y-Koordiante des Objekts i
@@ -58,13 +54,12 @@ void ObjectAdministrator::assignObjects(){
                 zaehlerSeitLetzterZelle++;
             }
 
-            if(zaehlerSeitLetzterZelle >= _anzRowsPerColumn && discoveredFirstCellWithObject){
+            if(zaehlerSeitLetzterZelle >= _anzRowsPerColumn && discoveredFirstCellWithObject) {
                 break;
             }
         }
         discoveredFirstCellWithObject = false;
     }
-    
 }
 
 bool ObjectAdministrator::checkOverlap(const Zelle& dieZelle, int posX, int posY, int width, int height) {
@@ -75,27 +70,24 @@ bool ObjectAdministrator::checkOverlap(const Zelle& dieZelle, int posX, int posY
     return overlapsX && overlapsY;
 }
 
-
-
-
-int ObjectAdministrator::neueZelleErreicht(int idxVorher, int angrenzendeZelle){  //Figur erreicht das Ende der begangenen Zelle 
-  switch (angrenzendeZelle) {
-    case 0: // rechts
-        return ++idxVorher;
-    case 1: // links
-        return --idxVorher;
-    case 2: // oben
-        return idxVorher - _anzRowsPerColumn;
-    case 3: // unten
-        return idxVorher + _anzRowsPerColumn;
-    default:
-        return idxVorher;
- }
-
+// Figur erreicht das Ende der begangenen Zelle
+int ObjectAdministrator::neueZelleErreicht(int idxVorher, int angrenzendeZelle) {   
+    switch (angrenzendeZelle) {
+        case 0: // right
+            return ++idxVorher;
+        case 1: // left
+            return --idxVorher;
+        case 2: // up
+            return idxVorher - _anzRowsPerColumn;
+        case 3: // down
+            return idxVorher + _anzRowsPerColumn;
+        default:
+            return idxVorher;
+    }
 }
 
-int ObjectAdministrator::checkNeueZelle(int playerXPos, int playerYPos, int playerWidht, int playerHeight ,int idxZelle){
-                                                                                //Spieler tritt völlig in neue Zelle ein, ändere Primärzelle
+//Spieler tritt völlig in neue Zelle ein, ändere Primärzelle
+int ObjectAdministrator::checkNeueZelle(int playerXPos, int playerYPos, int playerWidht, int playerHeight ,int idxZelle) {
     if(playerXPos + playerWidht < _dasGrid[idxZelle]._xZellenPos){
         return neueZelleErreicht(idxZelle, 1); 
     }
@@ -111,9 +103,8 @@ int ObjectAdministrator::checkNeueZelle(int playerXPos, int playerYPos, int play
     return idxZelle;
 }
 
-
-bool ObjectAdministrator::checkCollision(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int xBewegung, int yBewegung, int richtung,int idxZelle){  //<-- Entweder die Map oder der Spieler besitzt die Zelle in der der Spieler sich aufhält, wird lediglich übergeben hierfür und zum updaten
-
+// Entweder die Map oder der Spieler besitzt die Zelle in der der Spieler sich aufhält, wird lediglich übergeben hierfür und zum updaten
+bool ObjectAdministrator::checkCollision(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int xBewegung, int yBewegung, int richtung,int idxZelle) {
     std::vector<int> dieZellen = felderZuPruefen(idxZelle, richtung);
 
     int zellenGroeße = dieZellen.size();
@@ -125,7 +116,7 @@ bool ObjectAdministrator::checkCollision(int playerXPos, int playerYPos, int pla
             continue;               //Wenn adressierte Zellen sich nicht im Grid aufhalten überspringe die Iteration zur nächsten, da negativ oder zu groß
             
         for (const Object& value : _dasGrid[dieZellen[i]]._surroundingObjects) {
-           if(value.checkCollision(playerXPos, playerYPos, playerWidht, playerHeight, xBewegung, yBewegung, richtung)){
+           if(value.checkCollision(playerXPos, playerYPos, playerWidht, playerHeight, xBewegung, yBewegung, richtung)) {
             return true;
            }
         }
@@ -133,15 +124,15 @@ bool ObjectAdministrator::checkCollision(int playerXPos, int playerYPos, int pla
     return false;                   //Keine Kollision erkannt
 }
 
-std::vector<int> ObjectAdministrator::felderZuPruefen(int idxVorher, int richtung){
+std::vector<int> ObjectAdministrator::felderZuPruefen(int idxVorher, int richtung) {
     switch (richtung){
-        case 0:     //rechts
+        case 0:     // right
             return {idxVorher, idxVorher + 1, idxVorher + 1 + _anzRowsPerColumn, idxVorher + 1 - _anzRowsPerColumn};
-        case 1:     //links
+        case 1:     // left
             return {idxVorher, idxVorher -1 , idxVorher - 1 + _anzRowsPerColumn, idxVorher - 1 - _anzRowsPerColumn};
-        case 2:     //oben
+        case 2:     // up
             return {idxVorher, idxVorher - _anzRowsPerColumn, idxVorher + 1 - _anzRowsPerColumn, idxVorher - 1 - _anzRowsPerColumn};
-        case 3:     //unten
+        case 3:     // down
             return {idxVorher, idxVorher + _anzRowsPerColumn, idxVorher + 1 + _anzRowsPerColumn, idxVorher - 1 + _anzRowsPerColumn};
         default:
             return {0,0,0,0};    
@@ -154,12 +145,11 @@ ObjectAdministrator::ObjectAdministrator() {
 
 //Struct-Operationen
 
-ObjectAdministrator::Zelle::Zelle(int xPos, int yPos):
-     _xZellenPos(xPos), _yZellenPos(yPos) {}
+ObjectAdministrator::Zelle::Zelle(int xPos, int yPos) : _xZellenPos(xPos), _yZellenPos(yPos) {}
 
-void ObjectAdministrator::Zelle::addObject(const Object& neuesObjekt){
+void ObjectAdministrator::Zelle::addObject(const Object& neuesObjekt) {
     _surroundingObjects.insert(neuesObjekt);
-  }
+}
 
 ObjectAdministrator::Zelle::Zelle() {
     //Pure Leere

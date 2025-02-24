@@ -4,16 +4,17 @@
 
 class Camera {
 private:
-    SDL_Rect                _camera;
     float                   _zoom;
+    SDL_Rect                _camera;
     Player*                 _following;
     SDL_Rect*               _playerRect;
+    
 
 public:
-    Camera(Player* player, SDL_Rect* playerRect,  float zoom);
+    Camera(float zoom, Player* player, SDL_Rect* playerRect);
 
-    void                    updateCamera();
-    void                    updateZoom(float zoom);
+    void                    updateCamera(SDL_Rect& shadowRect);
+    void                    setZoom(float zoom);
     SDL_Rect&               getCameraRect();
     float                   getZoom();
 };

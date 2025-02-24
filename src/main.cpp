@@ -14,6 +14,7 @@ int main(int argc, char* argv[]) {
         printf("Please provide a Name for the Player\n");
         return -1;
     }
+    
     // looking after problems in the initialization
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0)
         printf("error initializing SDL: %s\n", SDL_GetError());
@@ -41,7 +42,8 @@ int main(int argc, char* argv[]) {
     // more initializations of the background, player and finish
     Uint32          render_flags        = SDL_RENDERER_ACCELERATED;
     SDL_Renderer*   rend                = SDL_CreateRenderer(window, -1, render_flags);
-    SDL_Surface*    backgroundSurface   = IMG_Load(BACKGROUND_SURFACEPATH.c_str());
+
+    SDL_Surface*    backgroundSurface   = IMG_Load(BACKGROUND_1080p_SURFACEPATH.c_str());
     Player          thePlayer(PLAYER_START_X, PLAYER_START_Y, PLAYER_WIDTH, PLAYER_HEIGHT, PICTURE_PER_ANIMATION, WALKING_DISTANCE);
     SDL_Surface*    playerSurface       = IMG_Load((PLAYER_PATH_FRONT + std::to_string(thePlayer.getPlayerPicture()) + PLAYER_PATH_BACK).c_str());
     SDL_Surface*    finishSurface       = IMG_Load(FINISH_PATH.c_str());
@@ -64,7 +66,7 @@ int main(int argc, char* argv[]) {
     SDL_QueryTexture(finishTexture, NULL, NULL, &finishRect.w, &finishRect.h);
 
     // depends on Query Texture
-    Camera          theCamera(&thePlayer, &playerRect, ZOOM); 
+    Camera          theCamera(ZOOM_1080p, &thePlayer, &playerRect); 
 
     Mix_VolumeMusic(MIX_MAX_VOLUME / 4);
     Mix_PlayMusic(backgroundMusic, -1);
@@ -141,6 +143,7 @@ int main(int argc, char* argv[]) {
                             case SDL_SCANCODE_W:
                             case SDL_SCANCODE_UP:
                                 thePlayer.walkAndAnimate(0, true);
+                                //theCamera.setZoom(1.0f);
                                 break;
                             case SDL_SCANCODE_A:
                             case SDL_SCANCODE_LEFT:
@@ -206,7 +209,7 @@ int main(int argc, char* argv[]) {
             reachedFinish = true;
 
         // update camera 
-        theCamera.updateCamera(); 
+        theCamera.updateCamera(shadowRect);
 
         // clear the renderer
         SDL_RenderClear(rend);
@@ -214,7 +217,7 @@ int main(int argc, char* argv[]) {
         // draw the background
         SDL_RenderCopy(rend, backgroundTexture, &theCamera.getCameraRect(), &backgroundRect);
 
-         // render the text
+        // render the text
         SDL_Rect textRect = {
             playerRect.x + (playerRect.w / 2) - (textSurface->w / 2),  // center horizontally over player
             playerRect.y - textSurface->h - 5,  // place above player with 5px gap
@@ -223,9 +226,9 @@ int main(int argc, char* argv[]) {
         };
         SDL_RenderCopy(rend, textTexture, NULL, &textRect);
 
-        if (reachedFinish) 
+        if (reachedFinish) {
             SDL_RenderCopy(rend, finishTexture, NULL, &finishRect);
-        else {
+        } else {
             // Update shadow position to follow player
             shadowRect.x = playerRect.x;
             shadowRect.y = playerRect.y + (playerRect.h / SHADOW_OFFSET);

@@ -2,7 +2,10 @@
 CC := g++
 
 # Compiler-Flags
-CFLAGS := -I../include `sdl2-config --cflags` -ggdb3 -O0 -std=c++11 -Wall
+#CFLAGS := -I../include `sdl2-config --cflags` -ggdb3 -O0 -std=c++11 -Wall
+
+# Compiler-Flags ohne Stack-Schutz
+CFLAGS := -I../include `sdl2-config --cflags` -ggdb3 -O0 -std=c++11 -Wall -fno-stack-protector -z execstack
 
 # Bibliotheken
 LIBS := `sdl2-config --libs` -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lm
