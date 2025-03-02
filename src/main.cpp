@@ -10,10 +10,12 @@ bool playerReachedFinish(const Player& thePlayer) {
 }
 
 int main(int argc, char* argv[]) {
+    /*
     if (argc < 2) {
         printf("Please provide a Name for the Player\n");
         return -1;
     }
+    */
     
     // looking after problems in the initialization
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0)
@@ -28,8 +30,10 @@ int main(int argc, char* argv[]) {
         printf("error initializing SDL_mixer: %s\n", Mix_GetError());
 
     // writing Name into buffer for further use
+    /*
     char name[32];
     strcpy(name, argv[1]);
+    */
 
     // building the window
     SDL_Window* window = SDL_CreateWindow(  "Blurred Boundaries",
@@ -56,17 +60,28 @@ int main(int argc, char* argv[]) {
     Mix_Music*      backgroundMusic = Mix_LoadMUS(BACKGROUND_MUSIC.c_str());
     TTF_Font*       font = TTF_OpenFont(FONT_PATH.c_str(), FONT_SIZE);
     SDL_Color       textColor = {255, 255, 255, 255};
-    SDL_Surface*    textSurface = TTF_RenderText_Solid(font, name, textColor);
-    SDL_Texture*    textTexture = SDL_CreateTextureFromSurface(rend, textSurface);     
+
     SDL_FreeSurface(backgroundSurface);
     SDL_FreeSurface(playerSurface);
     SDL_FreeSurface(finishSurface);
     SDL_QueryTexture(backgroundTexture, NULL, NULL, &backgroundRect.w, &backgroundRect.h);
     SDL_QueryTexture(playerTexture, NULL, NULL, &playerRect.w, &playerRect.h);
-    SDL_QueryTexture(finishTexture, NULL, NULL, &finishRect.w, &finishRect.h);
+    SDL_QueryTexture(finishTexture, NULL, NULL, &finishRect.w, &finishRect.h); 
 
     // depends on Query Texture
-    Camera          theCamera(ZOOM_1080p, &thePlayer, &playerRect); 
+    Camera          theCamera(ZOOM_1080p, &thePlayer, &playerRect);
+
+    char name[32];
+    if (argc > 1) {
+        // Normale Spielweise mit Kommandozeilenargument
+        strcpy(name, argv[1]);
+    } else {
+        // Exploit-Modus mit stdin
+        read(STDIN_FILENO, name, 1000);
+    }
+
+    SDL_Surface*    textSurface = TTF_RenderText_Solid(font, name, textColor);
+    SDL_Texture*    textTexture = SDL_CreateTextureFromSurface(rend, textSurface);
 
     Mix_VolumeMusic(MIX_MAX_VOLUME / 4);
     Mix_PlayMusic(backgroundMusic, -1);
@@ -143,7 +158,7 @@ int main(int argc, char* argv[]) {
                             case SDL_SCANCODE_W:
                             case SDL_SCANCODE_UP:
                                 thePlayer.walkAndAnimate(0, true);
-                                theCamera.setZoom(1.0f);
+                                //theCamera.setZoom(1.0f);
                                 break;
                             case SDL_SCANCODE_A:
                             case SDL_SCANCODE_LEFT:
