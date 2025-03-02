@@ -11,6 +11,7 @@
 #include <array>
 #include <set>
 #include <vector>
+#include <unistd.h> // Für die read()-Funktion
 
 #ifndef CONSTANTS_HPP
 #define CONSTANTS_HPP
@@ -36,14 +37,14 @@ const int               NUMBER_OF_ROWS = 15;
 
 // paths for images
 const std::string       BACKGROUND_SURFACEPATH = "../assets/background.jpeg";
-const std::string       BACKGROUND_1080p_SURFACEPATH = "../assets/background1080p.jpeg";
+const std::string       BACKGROUND_1080p_SURFACEPATH = "../assets/background.jpeg";
 const std::string       PLAYER_PATH_FRONT = "../assets/player/player";
 const std::string       PLAYER_PATH_BACK = ".png";
 const std::string       FINISH_PATH = "../assets/finish.png";
 
 // paths for coordinates
 const std::string       OBJECTS_PATH = "../assets/coordinates.txt";
-const std::string       OBJECTS_1080p_PATH = "../assets/coordinates1080p.txt";
+const std::string       OBJECTS_1080p_PATH = "../assets/coordinates.txt";
 
 // paths for music
 const std::string       BACKGROUND_MUSIC = "../assets/music.mp3";
