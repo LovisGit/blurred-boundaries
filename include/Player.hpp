@@ -3,24 +3,28 @@
 #include "ObjectAdminstrator.hpp"
 
 class Player {
-
 private:
     int _xCoordinate;
     int _yCoordinate;
     int _playerWidth;
     int _playerHeight;
+
+    // determines how many pictures are used for one animation
     int _picturesPerAnimation;
+
     int _walkingDistance;
     int _animationCounter;
     int _playerPicture;
     int _walkingDirection;
     int _currentCell;
+
+    // information about the keys pressed
     std::array<bool, 4> _keysDown;
 
-    ObjectAdministrator derVerwalter;
+    ObjectAdministrator theObjectManager;
     
     void nextAnimationCounter();
-    bool pruefeCollision(int richtung);
+    bool checkCollisionPlayer(int direction);
 
 public:
     Player(const int xCoordinate, const int yCoordinate, const int playerWidth, const int playerHeight, 

@@ -1,54 +1,55 @@
 #pragma once
-#include "Object.hpp"
 #include "Constants.hpp"
+#include "Object.hpp"
 
 class ObjectAdministrator{                          
 private:
     int _rowSize;              
     int _columnSize;
-
     int _anzRowsPerColumn;
 
-    // Map is structered as a Grid with each Cell possessing multiple Objects
-    struct Zelle{
-        int _xZellenPos;
-        int _yZellenPos;
+    // map is structered as a Grid with each Cell possessing multiple Objects
+    struct Cell {
+        int _xCellPos;
+        int _yCellPos;
 
         std::set<Object> _surroundingObjects;
 
-        Zelle();  //Standard-Constructor
+        Cell();  // standard-Constructor
         
-        Zelle(int xPos, int yPos);
-        void addObject(const Object& neuesObjekt);      //inserted in _surroundingObjects a new Object                  
+        Cell(int xPos, int yPos);
+
+        // inserted in _surroundingObjects a new Object 
+        void addObject(const Object& newObbject);
     };
 
-    std::vector<Zelle> _dasGrid;
+    std::vector<Cell> _theGrid;
     
-    //inserts into the created cell objects corresponding to both of their coordinates and sizes 
+    // inserts into the created cell objects corresponding to both of their coordinates and sizes 
     void assignObjects();
 
-    //returns the idx of a new cell the moment the player leaves his current cell
-    int neueZelleErreicht(int idxVorher, int richtung);                 
+    // returns the idx of a new cell the moment the player leaves his current cell
+    int newCellReached(int idxBefore, int direction);                 
 
-    //Necessary to determine which cells to check for collision depending on the the cell the player is currently standing in and his walking direction
-    std::vector<int> felderZuPruefen(int idxVorher, int richtung);      
+    // necessary to determine which cells to check for collision depending on the the cell the player is currently standing in and his walking direction
+    std::vector<int> cellsToCheck(int idxBefore, int direction);      
 
-    //Hear, the overlap is directly checked
-    bool checkOverlap(const Zelle& zelle, int posX, int posY, int width, int height);
+    // hear, the overlap is directly checked
+    bool checkOverlap(const Cell& Cell, int posX, int posY, int width, int height);
 
 public:
     ObjectAdministrator();
 
-    //called through the player class
-    ObjectAdministrator(int windowHeight, int windowWidht, int anzColumns, int anzRows, int playerXPos, int playerYPos, int& startZelle);  
+    // called through the player class
+    ObjectAdministrator(int windowHeight, int windowWidht, int anzColumns, int anzRows, int playerXPos, int playerYPos, int& startCell);  
 
-    //the moment the player leaves their current cell completely, returns idx of the new player cell
-    int checkNeueZelle(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int pIdxZelle);  
+    // the moment the player leaves their current cell completely, returns idx of the new player cell
+    int checkNewCell(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int pIdxCell);  
 
-    bool checkCollision(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int xBewegung, int yBewegung, int richtung, int idxZelle);
+    bool checkCollision(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int xMovement, int yMovement, int direction, int idxCell);
 };
 
-//Function reads out values in that form for each row: x,y,width,height (if a row does not posses that structure, it gets skipped) ; used in assignObject()
+// function reads out values in that form for each row: x,y,width,height (if a row does not posses that structure, it gets skipped) ; used in assignObject()
 inline std::vector<std::vector<int>> readObjectsFromFile(const std::string& filename) {
     std::vector<std::vector<int>> result;
     std::ifstream file(filename);
@@ -67,7 +68,7 @@ inline std::vector<std::vector<int>> readObjectsFromFile(const std::string& file
         if (line.empty() || line[0] == '#' || line[0] == '/') {
             continue;
         }
-        // Extract numbers separated by a comma
+        // extract numbers separated by a comma
         while (std::getline(ss, number, ',')) {
             try {
                 numbers.push_back(std::stoi(number));
@@ -77,7 +78,7 @@ inline std::vector<std::vector<int>> readObjectsFromFile(const std::string& file
             }
         }
 
-        // Check if actually four numbers were recognized
+        // check if actually four numbers were recognized
         if (numbers.size() == 4) {
             result.push_back(numbers);
         } else {
