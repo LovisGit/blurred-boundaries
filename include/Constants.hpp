@@ -11,7 +11,7 @@
 #include <array>
 #include <set>
 #include <vector>
-#include <unistd.h> // read()-function
+#include <unistd.h> // for read()-function
 
 #ifndef CONSTANTS_HPP
 #define CONSTANTS_HPP
@@ -21,13 +21,13 @@ const int               WINDOW_WIDTH = 1920;
 const int               WINDOW_HEIGHT = 1080;
 
 // player values
-const int               PLAYER_START_X = 1667;
-const int               PLAYER_START_Y = 712;
+const int               PLAYER_START_X = 1665;
+const int               PLAYER_START_Y = 722;
 
-const int               PLAYER_WIDTH = 13;
-const int               PLAYER_HEIGHT = 19;
-const int               PLAYER_FINISH_X = 916;
-const int               PLAYER_FINISH_Y = 305;
+const int               PLAYER_WIDTH = 12;
+const int               PLAYER_HEIGHT = 16;
+const int               PLAYER_FINISH_X = 654;
+const int               PLAYER_FINISH_Y = 229;
 const int               PLAYER_FINISH_WIDTH = 5;
 const int               PLAYER_FINISH_HEIGHT = 20;
 const int               PICTURE_PER_ANIMATION = 4;
