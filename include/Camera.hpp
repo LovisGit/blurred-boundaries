@@ -7,8 +7,7 @@ private:
     float                   _zoom;
     SDL_Rect                _camera;
     Player*                 _following;
-    SDL_Rect*               _playerRect;
-    
+    SDL_Rect*               _playerRect; 
 
 public:
     Camera(float zoom, Player* player, SDL_Rect* playerRect);

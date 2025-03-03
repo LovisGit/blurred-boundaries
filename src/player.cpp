@@ -21,6 +21,14 @@ int Player::getPlayerPicture() const {
     return _playerPicture;
 }
 
+char* Player::getName() {
+    return _name;
+}
+
+void Player::setName(char name[]) {
+    strcpy(_name, name);
+}
+
 void Player::nextAnimationCounter() {   
     _animationCounter++;
 
