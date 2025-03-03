@@ -16,5 +16,5 @@ public:
     void                    updateCamera(SDL_Rect& shadowRect);
     void                    setZoom(float zoom);
     SDL_Rect&               getCameraRect();
-    float                   getZoom();
+    float                   getZoom() const;
 };

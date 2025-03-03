@@ -1,40 +1,40 @@
-# Willkommen bei **Blurred Boundaries** 
+# Welcome to **Blurred Boundaries**
 
-**Blurred Boundaries** ist kein gewöhnliches Maze Game – es ist eine kreatives Crackme! Der Protagonist, ein ELF, muss den Weg aus seinem gemütlich eingerichteten Zuhause durch den verworrenen Wald bis zu einer mysteriösen Schatztruhe finden. Doch Achtung: Das Spiel birgt mehr, als auf den ersten Blick sichtbar ist. 🚪✨
+**Blurred Boundaries** is not your ordinary maze game - it's a creative Crackme! The protagonist, an ELF, must find their way from their cozy home through a twisted forest to a mysterious treasure chest. But beware: The game holds more than meets the eye. 🚪✨
 
-## 🎮 **Spielprinzip**
-Der ELF kann **Laufen:** Um sich durch die Welt zu bewegen:
+## 🎮 **Gameplay**
+The ELF can **Walk:** To move through the world:
 ![](/assets/walking.png)
 
-Er kann auch **Sitzen:** Perfekt, um kurz durchzuatmen:
+They can also **Sit:** Perfect for taking a break:
 ![](/assets/sitting.png)
 
-Das Ziel des Spiels ist es, die Schatztruhe zu erreichen. Aber wer die Welt der ELF-Dateien kennt, weiß, dass hier mehr verborgen sein könnte ... 👀
+The goal is to reach the treasure chest. But those familiar with ELF files know there might be more hidden here... 👀
 
-## 🕵️‍♂️ **Crackme-Herausforderung**
-Blurred Boundaries ist mehr als nur ein Spiel – es ist auch ein **Crackme**! Deine Aufgabe:
-- Finde die versteckten Schwachstellen oder Funktionen im Spielcode.
-- Gib dem ELF **Superkräfte** oder entdecke geheime Mechaniken. Kannst du ihn fliegen lassen? Ein Portal erschaffen? 🧙‍♂️
+## 🕵️‍♂️ **Crackme Challenge**
+Blurred Boundaries is more than just a game - it's also a **Crackme**! Your task:
+- Find hidden vulnerabilities or functions in the game code
+- Give the ELF **superpowers** or discover secret mechanics. Can you make them fly? Create a portal? 🧙‍♂️
 
-Dies ist eine Gelegenheit, deine Binary-Hacking-Skills zu testen, die Mechanik hinter einem interaktiven ELF-Spiel zu verstehen und kreative Lösungen zu finden.
+This is an opportunity to test your binary hacking skills, understand the mechanics behind an interactive ELF game, and find creative solutions.
 
-## 🚀 **Loslegen**
-1. **Lade das Spiel herunter:**  
+## 🚀 **Getting Started**
+1. **Download the game:**  
 ```zsh
 git clone https://github.com/LovisGit/blurred-boundaries.git
 cd blurred-boundaries  
 ```
-2. **Lade die Libraries runter**
-*Debian / Ubuntu mit apt*
+2. **Download the libraries**
+*Debian / Ubuntu with apt*
 ``` zsh
 sudo apt update
 sudo apt install build-essential g++ libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
 ```
-*MacOs mit Homebrew*
+*MacOs with Homebrew*
 ```zsh
 brew install sdl2 sdl2_image sdl2_mixer sdl2_ttf
 ```
-*Linux mit  pacman*
+*Linux with  pacman*
 ```zsh
 sudo pacman -S sdl2 sdl2_image sdl2_mixer sdl2_ttf
 ```
@@ -42,7 +42,7 @@ sudo pacman -S sdl2 sdl2_image sdl2_mixer sdl2_ttf
 ```zsh
 sudo dnf install gcc-c++ SDL2-devel SDL2_image-devel SDL2_mixer-devel SDL2_ttf-devel
 ```
-3. **Spielen:**  
+3. **Play:**  
 ```zsh 
 cd build
 make
@@ -50,12 +50,14 @@ make
 ```
 4. **Hack it**  
 
-## 🛠️ **Entwickler-Info**
-- **Technologie:** C++ mit SDL2 (für die Grafik)
-- **Plattform:** Linux (x86_64)
-- **ELF-Format:** 64-bit Executable  
-  Das Spiel wurde speziell dafür entworfen, um das Verständnis des ELF-Dateiformats herauszufordern.
+## 🛠️ **Developer Info**
+- **Technology:** C++ with SDL2 (for graphics)
+- **Platform:** Linux (x86_64)
+- **ELF Format:** 64-bit Executable  
+  The game was specifically designed to challenge understanding of the ELF file format.
 
-## 📢 **Hinweise**
-- Dies ist ein Lernprojekt, bitte respektiere die Grenzen von Crackme-Herausforderungen. Nutze deine Fähigkeiten verantwortungsvoll!  
-- Viel Spaß beim Knacken – und teile deine Erfahrungen oder Lösungen mit uns.
+## 📢 **Note**
+- This is a learning project, please respect the boundaries of Crackme challenges. Use your skills responsibly!
+- Have fun cracking - and share your experiences or solutions with us.
+
+## Bekannte Probleme

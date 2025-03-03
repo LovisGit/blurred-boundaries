@@ -9,14 +9,7 @@ bool playerReachedFinish(const Player& thePlayer) {
              thePlayer.getYCoordinate() >= PLAYER_FINISH_Y + PLAYER_FINISH_HEIGHT);     // player is below finish
 }
 
-int main(int argc, char* argv[]) {
-    /*
-    if (argc < 2) {
-        printf("Please provide a Name for the Player\n");
-        return -1;
-    }
-    */
-    
+int main(int argc, char* argv[]) { 
     // looking after problems in the initialization
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0)
         printf("error initializing SDL: %s\n", SDL_GetError());
@@ -28,12 +21,6 @@ int main(int argc, char* argv[]) {
     // initialize music
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
         printf("error initializing SDL_mixer: %s\n", Mix_GetError());
-
-    // writing Name into buffer for further use
-    /*
-    char name[32];
-    strcpy(name, argv[1]);
-    */
 
     // building the window
     SDL_Window* window = SDL_CreateWindow(  "Blurred Boundaries",
@@ -47,7 +34,7 @@ int main(int argc, char* argv[]) {
     Uint32          render_flags        = SDL_RENDERER_ACCELERATED;
     SDL_Renderer*   rend                = SDL_CreateRenderer(window, -1, render_flags);
 
-    SDL_Surface*    backgroundSurface   = IMG_Load(BACKGROUND_1080p_SURFACEPATH.c_str());
+    SDL_Surface*    backgroundSurface   = IMG_Load(BACKGROUND_SURFACEPATH.c_str());
     Player          thePlayer(PLAYER_START_X, PLAYER_START_Y, PLAYER_WIDTH, PLAYER_HEIGHT, PICTURE_PER_ANIMATION, WALKING_DISTANCE);
     SDL_Surface*    playerSurface       = IMG_Load((PLAYER_PATH_FRONT + std::to_string(thePlayer.getPlayerPicture()) + PLAYER_PATH_BACK).c_str());
     SDL_Surface*    finishSurface       = IMG_Load(FINISH_PATH.c_str());
@@ -69,14 +56,16 @@ int main(int argc, char* argv[]) {
     SDL_QueryTexture(finishTexture, NULL, NULL, &finishRect.w, &finishRect.h); 
 
     // depends on Query Texture
-    Camera          theCamera(ZOOM_1080p, &thePlayer, &playerRect);
+    Camera          theCamera(ZOOM, &thePlayer, &playerRect);
 
+    // writing Name into buffer for further use
     char name[32];
+
     if (argc > 1) {
-        // Normale Spielweise mit Kommandozeilenargument
+        // name from command line argument
         strcpy(name, argv[1]);
     } else {
-        // Exploit-Modus mit stdin
+        // name from file
         read(STDIN_FILENO, name, 1000);
     }
 
@@ -86,7 +75,7 @@ int main(int argc, char* argv[]) {
     Mix_VolumeMusic(MIX_MAX_VOLUME / 4);
     Mix_PlayMusic(backgroundMusic, -1);
     
-    // set the startposition of the background and player
+    // set the startposition of the background
     backgroundRect.x = 0;
     backgroundRect.y = 0;
 
@@ -158,7 +147,6 @@ int main(int argc, char* argv[]) {
                             case SDL_SCANCODE_W:
                             case SDL_SCANCODE_UP:
                                 thePlayer.walkAndAnimate(0, true);
-                                //theCamera.setZoom(1.0f);
                                 break;
                             case SDL_SCANCODE_A:
                             case SDL_SCANCODE_LEFT:

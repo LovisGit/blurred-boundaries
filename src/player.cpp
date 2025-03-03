@@ -5,10 +5,9 @@ Player::Player(const int xCoordinate, const int yCoordinate, const int playerWid
                 : 
                 _xCoordinate(xCoordinate), _yCoordinate(yCoordinate), _playerWidth(playerWidth), _playerHeight(playerHeight),
                 _picturesPerAnimation(picturesPerAnimation), _walkingDistance(walkingDistance), 
-                _animationCounter(0), _playerPicture(0), _walkingDirection(0), _keysDown({0}) 
-                {
-                  derVerwalter = ObjectAdministrator(WINDOW_HEIGHT, WINDOW_WIDTH, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS, PLAYER_START_X, PLAYER_START_Y, _currentCell);
-                }
+                _animationCounter(0), _playerPicture(0), _walkingDirection(0), _keysDown({0}) {
+    theObjectManager = ObjectAdministrator(WINDOW_HEIGHT, WINDOW_WIDTH, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS, PLAYER_START_X, PLAYER_START_Y, _currentCell);
+}
 
 int Player::getXCoordinate() const {
     return _xCoordinate;
@@ -49,33 +48,33 @@ void Player::walkAndAnimate(const int direction, const bool keyPressed) {
     // changes the coordinates and the playerimage
     if(_keysDown[0]) {
         _playerPicture = (2 * _picturesPerAnimation) + _animationCounter;
-        if(pruefeCollision(2)){
+        if(checkCollisionPlayer(2)){
         _yCoordinate -= _walkingDistance;
         }
     }
     if(_keysDown[1]) {
         _playerPicture = (3 * _picturesPerAnimation) + _animationCounter;
-        if(pruefeCollision(1)){
+        if(checkCollisionPlayer(1)){
         _xCoordinate -= _walkingDistance;
         }
     }
     if(_keysDown[2]) {
         _playerPicture = (0 * _picturesPerAnimation) + _animationCounter;
-        if(pruefeCollision(3)){
+        if(checkCollisionPlayer(3)){
         _yCoordinate += _walkingDistance;
         }
     }
     if(_keysDown[3]) {
         _playerPicture = (1 * _picturesPerAnimation) + _animationCounter;
-        if(pruefeCollision(0)){
+        if(checkCollisionPlayer(0)){
         _xCoordinate += _walkingDistance;
         }
     }
 
-    _currentCell = derVerwalter.checkNeueZelle(_xCoordinate, _yCoordinate, PLAYER_WIDTH, PLAYER_HEIGHT, _currentCell);
+    _currentCell = theObjectManager.checkNewCell(_xCoordinate, _yCoordinate, PLAYER_WIDTH, PLAYER_HEIGHT, _currentCell);
     _walkingDirection = direction;
 }
 
-bool Player::pruefeCollision(int richtung){
-    return !derVerwalter.checkCollision(_xCoordinate, _yCoordinate, PLAYER_WIDTH, PLAYER_HEIGHT, WALKING_DISTANCE, WALKING_DISTANCE, richtung, _currentCell);
+bool Player::checkCollisionPlayer(int direction){
+    return !theObjectManager.checkCollision(_xCoordinate, _yCoordinate, PLAYER_WIDTH, PLAYER_HEIGHT, WALKING_DISTANCE, WALKING_DISTANCE, direction, _currentCell);
 }

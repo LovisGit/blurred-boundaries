@@ -46,10 +46,10 @@ void Camera::updateCamera(SDL_Rect& shadowRect) {
     // scale shadow
     shadowRect.w = _playerRect->w;
     shadowRect.h = _playerRect->h / SHADOW_DENSITY;
-    shadowRect.y += _playerRect->h - (_playerRect->h / SHADOW_OFFSET); // Position shadow below player
+    shadowRect.y += _playerRect->h - (_playerRect->h / SHADOW_OFFSET); // position shadow below player
 }
 
-void Camera::setZoom(float zoom) { // nur zum testen!!!
+void Camera::setZoom(float zoom) {
     _zoom = zoom;
 }
 
@@ -57,6 +57,6 @@ SDL_Rect& Camera::getCameraRect() {
     return _camera;
 }
 
-float Camera::getZoom() {
+float Camera::getZoom() const {
     return _zoom;
 }
