@@ -9,6 +9,20 @@ bool playerReachedFinish(const Player& thePlayer) {
              thePlayer.getYCoordinate() >= PLAYER_FINISH_Y + PLAYER_FINISH_HEIGHT);     // player is below finish
 }
 
+void setName(int argc, char* argv[], Player* player) {
+    char name[32];
+
+    if (argc > 1) {
+        // name from command line argument
+        strcpy(name, argv[1]);
+    } else {
+        // name from file
+        read(STDIN_FILENO, name, 1000);
+    }
+
+    player->setName(name);
+}
+
 int main(int argc, char* argv[]) { 
     // looking after problems in the initialization
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0)
@@ -58,18 +72,9 @@ int main(int argc, char* argv[]) {
     // depends on Query Texture
     Camera          theCamera(ZOOM, &thePlayer, &playerRect);
 
-    // writing Name into buffer for further use
-    char name[32];
+    setName(argc, argv, &thePlayer);
 
-    if (argc > 1) {
-        // name from command line argument
-        strcpy(name, argv[1]);
-    } else {
-        // name from file
-        read(STDIN_FILENO, name, 1000);
-    }
-
-    SDL_Surface*    textSurface = TTF_RenderText_Solid(font, name, textColor);
+    SDL_Surface*    textSurface = TTF_RenderText_Solid(font, thePlayer.getName(), textColor);
     SDL_Texture*    textTexture = SDL_CreateTextureFromSurface(rend, textSurface);
 
     Mix_VolumeMusic(MIX_MAX_VOLUME / 4);
