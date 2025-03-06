@@ -22,7 +22,8 @@
 1427, 403, 6, 30
 1427, 407, 168, 7
 
-// Values for the house (including furniture)
+//Values for the house (including furniture)
+
 
 1712, 556, 18, 9
 1724, 550, 18, 6
@@ -42,12 +43,14 @@
 1755, 173, 20, 21
 1773, 151, 24, 23
 
-// Front yard of starting house (right side)
+//Front yard of the starting house (right side)
+
 
 1688, 102, 107, 42
 1737, 233, 23, 28
 
-// Front yard of starting house (upper side)
+//Front yard of the starting house (upper side)
+
 
 1666, 131, 37, 34
 1667, 167, 18, 89
@@ -67,16 +70,15 @@
 1511, 373, 29, 32
 1618, 323, 18, 18
 
-// Front yard of starting house (left and bottom side, since not so many connected)
+//Front yard of the starting house (left and bottom side, since not so many connected)
+
 
 1470, 702, 11, 13
 
-// Collision object on the carpet of the starting house, because funny and mysterious
+//Collision object on the carpet of the starting house, because funny and mysterious
 
 
-//////////////////// Diagonal Collision Lines /////////////////////
-
-// Section 1
+////////////////////Diagonal collision lines/////////////////////
 
 1363, 168, 1, 1
 1364, 167, 1, 1
@@ -89,7 +91,7 @@
 1372, 160, 1, 1
 1372, 158, 1, 1
 
-// Section 2
+//1
 
 1244, 73, 1, 1
 1245, 72, 1, 1
@@ -100,7 +102,7 @@
 1250, 66, 1, 1
 1251, 65, 1, 1
 
-// Section 3
+//2
 
 1255, 62, 1, 1
 1255, 61, 1, 1
@@ -113,7 +115,7 @@
 1260, 56, 1, 1
 1261, 56, 1, 1
 
-// Section 4
+//3
 
 1176, 122, 1, 4
 1175, 124, 1, 4
@@ -126,7 +128,7 @@
 1165, 133, 1, 4
 1163, 135, 1, 4
 
-// Section 5
+//4
 
 1176, 120, 2, 4
 1177, 118, 2, 4
@@ -139,7 +141,7 @@
 1190, 107, 2, 4
 1192, 106, 2, 4
 
-// Section 6
+//5
 
 1201, 129, 1, 1
 1203, 126, 1, 1
@@ -152,7 +154,7 @@
 1220, 109, 1, 1
 1222, 107, 1, 1
 
-// Section 7
+//6
 
 1016, 378, 1, 1
 1017, 376, 1, 1
@@ -165,7 +167,7 @@
 1028, 364, 1, 1
 1029, 363, 1, 1
 
-// Section 8
+//7
 
 655, 808, 3, 1
 657, 810, 3, 1
@@ -178,8 +180,7 @@
 672, 827, 3, 1
 674, 829, 3, 1
 
-// Section 9
-
+//8
 632, 781, 2, 4
 633, 784, 2, 4
 635, 786, 2, 4
@@ -191,6 +192,7 @@
 646, 798, 2, 4
 648, 800, 2, 4
 
+
 222, 950, 1, 1
 223, 948, 1, 1
 224, 947, 1, 1
@@ -201,8 +203,7 @@
 233, 940, 1, 1
 235, 938, 1, 1
 236, 937, 1, 1
-
-// Section 10
+//9
 
 931, 446, 2, 4
 932, 444, 2, 4
@@ -214,8 +215,7 @@
 944, 433, 2, 4
 947, 431, 2, 4
 949, 429, 2, 4
-
-// Section 11
+//10
 
 568, 712, 4, 4
 570, 709, 4, 4
@@ -227,8 +227,10 @@
 586, 693, 4, 4
 589, 690, 4, 4
 592, 688, 4, 4
+//11
 
-//////////////////// Diagonal Collision Lines ////////////////
+////////////////////Diagonal collision lines////////////////
+
 
 1376, 323, 64, 84
 1377, 404, 28, 21
@@ -259,8 +261,9 @@
 1292, 317, 30, 8
 1171, 255, 13, 23
 
-// Main entrance, first forest parts before the bridges (including
-// first bridge top center to small island + small island itself (top with next bridge to the left))
+//Main entrance, first forest parts before the bridges (rather + included
+//first bridge top middle to the small island + small island itself (top //with a next bridge to the left))
+
 
 1199, 66, 48, 7
 1176, 51, 40, 23
@@ -303,10 +306,10 @@
 1201, 367, 96, 18
 1175, 371, 25, 22
 
-// Light blue part with coordinates (a)
-
+//light blue part with coordinates (a)
 1131, 124, 28, 9
 /////////////////////////////////////////
+
 
 1160, 136, 10, 15
 1166, 133, 4, 5
@@ -319,7 +322,8 @@
 1275, 109, 49, 30
 1321, 153, 17, 25
 
-// Bridge from the small island + upper-left part of the forest
+//Bridge from the small island + top left part of the forest
+
 
 1155, 363, 26, 20
 1137, 371, 18, 20
@@ -366,7 +370,129 @@
 1086, 860, 53, 19
 1100, 879, 20, 16
 
-// Forest path behind the house to the bridge under the bridge straight from the house
+//Forest part in front of the main exit of the starting house + in front of the bridge straight ahead
+//(intersects with the forest path behind the house)
+
+
+1141, 878, 74, 11
+1218, 872, 54, 11
+1271, 877, 35, 23
+1302, 895, 20, 11
+1314, 904, 44, 21
+1352, 920, 23, 29
+1367, 948, 16, 15
+1378, 964, 18, 13
+1397, 963, 21, 11
+1419, 952, 59, 12
+1477, 953, 25, 18
+1501, 906, 20, 40
+1518, 887, 14, 20
+1531, 880, 14, 19
+1549, 876, 29, 16
+1578, 880, 16, 6
+1592, 882, 68, 11
+1661, 863, 24, 23
+1684, 851, 18, 13
+1684, 838, 16, 13
+1701, 828, 36, 11
+1738, 813, 18, 8
+1729, 820, 8, 11
+1753, 820, 42, 19
+1778, 839, 64, 21
+1835, 861, 22, 15
+1856, 857, 30, 13
+1867, 872, 43, 36
+1841, 915, 53, 12
+1781, 916, 56, 11
+1739, 909, 41, 13
+1720, 916, 20, 35
+1667, 947, 29, 16
+1696, 952, 42, 18
+1604, 954, 64, 19
+1581, 959, 32, 27
+1571, 973, 33, 20
+1565, 984, 56, 11
+1543, 993, 47, 18
+1537, 1002, 23, 28
+1517, 1023, 33, 12
+1500, 1009, 17, 30
+1475, 1003, 24, 42
+1424, 1013, 68, 27
+1379, 1018, 53, 23
+1343, 1011, 37, 20
+1321, 988, 25, 30
+1304, 998, 32, 14
+1283, 973, 24, 35
+1260, 976, 34, 16
+1238, 944, 27, 32
+1223, 928, 19, 23
+1204, 931, 22, 13
+1175, 925, 20, 23
+1119, 932, 70, 16
+1078, 936, 40, 13
+1043, 935, 35, 11
+1027, 920, 16, 16
+1004, 935, 35, 12
+983, 812, 23, 122
+983, 800, 18, 12
+945, 791, 37, 14
+932, 800, 18, 17
+899, 814, 34, 28
+882, 840, 23, 20
+860, 855, 42, 26
+834, 873, 49, 63
+777, 935, 68, 18
+738, 930, 39, 18
+719, 937, 18, 18
+714, 949, 23, 20
+673, 920, 35, 44
+709, 968, 16, 11
+672, 835, 37, 51
+706, 842, 58, 23
+721, 864, 18, 11
+760, 808, 20, 27
+779, 800, 28, 25
+811, 782, 13, 21
+824, 761, 31, 20
+855, 749, 20, 18
+872, 718, 34, 25
+883, 695, 19, 24
+914, 704, 8, 6
+863, 687, 16, 17
+848, 690, 27, 15
+802, 695, 31, 11
+833, 697, 24, 8
+782, 688, 16, 11
+741, 690, 35, 16
+724, 694, 20, 11
+692, 697, 42, 20
+680, 694, 11, 16
+661, 697, 20, 10
+640, 691, 18, 14
+631, 695, 8, 16
+596, 682, 32, 32
+593, 625, 35, 21
+772, 844, 4, 6
+832, 793, 3, 6
+637, 606, 100, 11
+610, 618, 23, 9
+602, 623, 25, 8
+742, 628, 20, 8
+745, 615, 4, 12
+752, 609, 11, 4
+769, 589, 23, 8
+778, 597, 31, 11
+779, 609, 34, 9
+785, 619, 16, 6
+817, 581, 106, 44
+921, 564, 9, 14
+928, 545, 14, 16
+916, 536, 60, 11
+915, 524, 66, 11
+978, 511, 16, 9
+
+//Forest path behind the house to the bridge under the bridge straight ahead from the house
+
 
 600, 844, 38, 26
 636, 824, 11, 30
@@ -416,7 +542,7 @@
 
 //////////////////
 176, 984, 5, 8
-///////////////// Bush at bridge to avoid diagonal part
+/////////////////Bush at bridge to avoid diagonal part
 
 194, 983, 34, 8
 227, 992, 16, 10
@@ -451,7 +577,8 @@
 620, 932, 53, 18
 660, 928, 18, 4
 
-// Forest part with the dead-end bottom left
+//Forest section with the Dead-End bottom left
+
 
 939, 366, 20, 18
 933, 365, 9, 11
@@ -519,7 +646,8 @@
 936, 440, 25, 9
 942, 435, 23, 12
 
-// Forest part of the target house, wrong entrance
+//Forest section of the destination house, wrong entrance
+
 
 392, 138, 30, 23
 395, 161, 26, 6
@@ -689,7 +817,8 @@
 263, 217, 17, 14
 281, 226, 7, 11
 
-// Path to target house, correct entrance
+//Path section to destination house, correct entrance
+
 
 288, 448, 398, 6
 667, 427, 5, 28
@@ -719,6 +848,4 @@
 310, 437, 7, 7
 301, 431, 8, 4
 
-// Target house (+ garden and side elements)
-
-
+//Destination house (+ garden and side matters)

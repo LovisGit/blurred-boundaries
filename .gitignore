@@ -2,6 +2,6 @@
 .vscode/
 build/blurred_boundaries
 build/objects/
-RopChain/
 .gdb_history
 peda-session-blurred_boundaries.txt
+doku.txt

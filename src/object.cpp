@@ -3,16 +3,16 @@
 
 Object::Object(std::vector<int> objectValues) : _xPos(objectValues[0]), _yPos(objectValues[1]), _height(objectValues[3]), _width(objectValues[2]) {}
 
-bool Object::checkCollision(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int xBewegung, int yBewegung , int richtung) const {
-    switch (richtung) {
+bool Object::checkCollision(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int xMovement, int yMovement , int direction) const {
+    switch(direction) {
         case 0:
-            return checkCollisionRight(playerXPos, playerYPos, playerWidht, playerHeight, xBewegung);
+            return checkCollisionRight(playerXPos, playerYPos, playerWidht, playerHeight, xMovement);
         case 1:
-            return checkCollisionLeft(playerXPos, playerYPos, playerWidht, playerHeight, (-1)*xBewegung);
+            return checkCollisionLeft(playerXPos, playerYPos, playerWidht, playerHeight, (-1)*xMovement);
         case 2:
-            return checkCollisionUp(playerXPos, playerYPos, playerWidht, playerHeight, (-1)*yBewegung);
+            return checkCollisionUp(playerXPos, playerYPos, playerWidht, playerHeight, (-1)*yMovement);
         case 3:
-            return checkCollisionDown(playerXPos, playerYPos, playerWidht, playerHeight, yBewegung);
+            return checkCollisionDown(playerXPos, playerYPos, playerWidht, playerHeight, yMovement);
         default:
             break;
     }
@@ -47,7 +47,7 @@ bool Object::checkCollisionUp(int playerXPos, int playerYPos, int playerWidht, i
     return false;
 }
 
-bool Object::checkCollisionDown(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int yMovement) const{
+bool Object::checkCollisionDown(int playerXPos, int playerYPos, int playerWidht, int playerHeight, int yMovement) const {
     if(playerYPos + yMovement + playerHeight > _yPos && playerXPos < _xPos + _width && playerXPos + playerWidht > _xPos && _yPos > playerYPos) {
         // player walks down and collides with this object
         return true;   
@@ -57,13 +57,13 @@ bool Object::checkCollisionDown(int playerXPos, int playerYPos, int playerWidht,
 }
 
 bool Object::operator<(const Object& other) const {
-    if (this->_xPos != other._xPos) {
+    if(this->_xPos != other._xPos) {
         return this->_xPos < other._xPos;
     }
-    if (this->_yPos != other._yPos) {
+    if(this->_yPos != other._yPos) {
         return this->_yPos < other._yPos;
     }
-    if (this->_width != other._width) {
+    if(this->_width != other._width) {
         return this->_width < other._width;
     }
     return this->_height < other._height;

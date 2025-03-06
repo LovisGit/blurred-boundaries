@@ -32,7 +32,7 @@ void Player::setName(char name[]) {
 void Player::nextAnimationCounter() {   
     _animationCounter++;
 
-    //when _animationCounter >= _picturesPerAnimation is true then _animationCounter = 0
+    // when _animationCounter >= _picturesPerAnimation is true then _animationCounter = 0
     _animationCounter %= _picturesPerAnimation;
 }
 

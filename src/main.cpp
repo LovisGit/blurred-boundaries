@@ -3,10 +3,10 @@
 #include "../include/Camera.hpp"
 
 bool playerReachedFinish(const Player& thePlayer) {
-    return !(thePlayer.getXCoordinate() + PLAYER_WIDTH <= PLAYER_FINISH_X ||            // player ist left of finish
-             thePlayer.getXCoordinate() >= PLAYER_FINISH_X + PLAYER_FINISH_WIDTH ||     // player ist right of finish
-             thePlayer.getYCoordinate() + PLAYER_FINISH_HEIGHT <= PLAYER_FINISH_Y ||    // player is above finish
-             thePlayer.getYCoordinate() >= PLAYER_FINISH_Y + PLAYER_FINISH_HEIGHT);     // player is below finish
+    return !(thePlayer.getXCoordinate() + PLAYER_WIDTH <= FINISH_X ||     // player ist left of finish
+             thePlayer.getXCoordinate() >= FINISH_X + FINISH_WIDTH ||     // player ist right of finish
+             thePlayer.getYCoordinate() + FINISH_HEIGHT <= FINISH_Y ||    // player is above finish
+             thePlayer.getYCoordinate() >= FINISH_Y + FINISH_HEIGHT);     // player is below finish
 }
 
 void setName(int argc, char* argv[], Player* player) {
@@ -47,7 +47,6 @@ int main(int argc, char* argv[]) {
     // more initializations of the background, player and finish
     Uint32          render_flags        = SDL_RENDERER_ACCELERATED;
     SDL_Renderer*   rend                = SDL_CreateRenderer(window, -1, render_flags);
-
     SDL_Surface*    backgroundSurface   = IMG_Load(BACKGROUND_SURFACEPATH.c_str());
     Player          thePlayer(PLAYER_START_X, PLAYER_START_Y, PLAYER_WIDTH, PLAYER_HEIGHT, PICTURE_PER_ANIMATION, WALKING_DISTANCE);
     SDL_Surface*    playerSurface       = IMG_Load((PLAYER_PATH_FRONT + std::to_string(thePlayer.getPlayerPicture()) + PLAYER_PATH_BACK).c_str());
@@ -72,12 +71,16 @@ int main(int argc, char* argv[]) {
     // depends on Query Texture
     Camera          theCamera(ZOOM, &thePlayer, &playerRect);
 
+    // read name from command line argument or file
     setName(argc, argv, &thePlayer);
 
     SDL_Surface*    textSurface = TTF_RenderText_Solid(font, thePlayer.getName(), textColor);
     SDL_Texture*    textTexture = SDL_CreateTextureFromSurface(rend, textSurface);
 
+    // set the volume of the music to 25%
     Mix_VolumeMusic(MIX_MAX_VOLUME / 4);
+    
+    // play the background music
     Mix_PlayMusic(backgroundMusic, -1);
     
     // set the startposition of the background
@@ -87,9 +90,6 @@ int main(int argc, char* argv[]) {
     // set the position of the finish in the middle of the window
     finishRect.x = (WINDOW_WIDTH / 2) - (finishRect.w / 2);
     finishRect.y = (WINDOW_HEIGHT / 2) - (finishRect.h / 2);
-
-    // play the background music
-    Mix_PlayMusic(backgroundMusic, -1);
 
     // create shadow surface with alpha channel support
     SDL_Surface* shadowSurface = SDL_CreateRGBSurface(0, playerRect.w, playerRect.h/2, 32,
@@ -237,14 +237,14 @@ int main(int argc, char* argv[]) {
         if (reachedFinish) {
             SDL_RenderCopy(rend, finishTexture, NULL, &finishRect);
         } else {
-            // Update shadow position to follow player
+            // update shadow position to follow player
             shadowRect.x = playerRect.x;
             shadowRect.y = playerRect.y + (playerRect.h / SHADOW_OFFSET);
 
-            // Render shadow first (before player)
+            // render shadow first (before player)
             SDL_RenderCopy(rend, shadowTexture, NULL, &shadowRect);
 
-            // Then render player as normal
+            // then render player as normal
             SDL_RenderCopy(rend, playerTexture, NULL, &playerRect);
         }
         

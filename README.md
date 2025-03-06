@@ -59,5 +59,3 @@ make
 ## 📢 **Note**
 - This is a learning project, please respect the boundaries of Crackme challenges. Use your skills responsibly!
 - Have fun cracking - and share your experiences or solutions with us.
-
-## Bekannte Probleme
