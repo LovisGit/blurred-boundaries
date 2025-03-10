@@ -47,7 +47,7 @@ const std::string       PLAYER_PATH_BACK = ".png";
 const std::string       FINISH_PATH = "../assets/finish.png";
 
 // paths for coordinates
-const std::string       OBJECTS_PATH = "../assets/coordinatesAlt.txt";
+const std::string       OBJECTS_PATH = "../assets/coordinates.txt";
 
 // paths for music
 const std::string       BACKGROUND_MUSIC = "../assets/music.mp3";
