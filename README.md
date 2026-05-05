@@ -59,3 +59,17 @@ make
 ## 📢 **Note**
 - This is a learning project, please respect the boundaries of Crackme challenges. Use your skills responsibly!
 - Have fun cracking - and share your experiences or solutions with us.
+
+## 📜 Licenses & Credits
+
+This repository contains both source code and third-party media assets. They are distributed under the following terms:
+
+**Source Code**
+The source code of this project is licensed under the [MIT License](LICENSE).
+
+**Media Assets**
+- **Music:** The background music is by **Alexander Nakarada**. 
+  Source: [YouTube - Forest Walk](https://www.youtube.com/watch?v=wCOc3mYrLTw)
+  *Used with permission for free, with required attribution.*
+- **Player Sprites:** The character sprites are from **Merchant Shade** ([16x16 Puny Characters](https://merchant-shade.itch.io/16x16-puny-characters/devlog/357784/new-sprites)). 
+  *Licensed under CC0 (Public Domain).*
