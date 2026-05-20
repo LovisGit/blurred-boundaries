@@ -4,7 +4,13 @@ CC := g++
 # Compiler flags without stack-protection
 #CFLAGS := -I../include `sdl2-config --cflags` -ggdb3 -O0 -std=c++11 -Wall -fno-stack-protector -z execstack
 
-CFLAGS := -I../include `sdl2-config --cflags` -ggdb3 -O0 -std=c++11 -Wall -fno-stack-protector -z execstack -no-pie -fno-plt -fcf-protection=none
+UNAME_S := $(shell uname -s)
+CFLAGS := -I../include `sdl2-config --cflags` -ggdb3 -O0 -std=c++11 -Wall -fno-stack-protector
+ifeq ($(UNAME_S),Darwin)
+    CFLAGS += -I/opt/homebrew/include
+else
+    CFLAGS += -z execstack -no-pie -fno-plt -fcf-protection=none
+endif
 
 # Libraries
 LIBS := `sdl2-config --libs` -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lm

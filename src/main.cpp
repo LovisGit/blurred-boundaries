@@ -17,6 +17,7 @@ void setName(int argc, char* argv[], Player* player) {
         strcpy(name, argv[1]);
     } else {
         // name from file
+        fprintf(stderr, "warning: no name argument given, reading from stdin (game window will stay blank until input)\n");
         read(STDIN_FILENO, name, 1000);
     }
 
