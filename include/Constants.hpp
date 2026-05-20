@@ -11,7 +11,7 @@
 #include <array>
 #include <set>
 #include <vector>
-#include <unistd.h> // read()-function
+#include <unistd.h> // for read()-function
 
 #ifndef CONSTANTS_HPP
 #define CONSTANTS_HPP
@@ -21,19 +21,24 @@ const int               WINDOW_WIDTH = 1920;
 const int               WINDOW_HEIGHT = 1080;
 
 // player values
-const int               PLAYER_START_X = 1667;
-const int               PLAYER_START_Y = 712;
+const int               PLAYER_START_X = 1665;
+const int               PLAYER_START_Y = 722;
+const int               PLAYER_WIDTH = 12;
+const int               PLAYER_HEIGHT = 16;
 
-const int               PLAYER_WIDTH = 13;
-const int               PLAYER_HEIGHT = 19;
-const int               PLAYER_FINISH_X = 916;
-const int               PLAYER_FINISH_Y = 305;
-const int               PLAYER_FINISH_WIDTH = 5;
-const int               PLAYER_FINISH_HEIGHT = 20;
-const int               PICTURE_PER_ANIMATION = 4;
-const int               WALKING_DISTANCE = 2;
+// map values
+const int               FINISH_X = 654;
+const int               FINISH_Y = 229;
+const int               FINISH_WIDTH = 5;
+const int               FINISH_HEIGHT = 20;
 const int               NUMBER_OF_COLUMNS = 20;
 const int               NUMBER_OF_ROWS = 15;
+const float             ZOOM = 6.0f;
+
+// smooth player animation
+const int               DELAY = 60;
+const int               PICTURE_PER_ANIMATION = 4;
+const int               WALKING_DISTANCE = 2;
 
 // paths for images
 const std::string       BACKGROUND_SURFACEPATH = "../assets/background.jpeg";
@@ -50,12 +55,6 @@ const std::string       BACKGROUND_MUSIC = "../assets/music.mp3";
 // font settings
 const std::string       FONT_PATH = "../assets/robotoFont.ttf";
 const int               FONT_SIZE = 50;      
-
-// delay for smooth player animation
-const int               DELAY = 60;
-
-// zoom 
-const float             ZOOM = 6.0f;
 
 // shadow
 const int               SHADOW_OFFSET = 2; // bigger parameter results in smaller offset

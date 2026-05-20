@@ -2,7 +2,9 @@
 CC := g++
 
 # Compiler flags without stack-protection
-CFLAGS := -I../include `sdl2-config --cflags` -ggdb3 -O0 -std=c++11 -Wall -fno-stack-protector -z execstack
+#CFLAGS := -I../include `sdl2-config --cflags` -ggdb3 -O0 -std=c++11 -Wall -fno-stack-protector -z execstack
+
+CFLAGS := -I../include `sdl2-config --cflags` -ggdb3 -O0 -std=c++11 -Wall -fno-stack-protector -z execstack -no-pie -fno-plt -fcf-protection=none
 
 # Libraries
 LIBS := `sdl2-config --libs` -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lm

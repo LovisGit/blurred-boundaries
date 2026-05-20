@@ -18,6 +18,8 @@ private:
     int _walkingDirection;
     int _currentCell;
 
+    char _name[32];
+ 
     // information about the keys pressed
     std::array<bool, 4> _keysDown;
 
@@ -33,6 +35,8 @@ public:
     int getXCoordinate() const;
     int getYCoordinate() const;
     int getPlayerPicture() const;
+    char* getName();
+    void setName(char name[]);
 
     void walkAndAnimate(const int direction, const bool keyPressed);
 
